@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="layout/common-layout"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+
+<head>
+<title>Home</title>
+</head>
+
+<body th:with="page='home'">
+
+	<div layout:fragment="content">
+		<p class="lead text-center text-uppercase">
+			Welcome <em> <strong sec:authentication="name"> User!</strong> !
+			</em>
+		</p>
+	</div>
+
+</body>
+</html>
