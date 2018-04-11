@@ -16,24 +16,7 @@
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
     </properties>
-    <!--
-    //compile('org.springframework.boot:spring-boot-starter-actuator')
-	//compile('org.springframework.boot:spring-boot-starter-data-jpa')
-	//compile('org.springframework.boot:spring-boot-starter-mail')
-	//compile('org.springframework.boot:spring-boot-starter-security')
-	//compile('org.springframework.boot:spring-boot-starter-thymeleaf')
-	//compile('org.springframework.boot:spring-boot-starter-web')
-	//compile('org.thymeleaf.extras:thymeleaf-extras-springsecurity4')
-	//compile('org.webjars:bootstrap:3.3.6')
-	//compile('org.webjars:jquery:2.2.4')
-	//runtime('org.springframework.boot:spring-boot-devtools')
-	//runtime('com.h2database:h2')
-	//compileOnly('org.projectlombok:lombok')
-	//providedRuntime('org.springframework.boot:spring-boot-starter-tomcat')
-	//testCompile('org.springframework.boot:spring-boot-starter-test')
-	//testCompile('com.h2database:h2')
-	//testCompile('org.springframework.security:spring-security-test')
-    -->
+
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -85,12 +68,6 @@
             <groupId>org.webjars</groupId>
             <artifactId>jquery</artifactId>
             <version>2.2.4</version>
-        </dependency>
-        <dependency>
-            <groupId>org.glassfish</groupId>
-            <artifactId>javax.annotation</artifactId>
-            <version>10.0-b28</version>
-            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>
