@@ -5,5 +5,8 @@ import com.example.persistance.entity.Address;
 import java.util.List;
 
 public interface AddressService {
+
     List<Address> findAll();
+
+    Address findById(Integer id);
 }

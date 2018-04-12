@@ -19,7 +19,13 @@ public class AddressServiceImpl implements AddressService {
     private final AddressRepository addressRepository;
     @Override
     public List<Address> findAll() {
-        return Arrays.asList(new Address());
-        //return deviceRepository.findAll();
+        return addressRepository.findAll();
     }
+
+    @Override
+    public Address findById(Integer id) {
+        return addressRepository.findOne(id);
+    }
+
+
 }

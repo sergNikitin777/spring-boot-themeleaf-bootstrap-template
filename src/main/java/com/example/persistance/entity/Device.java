@@ -19,32 +19,24 @@ public class Device {
 
     }
 
-    public Device(Integer addressId, String name, Float latitude, Float longitude, Integer status) {
-        this.addressId = addressId;
-        this.name = name;
-        this.latitude = latitude;
-        this.longitude = longitude;
-        this.status = status;
-    }
-
     @Id
     @SequenceGenerator(name = "pk_sequence", sequenceName = "device_id_seq", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pk_sequence")
+    //@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pk_sequence")
     @Column(name = "id", unique = true, nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-
-    @Column
-    private Integer addressId;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "address_Id")
+    private Address address;
+    @ManyToOne(fetch = FetchType.EAGER)
+    private DeviceStatus status;
 
     @Column
     private String name;
 
-    @Column
-    private Float latitude;
-
-    @Column
-    private Float longitude;
-
-    @Column
-    private Integer status;
+    public Device(Address address, String name, DeviceStatus status) {
+        this.address = address;
+        this.name = name;
+        this.status = status;
+    }
 }

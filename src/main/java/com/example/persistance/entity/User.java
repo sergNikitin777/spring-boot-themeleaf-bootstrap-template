@@ -2,7 +2,9 @@ package com.example.persistance.entity;
 
 import static java.util.stream.Collectors.toSet;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 
 import javax.persistence.*;
@@ -53,6 +55,9 @@ public class User extends Persistent implements UserDetails
     @CollectionTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"))
     @Column(name = "role", nullable = false)
     private Collection<Role> roles;
+
+    @OneToMany
+    private List<Task> taskList = new ArrayList<>();
 
     public User()
     {

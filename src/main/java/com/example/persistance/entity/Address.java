@@ -30,8 +30,9 @@ public class Address implements Serializable {
 
     @Id
     @SequenceGenerator(name = "pk_sequence", sequenceName = "address_id_seq", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pk_sequence")
+    //@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pk_sequence")
     @Column(name = "id", unique = true, nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @Column

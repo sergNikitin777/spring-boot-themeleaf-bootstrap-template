@@ -17,7 +17,13 @@ public class DeviceServiceImpl implements DeviceService {
     private final DeviceRepository deviceRepository;
     @Override
     public List<Device> findAll() {
-        return Arrays.asList(new Device());
-        //return deviceRepository.findAll();
+        return deviceRepository.findAll();
     }
+
+    @Override
+    public Device findById(Integer id) {
+        return deviceRepository.findOne(id);
+    }
+
+
 }
