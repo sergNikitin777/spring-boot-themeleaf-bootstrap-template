@@ -10,6 +10,9 @@ import springfox.documentation.swagger.web.SecurityConfiguration;
 import springfox.documentation.swagger.web.SecurityConfigurationBuilder;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
+import static com.google.common.base.Predicates.not;
+import static springfox.documentation.builders.PathSelectors.regex;
+
 @Configuration
 @EnableSwagger2
 public class SwaggerConfig {
@@ -17,8 +20,9 @@ public class SwaggerConfig {
     public Docket api() {
         return new Docket(DocumentationType.SWAGGER_2)
                 .select()
-                .apis(RequestHandlerSelectors.any())
                 .paths(PathSelectors.any())
+                .apis(RequestHandlerSelectors.basePackage("com.example.web.controller"))
+                .paths(not(regex("/error.*|/swagger.*|/\\B")))
                 .build();
     }
 }
