@@ -1,5 +1,6 @@
 package com.example.persistance.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -25,18 +26,19 @@ public class Device {
     @Column(name = "id", unique = true, nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "address_Id")
-    private Address address;
+
     @ManyToOne(fetch = FetchType.EAGER)
     private DeviceStatus status;
-
     @Column
     private String name;
+    @JsonBackReference
+    @ManyToOne(fetch = FetchType.LAZY)
+    private DeviceGroup deviceGroup;
 
-    public Device(Address address, String name, DeviceStatus status) {
-        this.address = address;
+
+    public Device(DeviceGroup deviceGroup, String name, DeviceStatus status) {
         this.name = name;
         this.status = status;
+        this.deviceGroup = deviceGroup;
     }
 }

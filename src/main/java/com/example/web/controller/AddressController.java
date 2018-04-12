@@ -35,12 +35,7 @@ public class AddressController {
 
     @RequestMapping(value = "/admin/address", method = RequestMethod.GET)
     public ResponseEntity<List<Address>> addresses(@PathParam("id") Integer id) {
-        //List<Device> devices =deviceService.findAll();
-        List<Address> addresses = new ArrayList<>();
-        Address d1 = new Address(1,"Пермь",85.3323F,87.2323F);
-        addresses.add(d1);
-        Address d2 = new Address(2,"Пермь 2",85.3323F,87.2323F);
-        addresses.add(d2);
+        List<Address> addresses = addressService.findAll();
         return new ResponseEntity<List<Address>>(addresses, HttpStatus.OK);
     }
 }
