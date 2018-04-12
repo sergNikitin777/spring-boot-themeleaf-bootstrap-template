@@ -206,7 +206,7 @@ public class DemoApplicationTests
     public void testCss() throws Exception
     {
         ResponseEntity<String> entity = this.testRestTemplate.getForEntity(
-                "/webjars/bootstrap/3.3.6/css/bootstrap.min.css", String.class);
+                "/webjars/bootstrap/3.3.7/css/bootstrap.min.css", String.class);
         assertThat(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
         assertThat(entity.getBody()).contains("body");
     }
