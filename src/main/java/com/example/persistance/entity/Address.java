@@ -2,20 +2,22 @@ package com.example.persistance.entity;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import org.springframework.data.annotation.Id;
+import lombok.Getter;
+import lombok.Setter;
+import javax.persistence.Id;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
-@EqualsAndHashCode(callSuper = true)
 @Data
-@Table(name = "ADDRESS" )
-public class Address extends Persistent {
-
-    private static final long serialVersionUID = 1L;
+@Getter
+@Setter
+@EqualsAndHashCode
+public class Address implements Serializable {
 
     public Address(){
-        super();
+
     }
 
     public Address(Integer id,String name, Float latitude, Float longitude) {
@@ -31,13 +33,13 @@ public class Address extends Persistent {
     @Column(name="id", unique=true, nullable=false)
     private Integer id;
 
-    @Column(name = "NAME", nullable = false)
+    @Column
     private String name;
 
-    @Column(name = "LATITUDE", nullable = false)
+    @Column
     private Float latitude;
 
-    @Column(name = "LONGITUDE", nullable = false)
+    @Column
     private Float longitude;
 
 }
