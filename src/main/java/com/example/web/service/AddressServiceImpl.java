@@ -1,0 +1,25 @@
+package com.example.web.service;
+
+import com.example.persistance.entity.Address;
+import com.example.persistance.entity.Device;
+import com.example.persistance.repository.AddressRepository;
+import com.example.persistance.repository.DeviceRepository;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Arrays;
+import java.util.List;
+
+@Service
+@Transactional
+@RequiredArgsConstructor
+public class AddressServiceImpl implements AddressService {
+
+    private final AddressRepository addressRepository;
+    @Override
+    public List<Address> findAll() {
+        return Arrays.asList(new Address());
+        //return deviceRepository.findAll();
+    }
+}

@@ -8,7 +8,7 @@ import javax.persistence.*;
 
 @Entity
 @Data
-public class Device {
+public class Device extends Persistent {
 
     public Device() {
 

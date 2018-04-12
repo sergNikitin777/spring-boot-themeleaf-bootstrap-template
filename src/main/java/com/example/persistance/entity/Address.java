@@ -7,11 +7,15 @@ import org.springframework.data.annotation.Id;
 import javax.persistence.*;
 
 @Entity
+@EqualsAndHashCode(callSuper = true)
 @Data
-public class Address {
+@Table(name = "ADDRESS" )
+public class Address extends Persistent {
+
+    private static final long serialVersionUID = 1L;
 
     public Address(){
-
+        super();
     }
 
     public Address(Integer id,String name, Float latitude, Float longitude) {
@@ -27,13 +31,13 @@ public class Address {
     @Column(name="id", unique=true, nullable=false)
     private Integer id;
 
-    @Column
+    @Column(name = "NAME", nullable = false)
     private String name;
 
-    @Column
+    @Column(name = "LATITUDE", nullable = false)
     private Float latitude;
 
-    @Column
+    @Column(name = "LONGITUDE", nullable = false)
     private Float longitude;
 
 }

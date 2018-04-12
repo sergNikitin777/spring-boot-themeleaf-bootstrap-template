@@ -6,5 +6,5 @@ import javax.persistence.Entity;
 
 @Entity
 @Data
-public class QRLabel {
+public class QRLabel extends Persistent {
 }
