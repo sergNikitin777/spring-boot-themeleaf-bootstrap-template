@@ -7,9 +7,8 @@ import org.springframework.data.annotation.Id;
 import javax.persistence.*;
 
 @Entity
-@EqualsAndHashCode(callSuper = true)
 @Data
-public class Address extends Persistent {
+public class Address {
 
     public Address(){
 
