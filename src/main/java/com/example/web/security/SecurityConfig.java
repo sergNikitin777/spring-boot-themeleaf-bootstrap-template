@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
@@ -19,6 +20,7 @@ import lombok.RequiredArgsConstructor;
 @Configuration
 @Order(SecurityProperties.ACCESS_OVERRIDE_ORDER)
 @RequiredArgsConstructor
+//@EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter
 {
     private final DataSource dataSource;
@@ -31,6 +33,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
             http
                 .authorizeRequests()
                     .antMatchers("/login").permitAll()
+                    .antMatchers("/swagger-ui.html").permitAll()
+                    .antMatchers("/api/**").permitAll()
+                    .antMatchers("/v2/**").permitAll()
                     .antMatchers("/admin","/admin/**").hasRole("ADMIN")
                     .antMatchers("/**").hasRole("USER")
                     .anyRequest().authenticated()
