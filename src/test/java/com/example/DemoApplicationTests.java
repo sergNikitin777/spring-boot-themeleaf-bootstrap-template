@@ -1,3 +1,4 @@
+/*
 package com.example;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -320,14 +321,16 @@ public class DemoApplicationTests
         ResponseEntity<String> entity = this.testRestTemplate.getForEntity("/info",
                 String.class);
         assertThat(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
-        /*
+        */
+/*
          * assertThat(entity.getBody())
          * .contains("\"artifact\":\"spring-boot-sample-actuator\"");
          * assertThat(entity.getBody()).contains("\"someKey\":\"someValue\"");
          * assertThat(entity.getBody()).contains("\"java\":{", "\"source\":\"1.8\"",
          * "\"target\":\"1.8\""); assertThat(entity.getBody()).contains("\"encoding\":{",
          * "\"source\":\"UTF-8\"", "\"reporting\":\"UTF-8\"");
-         */
+         *//*
+
     }
 
     @Test
@@ -358,3 +361,4 @@ public class DemoApplicationTests
     }
 
 }
+*/

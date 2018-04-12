@@ -21,9 +21,6 @@ public class DeviceGroup {
     @Column(name = "id", unique = true, nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "address_Id")
-    private Address address;
     @Column
     private String name;
     @Column
@@ -34,8 +31,7 @@ public class DeviceGroup {
     public DeviceGroup() {
     }
 
-    public DeviceGroup(Address address, String name, String description) {
-        this.address = address;
+    public DeviceGroup(String name, String description) {
         this.name = name;
         this.description = description;
     }

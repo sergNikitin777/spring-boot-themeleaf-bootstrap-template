@@ -5,6 +5,6 @@ VALUES ('Работает', 'Устройство работает'), ('Регл
   ('Отключено', 'Устройство отключено');
 INSERT INTO address (name, latitude, longitude)
 VALUES ('Пермь, ул. Свободы 1', 87.4234, 87.4234), ('Пермь, ул. Революции 12', 85.4235, 83.4434);
-INSERT INTO device_group (address_id, name, description)
-VALUES (1, 'Объект Пермь 1', 'Описание'), (2, 'Объект Пермь 2', 'Описание');
-INSERT INTO device (device_group_ID, name, status_id) VALUES (1, 'Устройство №1', 1), (2, 'Устройство №2', 2);
+INSERT INTO device_group ( name, description)
+VALUES ('Объект Пермь 1', 'Описание'), ('Объект Пермь 2', 'Описание');
+INSERT INTO device (device_group_ID,address_id, name, status_id) VALUES (1, 1, 'Устройство №1', 1), (2, 2, 'Устройство №2', 2);

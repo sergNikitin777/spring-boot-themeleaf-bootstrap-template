@@ -34,9 +34,4 @@ public class DeviceGroupController {
         return new ResponseEntity<>(deviceGroupService.findById(id), HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/admin/deviceGroupByAddress/{id}", method = RequestMethod.GET)
-    public ResponseEntity<DeviceGroup> getDeviceGroupByAddressId(@PathVariable("id") Integer id) {
-
-        return new ResponseEntity<>(deviceGroupService.findByAddressId(id).orElse(null), HttpStatus.OK);
-    }
 }

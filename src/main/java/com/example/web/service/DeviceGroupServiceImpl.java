@@ -17,11 +17,6 @@ public class DeviceGroupServiceImpl implements DeviceGroupService {
     private final DeviceGroupRepository deviceGroupRepository;
 
     @Override
-    public Optional<DeviceGroup> findByAddressId(Integer addressId) {
-        return deviceGroupRepository.findByAddressId(addressId);
-    }
-
-    @Override
     public List<DeviceGroup> findAll() {
         return deviceGroupRepository.findAll();
     }

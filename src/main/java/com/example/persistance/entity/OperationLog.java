@@ -19,7 +19,7 @@ public class OperationLog {
     //@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pk_sequence")
     @Column(name = "id", unique = true, nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
 
     @ManyToOne()
     private Operation operation;
