@@ -1,6 +1,5 @@
 package com.example.web.controller;
 
-import com.example.persistance.entity.Address;
 import com.example.persistance.entity.Device;
 import com.example.web.service.DeviceService;
 import lombok.RequiredArgsConstructor;
@@ -41,16 +40,5 @@ public class DeviceController {
         Device d2 = new Device(2,"Пермь 2",85.3323F,87.2323F,2);
         devices.add(d2);
         return new ResponseEntity<List<Device>>(devices, HttpStatus.OK);
-    }
-
-    @RequestMapping(value = "/admin/address", method = RequestMethod.GET)
-    public ResponseEntity<List<Address>> addresses(@PathParam("id") Integer id) {
-        //List<Device> devices =deviceService.findAll();
-        List<Address> addresses = new ArrayList<>();
-        Address d1 = new Address(1,"Пермь",85.3323F,87.2323F);
-        addresses.add(d1);
-        Address d2 = new Address(2,"Пермь 2",85.3323F,87.2323F);
-        addresses.add(d2);
-        return new ResponseEntity<List<Address>>(addresses, HttpStatus.OK);
     }
 }
