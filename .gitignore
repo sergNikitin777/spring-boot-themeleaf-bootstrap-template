@@ -24,3 +24,8 @@ dist/
 nbdist/
 .nb-gradle/
 /bin/
+
+
+
+target/
+gradle.properties
