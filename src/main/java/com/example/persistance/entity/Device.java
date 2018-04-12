@@ -2,12 +2,17 @@ package com.example.persistance.entity;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import org.springframework.data.annotation.Id;
+import lombok.Getter;
+import lombok.Setter;
+import javax.persistence.Id;
 
 import javax.persistence.*;
 
 @Entity
 @Data
+@Getter
+@Setter
+@EqualsAndHashCode
 public class Device {
 
     public Device() {
