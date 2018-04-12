@@ -24,7 +24,7 @@ public class DeviceController {
     private final DeviceService deviceService;
 
     @RequestMapping("/admin/device")
-    public String getDeviceList(Model model)
+    public String getUserList(Model model)
     {
         log.debug("getDeviceList");
         model.addAttribute(deviceService.findAll());
