@@ -51,7 +51,6 @@
             th:src="@{/js/ie10-viewport-bug-workaround.js}"></script>
 
     <script th:src="@{/js/map.js}"></script>
-    <script th:src="@{/js/tree.js}"></script>
 
 
 </head>
@@ -66,69 +65,178 @@
                     class="icon-bar"></span> <span class="icon-bar"></span> <span
                     class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">prmIT</a>
         </div>
         <div class="navbar-collapse collapse">
-            <ul class="nav navbar-nav navbar-right">
-                <li><a href="#" th:href="@{/home}">Dashboard</a></li>
-                <li><a href="#">Settings</a></li>
-                <li><a href="#">Profile</a></li>
-                <li><a href="#" th:href="@{/logout}">Logout</a></li>
+            <ul class="nav navbar-nav">
+                <li>
+                    <p class="navbar-btn">
+                        <a data-toggle="tab" href="#panel2" class="btn btn-default"><img
+                                th:src="@{/icons/menu/books.png}"></img><b> Отчеты</b></a>
+                    </p>
+                </li>
+                <li>
+                    <p class="navbar-btn">
+                        <a data-toggle="tab" href="#panel1" class="btn btn-default"><img
+                                th:src="@{/icons/menu/world.png}"></img><b> Карта</b></a>
+                    </p>
+                </li>
+                <li>
+                    <p class="navbar-btn">
+                        <a data-toggle="tab" href="#panel2" class="btn btn-default"><img
+                                th:src="@{/icons/menu/book.png}"></img><b> Текущие работы</b></a>
+                    </p>
+                </li>
+                <li>
+                    <p class="navbar-btn">
+                        <a data-toggle="tab" href="#panel2" class="btn btn-default"><img
+                                th:src="@{/icons/menu/phone.png}"></img><b> Оповестить службу</b></a>
+                    </p>
+                </li>
+                <li>
+                    <p class="navbar-btn">
+                        <a data-toggle="tab" href="#panel2" class="btn btn-default"><img
+                                th:src="@{/icons/menu/contact.png}"></img><b> Журнал</b></a>
+                    </p>
+                </li>
+                <li>
+                    <p class="navbar-btn">
+                        <a href="#" class="btn btn-default"><img th:src="@{/icons/menu/Settings.png}" height="32"
+                                                                 width="32"></img><b> Настройка</b></a>
+                    </p>
+                </li>
+                <li>
+                    <p class="navbar-btn">
+                        <a href="#" class="btn btn-default"><img th:src="@{/icons/menu/Time.png}"></img><b> Календарь</b></a>
+                    </p>
+                </li>
+                <li>
+                    <p class="navbar-btn">
+                        <a href="#" class="btn btn-default"><img th:src="@{/icons/menu/Keys.png}"></img><b> Ключи</b></a>
+                    </p>
+                </li>
             </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <p class="navbar-btn">
+                        <a href="#" class="btn btn-default"><b>Администрирование </b><img
+                                th:src="@{/icons/menu/admin.png}"></img></a>
+                    </p>
+                </li>
+            </ul>
+
         </div>
     </div>
 </nav>
+<br/>
+<div class="container-fluid height-full">
 
-<div class="container-fluid">
-
-    <div class="row row-offcanvas row-offcanvas-left">
-
-        <div class="col-sm-3 col-md-2 sidebar-offcanvas" id="sidebar"
-             role="navigation">
-
-            <ul class="nav nav-sidebar">
-                <li th:classappend="${page == 'home' ? 'active' : ''}"><a
-                        href="../home.html" th:href="@{/home}">Overview</a></li>
-                <li th:classappend="${page == 'navitem1' ? 'active' : ''}"><a
-                        href="#">Nav Item 1</a></li>
+    <div class="row content">
+        <div class="col-sm-2 sidenav" id="jstree_demo_div">
+            <ul>
+                <li><a href="#">Пермь</a>
+                    <ul>
+                        <li data-jstree='{"icon":"icons/log/object.png"}'>test1</li>
+                        <li data-jstree='{"icon":"icons/log/object.png"}'>test2</li>
+                        <li data-jstree='{"icon":"icons/log/object.png"}'>test3</li>
+                    </ul>
+                </li>
+                <li><a href="#">Березники</a></li>
+                <li><a href="#">Чусовой</a></li>
             </ul>
-            <div id="jstree_demo_div">
-                <ul>
-                    <li><a href="#">Пермь</a>
-                        <ul>
-                            <li data-jstree='{"icon":"icons/log/object.png"}'>test1</li>
-                            <li data-jstree='{"icon":"icons/log/object.png"}'>test2</li>
-                            <li data-jstree='{"icon":"icons/log/object.png"}'>test3</li>
-                        </ul>
-                    </li>
-                    <li><a href="#">Березники</a></li>
-                    <li><a href="#">Чусовой</a></li>
-                </ul>
-            </div>
-            <ul sec:authorize="hasRole('ROLE_ADMIN')" class="nav nav-sidebar">
-                <li th:classappend="${page == 'users' ? 'active' : ''}"><a
-                        href="#" th:href="@{/admin/users}">User List</a></li>
-            </ul>
-
         </div>
-        <!--/span-->
-
-        <div class="col-sm-9 col-md-10 main">
-
-            <!--toggle sidebar button-->
-            <p class="visible-xs">
-                <button type="button" class="btn btn-primary btn-xs"
-                        data-toggle="offcanvas">
-                    <i class="glyphicon glyphicon-chevron-left"></i>
-                </button>
-            </p>
-
-            <div layout:fragment="content">
-                <p>Page content goes here</p>
+        <div class="tab-content col-sm-10">
+            <div id="panel1" class="tab-pane fade in active">
+                <div id="mapid">
+                </div>
             </div>
+            <div id="panel2" class="tab-pane fade">
+                <table class="table table-hover">
+                    <thead class="thead-inverse">
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Дата выполнения</th>
+                        <th scope="col">Объект</th>
+                        <th scope="col">Кем проверен</th>
+                        <th scope="col">Статус</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr class="success">
+                        <th scope="row">1</th>
+                        <td>10.01.2018</td>
+                        <td>Луначарского 54</td>
+                        <td>Иван</td>
+                        <td>Выполнено</td>
+                    </tr>
+                    <tr class="danger">
+                        <th scope="row">2</th>
+                        <td>10.01.2018</td>
+                        <td>Куйбышего 23</td>
+                        <td>Иван</td>
+                        <td>Не выполнено</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">3</th>
+                        <td>12.01.2018</td>
+                        <td>Монастырского 2</td>
+                        <td>Виктор</td>
+                        <td>Ожидается</td>
+                    </tr>
+                    <tr class="danger">
+                        <th scope="row">2</th>
+                        <td>12.01.2018</td>
+                        <td>Куйбышего 102</td>
+                        <td>Виктор</td>
+                        <td>Не выполнено</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">3</th>
+                        <td>12.01.2018</td>
+                        <td>Куйбышего 122</td>
+                        <td>Андрей</td>
+                        <td>Ожидается</td>
+                    </tr>
+                    <tr class="success">
+                        <th scope="row">2</th>
+                        <td>14.01.2018</td>
+                        <td>Петропавловская 11</td>
+                        <td>Андрей</td>
+                        <td>Выполнено</td>
+                    </tr>
+                    <tr class="success">
+                        <th scope="row">3</th>
+                        <td>15.01.2018</td>
+                        <td>Петропавловская 23</td>
+                        <td>Никита</td>
+                        <td>Выполнено</td>
+                    </tr>
+                    <tr class="success">
+                        <th scope="row">2</th>
+                        <td>15.01.2018</td>
+                        <td>Петропавловская 68</td>
+                        <td>Никита</td>
+                        <td>Выполнено</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">3</th>
+                        <td>20.01.2018</td>
+                        <td>Комсомольский проспект 70</td>
+                        <td>Никита</td>
+                        <td>Ожидается</td>
+                    </tr>
+                    </tbody>
+                </table>
 
+            </div>
+            <div id="panel3" class="tab-pane fade">
+                <h3>Панель 3</h3>
+                <p>Содержимое 3 панели...</p>
+            </div>
+            <div id="panel4" class="tab-pane fade">
+                <h3>Панель 4</h3>
+                <p>Содержимое 4 панели...</p>
+            </div>
         </div>
-        <!--/row-->
     </div>
 </div>
 <!--/.container-->

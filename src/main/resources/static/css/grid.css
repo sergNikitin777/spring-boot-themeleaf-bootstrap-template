@@ -21,14 +21,14 @@ height:100%;
 footer {
   background-color: #555;
   color: white;
-  padding: 15px;
+  padding: 0px;
 }
 
 /* On small screens, set height to 'auto' for sidenav and grid */
 @media screen and (max-width: 767px) {
   .sidenav {
 	height: auto;
-	padding: 15px;
+	padding: 5px;
   }
   .row.content {height:auto;}
 }
@@ -38,7 +38,6 @@ footer {
 }
 
 .navbar-nav > li > a, .navbar-brand {
-    padding-top:20px !important; 
     padding-bottom:0 !important;
     height: 60px;
 }
@@ -50,6 +49,10 @@ footer {
 .btn-margin-right {
     margin-right: 2px;
 }
+
+nav {
+     margin-botttom: 10px;
+ }
 
 .btn {
   background-color: #222222;
