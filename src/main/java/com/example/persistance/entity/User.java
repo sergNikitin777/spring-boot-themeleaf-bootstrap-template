@@ -24,8 +24,9 @@ import lombok.EqualsAndHashCode;
 @Entity
 @EqualsAndHashCode(callSuper = true)
 @Data
-@Table(name = "USER", uniqueConstraints = { @UniqueConstraint(columnNames = "EMAIL"),
+@Table(name = "ADM_USER", uniqueConstraints = { @UniqueConstraint(columnNames = "EMAIL"),
         @UniqueConstraint(columnNames = "USERNAME") })
+
 public class User extends Persistent implements UserDetails
 {
 
@@ -41,13 +42,13 @@ public class User extends Persistent implements UserDetails
     private String username;
 
     @Size(min = 6, max = 50)
-    @Column(name = "PASSWORD", nullable = false, length = 50)
+    @Column(name = "PWD", nullable = false, length = 50)
     private String password;
 
-    @Column(name = "ENABLED", nullable = false)
+    @Column(name = "isENABLED", nullable = false)
     private boolean enabled;
 
-    @Column(name = "LOCKED", nullable = false)
+    @Column(name = "isLOCKED", nullable = false)
     private boolean locked = false;
 
     @NotEmpty
