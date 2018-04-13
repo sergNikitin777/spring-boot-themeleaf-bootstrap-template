@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -32,15 +33,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
      // @formatter:off
             http.csrf().disable()
                 .authorizeRequests()
-                    .antMatchers("/login").permitAll()
-                     .antMatchers("/api/**").permitAll()
-                    .antMatchers("/v2/**").permitAll()
+                    //.antMatchers("/login").permitAll()
+                    //.antMatchers("/api/**").permitAll()
+                    //.antMatchers("/v2/**").permitAll()
                     //.antMatchers("/admin","/admin/**").hasRole("ADMIN")
                     //.antMatchers("/**").hasRole("USER")
-                    .antMatchers("/swagger-resources/**").permitAll()
+                    //.antMatchers("/swagger-resources/**").permitAll()
                     .antMatchers("/**").permitAll()
-                    .antMatchers("/webjars/**").permitAll()
-                    .antMatchers("/swagger-ui.html**").permitAll()
+                    //.antMatchers("/webjars/**").permitAll()
+                    //.antMatchers("/swagger-ui.html**").permitAll()
                     .anyRequest().authenticated()
             .and()
                 .formLogin()
@@ -77,6 +78,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
     public void configure(AuthenticationManagerBuilder auth) throws Exception
     {
         auth.userDetailsService(customUserDetailsService);
+    }
+
+    @Override
+    public void configure(WebSecurity web) {
+        web
+                .ignoring()
+                .antMatchers("/resources/**");
     }
 
 }
