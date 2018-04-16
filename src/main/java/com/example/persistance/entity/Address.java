@@ -21,16 +21,6 @@ public class Address implements Serializable {
 
     }
 
-    @Column
-    private String municipality;
-
-    @Id
-    @SequenceGenerator(name = "pk_sequence", sequenceName = "address_id_seq", allocationSize = 1)
-    //@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pk_sequence")
-    @Column(name = "id", unique = true, nullable = false)
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
-
     public Address(Integer id, String municipality, String locality, String name, Float latitude, Float longitude) {
         this.id = id;
         this.municipality = municipality;
@@ -39,6 +29,17 @@ public class Address implements Serializable {
         this.latitude = latitude;
         this.longitude = longitude;
     }
+
+
+    @Id
+    @SequenceGenerator(name = "pk_sequence", sequenceName = "address_id_seq", allocationSize = 1)
+    //@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pk_sequence")
+    @Column(name = "id", unique = true, nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
+
+    @Column
+    private String municipality;
 
     @Column
     private String locality;
