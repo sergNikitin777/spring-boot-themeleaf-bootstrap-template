@@ -30,8 +30,6 @@ public class Address implements Serializable {
     @Column(name = "id", unique = true, nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    @Column
-    private String locality;
 
     public Address(Integer id, String municipality, String locality, String name, Float latitude, Float longitude) {
         this.id = id;
@@ -41,6 +39,9 @@ public class Address implements Serializable {
         this.latitude = latitude;
         this.longitude = longitude;
     }
+
+    @Column
+    private String locality;
 
     @Column
     private String name;
