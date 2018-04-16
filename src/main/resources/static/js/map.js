@@ -1,6 +1,6 @@
 $(document).ready(function () {
 
-    var screenHeight = document.documentElement.clientHeight - document.getElementById("footerid").clientHeight - document.getElementById("myNavbar").clientHeight + "px";
+    var screenHeight = document.documentElement.clientHeight - document.getElementById("footerid").clientHeight - document.getElementById("myNavbar").clientHeight - 15 + "px";
     document.getElementById("mapid").style.height = screenHeight;
 
     var mymap = L.map('mapid', {
