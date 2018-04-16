@@ -19,4 +19,13 @@ public class QRLabel {
     @Column(name="id", unique=true, nullable=false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
+    @Column
+    private String uid;
+
+    @Column
+    private Float latitude;
+
+    @Column
+    private Float longitude;
 }

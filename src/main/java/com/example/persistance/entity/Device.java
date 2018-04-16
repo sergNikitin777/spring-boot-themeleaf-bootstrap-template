@@ -21,8 +21,10 @@ public class Device {
     @Column(name = "id", unique = true, nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
     @ManyToOne(fetch = FetchType.EAGER)
     private DeviceStatus status;
+
     @Column
     private String name;
     @ManyToOne(fetch = FetchType.EAGER)
