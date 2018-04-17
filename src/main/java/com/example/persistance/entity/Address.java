@@ -25,9 +25,9 @@ public class Address implements Serializable {
 
     }
 
-    public Address(Address parent, Set<Address> children, String name, Float latitude, Float longitude) {
+    public Address(Address parent, String name, Float latitude, Float longitude) {
         this.parent = parent;
-        this.children = children;
+
         this.name = name;
         this.latitude = latitude;
         this.longitude = longitude;
@@ -40,12 +40,11 @@ public class Address implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @ManyToOne
-    @JoinColumn(name = "parent_id")
+    @ManyToOne(fetch=FetchType.LAZY, cascade={CascadeType.PERSIST, CascadeType.MERGE})
     private Address parent;
 
-    @OneToMany(mappedBy = "parent", cascade = CascadeType.REMOVE, orphanRemoval = true)
-    private Set<Address> children = new HashSet<>();
+    //@OneToMany(mappedBy = "parent", cascade = CascadeType.REMOVE, orphanRemoval = true)
+    //private Set<Address> children = new HashSet<>();
 
     @Column
     private String name;
@@ -56,6 +55,7 @@ public class Address implements Serializable {
     @Column
     private Float longitude;
 
+    /*
     public Set<Address> collectLeafChildren() {
         Set<Address> results = new HashSet<>();
         if (children.isEmpty()) {
@@ -67,5 +67,6 @@ public class Address implements Serializable {
         }
         return results;
     }
+    */
 
 }
