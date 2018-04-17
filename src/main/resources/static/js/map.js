@@ -7,7 +7,7 @@ $(document).ready(function () {
     var xhrAddress = new XMLHttpRequest();
     var markersAddress;
     var markerList = new Map();
-    xhrAddress.open('GET', 'http://localhost:8080/admin/address', true);
+    xhrAddress.open('GET', 'admin/address', true);
     xhrAddress.send();
 
     var screenHeight = document.documentElement.clientHeight - document.getElementById("footerid").clientHeight - document.getElementById("myNavbar").clientHeight - 15 + "px";
