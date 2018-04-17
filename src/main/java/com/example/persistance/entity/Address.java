@@ -9,6 +9,10 @@ import javax.persistence.Id;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 @Entity
 @Data
@@ -21,15 +25,13 @@ public class Address implements Serializable {
 
     }
 
-    public Address(Integer id, String municipality, String locality, String name, Float latitude, Float longitude) {
-        this.id = id;
-        this.municipality = municipality;
-        this.locality = locality;
+    public Address(Address parent, Set<Address> children, String name, Float latitude, Float longitude) {
+        this.parent = parent;
+        this.children = children;
         this.name = name;
         this.latitude = latitude;
         this.longitude = longitude;
     }
-
 
     @Id
     @SequenceGenerator(name = "pk_sequence", sequenceName = "address_id_seq", allocationSize = 1)
@@ -38,11 +40,12 @@ public class Address implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column
-    private String municipality;
+    @ManyToOne
+    @JoinColumn(name = "parent_id")
+    private Address parent;
 
-    @Column
-    private String locality;
+    @OneToMany(mappedBy = "parent", cascade = CascadeType.REMOVE, orphanRemoval = true)
+    private Set<Address> children = new HashSet<>();
 
     @Column
     private String name;
@@ -52,5 +55,17 @@ public class Address implements Serializable {
 
     @Column
     private Float longitude;
+
+    public Set<Address> collectLeafChildren() {
+        Set<Address> results = new HashSet<>();
+        if (children.isEmpty()) {
+            results.add(this);
+        } else {
+            children.forEach(child -> {
+                results.addAll(child.collectLeafChildren());
+            });
+        }
+        return results;
+    }
 
 }
