@@ -119,43 +119,29 @@ $(document).ready(function () {
         }
     }
 
-    /*function iconZoomed(index, size) {
-        switch (markerList.get(index)._icon.outerHTML.split(" ")[1].substring(22, 23)) {
+    function iconZoomed(mark) {
+        switch (mark._icon.outerHTML.split(" ")[1].substring(22, 23)) {
             case "p":
-                if (size == 1) markerList.get(index).setIcon(iconsmallpurple);
-                if (size == 2) markerList.get(index).setIcon(iconmediumpurple);
-                if (size == 3) markerList.get(index).setIcon(iconbigpurple);
+                if (mymap.getZoom() > 7)  mark.setIcon(iconsmallpurple);
+                if (mymap.getZoom() > 10) mark.setIcon(iconmediumpurple);
+                if (mymap.getZoom() > 13) mark.setIcon(iconbigpurple);
                 break;
             case "b":
-                if (size == 1) markerList.get(index).setIcon(iconsmallblue);
-                if (size == 2) markerList.get(index).setIcon(iconmediumblue);
-                if (size == 3) markerList.get(index).setIcon(iconbigblue);
+                if (mymap.getZoom() > 7)  mark.setIcon(iconsmallblue);
+                if (mymap.getZoom() > 10) mark.setIcon(iconmediumblue);
+                if (mymap.getZoom() > 13) mark.setIcon(iconbigblue);
                 break;
             case "r":
-                if (size == 1) markerList.get(index).setIcon(iconsmallred);
-                if (size == 2) markerList.get(index).setIcon(iconmediumred);
-                if (size == 3) markerList.get(index).setIcon(iconbigred);
+                if (mymap.getZoom() > 7)  mark.setIcon(iconsmallred);
+                if (mymap.getZoom() > 10) mark.setIcon(iconmediumred);
+                if (mymap.getZoom() > 13) mark.setIcon(iconbigred);
                 break;
         }
     }
 
     mymap.on('zoomend', function (ev) {
-        if (mymap.getZoom() > 13) {
-            for (i = 0; i < markerList.size; i++) {
-                iconZoomed(i, 3);
-            }
-        }
-        else if (mymap.getZoom() > 10) {
-            for (i = 0; i < markerList.size; i++) {
-                iconZoomed(i, 2);
-            }
-        }
-        else {
-            for (i = 0; i < markerList.size; i++) {
-                iconZoomed(i, 1);
-            }
-        }
-    });*/
+        markerList.forEach(function(item) {iconZoomed(item);});
+    });
 
     $('#jstree_demo_div').on("changed.jstree", function (e, data) {
         if (data.node.parent == "#") {
