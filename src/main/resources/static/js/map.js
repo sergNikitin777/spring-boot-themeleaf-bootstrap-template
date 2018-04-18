@@ -10,10 +10,18 @@ $(document).ready(function () {
     xhrAddress.open('GET', 'admin/address', true);
     xhrAddress.send();
 
-    var screenHeight = document.documentElement.clientHeight
-        - document.getElementById("footerid").clientHeight
-        - document.getElementById("myNavbar").clientHeight - 15 + "px";
-    document.getElementById("mapid").style.height = screenHeight;
+    // костыль для лифлета, нужно вручную выставлять высоту карты
+    function toggleMapHeight() {
+        var screenHeight = document.documentElement.clientHeight
+            - document.getElementById("footerid").clientHeight
+            - document.getElementById("myNavbar").clientHeight - 15 + "px";
+        document.getElementById("mapid").style.height = screenHeight;
+    }
+    toggleMapHeight(); // в первый дёргаем раз при построении окна
+    $(window).resize(function() {
+        toggleMapHeight(); // потом при каждом растяжении окна
+        setTimeout(function() { toggleMapHeight(); }, 100); //для медлительных дёргаем дважды
+    });
 
     var mymap = L.map('mapid', {
         center: [58.0099, 56.25],
