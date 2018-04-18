@@ -46,6 +46,9 @@ public class Address implements Serializable {
     private String name;
 
     @Column
+    private String description;
+
+    @Column
     private Float latitude;
 
     @Column
