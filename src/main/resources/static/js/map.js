@@ -135,4 +135,24 @@ $(document).ready(function () {
         }
         else mymap.setView(markerList.get(data.node.id).getLatLng(), 16);
     });
+
+    // Сворачиваем все города, кроме того, который выбрали.
+    $('#jstree_demo_div').on('open_node.jstree', function (e, data) {
+        var nodesToKeepOpen = [];
+        $('#'+data.node.id).parents('.jstree-node').each(function() {
+            nodesToKeepOpen.push(this.id);
+        });
+        nodesToKeepOpen.push( data.node.id );
+        $('.jstree-node').each( function() {
+            if( nodesToKeepOpen.indexOf(this.id) === -1 ) {
+                $("#jstree_demo_div").jstree('close_node',this.id);
+            }
+        })
+    });
+
+    $("#search_node").click( function() {
+        var searchedNodeId = $("#searchedNodeId").val();
+        $('#jstree_demo_div').jstree("select_node", $('#'+searchedNodeId));
+    });
+
 });
