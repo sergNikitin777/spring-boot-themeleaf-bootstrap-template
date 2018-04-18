@@ -2,7 +2,7 @@ $(document).ready(function () {
 
     Array.prototype.sample = function(){
         return this[Math.floor(Math.random()*this.length)];
-    }
+    } // WIP1, нужно для рандомизации иконок, убрать, когда иконки будут в базе.
 
     var xhrAddress = new XMLHttpRequest();
     var markersAddress;
@@ -10,7 +10,9 @@ $(document).ready(function () {
     xhrAddress.open('GET', 'admin/address', true);
     xhrAddress.send();
 
-    var screenHeight = document.documentElement.clientHeight - document.getElementById("footerid").clientHeight - document.getElementById("myNavbar").clientHeight - 15 + "px";
+    var screenHeight = document.documentElement.clientHeight
+        - document.getElementById("footerid").clientHeight
+        - document.getElementById("myNavbar").clientHeight - 15 + "px";
     document.getElementById("mapid").style.height = screenHeight;
 
     var mymap = L.map('mapid', {
@@ -27,65 +29,48 @@ $(document).ready(function () {
     var iconbigpurple = L.icon({
         iconUrl: 'icons/map/marker_purple_64.png',
         iconSize: [64, 64]
-    });
-
-    var iconmediumpurple = L.icon({
+    }), iconmediumpurple = L.icon({
         iconUrl: 'icons/map/marker_purple_64.png',
         iconSize: [32, 32]
-    });
-
-    var iconsmallpurple = L.icon({
+    }), iconsmallpurple = L.icon({
         iconUrl: 'icons/map/marker_purple_64.png',
         iconSize: [16, 16]
-    });
-
-    var iconbigblue = L.icon({
+    }), iconbigblue = L.icon({
         iconUrl: 'icons/map/marker_blue_64.png',
         iconSize: [64, 64]
-    });
-
-    var iconmediumblue = L.icon({
+    }), iconmediumblue = L.icon({
         iconUrl: 'icons/map/marker_blue_64.png',
         iconSize: [32, 32]
-    });
-
-    var iconsmallblue = L.icon({
+    }), iconsmallblue = L.icon({
         iconUrl: 'icons/map/marker_blue_64.png',
         iconSize: [16, 16]
-    });
-
-    var iconbigred = L.icon({
+    }), iconbigred = L.icon({
         iconUrl: 'icons/map/marker_red_64.png',
         iconSize: [64, 64]
-    });
-
-    var iconmediumred = L.icon({
+    }), iconmediumred = L.icon({
         iconUrl: 'icons/map/marker_red_64.png',
         iconSize: [32, 32]
-    });
-
-    var iconsmallred = L.icon({
+    }), iconsmallred = L.icon({
         iconUrl: 'icons/map/marker_red_64.png',
         iconSize: [16, 16]
-    });
-
-    var iconempty = L.icon({
+    }), iconempty = L.icon({
         iconUrl: 'icons/map/transparent-square-tiles.png',
         iconSize: [1, 1]
-    });
+    }); // WIP2, это всё надо в базу.
 
     xhrAddress.onreadystatechange = function() {
         if (xhrAddress.readyState != 4) return;
         if (xhrAddress.status != 200) {
+            // предупредили, если не получили xml
             alert(xhrAddress.status + ': ' + xhrAddress.statusText);
         } else {
             markersAddress = JSON.parse(xhrAddress.responseText);
             for (var i = 0; i < markersAddress.length; i++) {
                 if (markersAddress[i].parent != null) {
-                    markerList.set(markersAddress[i].id.toString(),
+                    markerList.set(markersAddress[i].id.toString(), //айдишник маркера = айдишник дерева
                         L.marker([markersAddress[i].latitude, markersAddress[i].longitude],
                             {
-                                icon:[iconmediumpurple, iconmediumred, iconmediumblue].sample(),
+                                icon:[iconmediumpurple, iconmediumred, iconmediumblue].sample(), // см. WIP1
                                 title:markersAddress[i].name
                             }).addTo(mymap));
                 }
@@ -93,7 +78,7 @@ $(document).ready(function () {
                     markerList.set(markersAddress[i].id.toString(),
                         L.marker([markersAddress[i].latitude, markersAddress[i].longitude],
                             {
-                                icon: iconempty,
+                                icon: iconempty, // города отмечаются маркерами с пустыми иконками
                                 title: markersAddress[i].name
                             }).addTo(mymap));
                 }
@@ -101,8 +86,9 @@ $(document).ready(function () {
 
             var treeData = [];
             var treeNode = {};
+            // пересобираем объект, чтобы jstree нормально его читал, там с этим строго, см jstree.com/docs/json
             for (var i = 0; i < markersAddress.length; i++) {
-                treeNode.id = markersAddress[i].id;
+                treeNode.id = markersAddress[i].id; // айдишник дерева = айдишник маркера
                 if (markersAddress[i].parent == null) treeNode.parent = "#";
                 else treeNode.parent = markersAddress[i].parent.id;
                 treeNode.text = markersAddress[i].name;
