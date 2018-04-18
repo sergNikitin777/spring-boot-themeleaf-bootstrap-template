@@ -110,8 +110,6 @@ $(document).ready(function () {
                 treeNode = {};
             }
 
-            console.log(treeData);
-
             $('#jstree_demo_div')
                 .jstree({
                     core: {
