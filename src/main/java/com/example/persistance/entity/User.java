@@ -30,7 +30,7 @@ import lombok.EqualsAndHashCode;
 public class User extends Persistent implements UserDetails
 {
 
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = -6546622267646062104L;
 
     @Size(min = 6, max = 100)
     @Column(name = "EMAIL", unique = true, nullable = false, length = 100)

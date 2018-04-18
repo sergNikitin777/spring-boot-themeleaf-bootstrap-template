@@ -6,13 +6,16 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Data
 @Getter
 @Setter
 @EqualsAndHashCode
-public class Operation {
+public class Operation implements Serializable {
+
+    private static final long serialVersionUID = -1711873713439276552L;
 
     @Id
     @SequenceGenerator(name = "pk_sequence", sequenceName = "operation_id_seq", allocationSize = 1)
