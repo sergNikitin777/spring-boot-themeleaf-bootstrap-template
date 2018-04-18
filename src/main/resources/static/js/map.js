@@ -72,7 +72,7 @@ $(document).ready(function () {
                             {
                                 icon:[iconmediumpurple, iconmediumred, iconmediumblue].sample(), // см. WIP1
                                 title:markersAddress[i].name
-                            }).addTo(mymap));
+                            }).addTo(mymap).bindPopup(markersAddress[i].description + "<br />" + markersAddress[i].name));
                 }
                 else {
                     markerList.set(markersAddress[i].id.toString(),
@@ -83,7 +83,7 @@ $(document).ready(function () {
                             }).addTo(mymap));
                 }
             }
-
+            
             var treeData = [];
             var treeNode = {};
             // пересобираем объект, чтобы jstree нормально его читал, там с этим строго, см jstree.com/docs/json
@@ -133,7 +133,13 @@ $(document).ready(function () {
         if (data.node.parent == "#") {
             mymap.setView(markerList.get(data.node.id).getLatLng(), 13);
         }
-        else mymap.setView(markerList.get(data.node.id).getLatLng(), 16);
+        else {
+            mymap.setView(markerList.get(data.node.id).getLatLng(), 16);
+            var popup = L.popup()
+                .setLatLng(markerList.get(data.node.id).getLatLng())
+                .setContent(markerList.get(data.node.id)._popup._content)
+                .openOn(mymap);
+        }
     });
 
     // Сворачиваем все города, кроме того, который выбрали.
