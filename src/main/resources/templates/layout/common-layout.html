@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <title layout:title-pattern="$CONTENT_TITLE - $DECORATOR_TITLE">&copy; prmIT</title>
@@ -69,13 +70,13 @@
             <ul class="nav navbar-nav">
                 <li>
                     <p class="navbar-btn">
-                        <a data-toggle="tab" href="#panel2" class="btn btn-default"><img
-                                th:src="@{/icons/menu/books.png}"></img><b> Отчеты</b></a>
+                        <a href="#" th:href="@{/operlog}" class="btn btn-default"><img
+                              th:src="@{/icons/menu/books.png}"></img><b> Отчеты</b></a>
                     </p>
                 </li>
                 <li>
                     <p class="navbar-btn">
-                        <a data-toggle="tab" href="#panel1" class="btn btn-default"><img
+                        <a href="#panel1" th:href="@{/home}" class="btn btn-default"><img
                                 th:src="@{/icons/menu/world.png}"></img><b> Карта</b></a>
                     </p>
                 </li>
@@ -117,7 +118,7 @@
             <ul class="nav navbar-nav navbar-right">
                 <li>
                     <p class="navbar-btn">
-                        <a href="#" class="btn btn-default"><b>Администрирование </b><img
+                        <a href="#" class="btn btn-default"><b>Администрирование</b><img
                                 th:src="@{/icons/menu/admin.png}"></img></a>
                     </p>
                 </li>
@@ -134,7 +135,8 @@
         </div>
         <div class="tab-content col-sx-9 col-sm-9 col-md-9 col-lg-9">
             <div id="panel1" class="tab-pane fade in active">
-                <div id="mapid">
+                <div layout:fragment="content">
+                    <p>Page content goes here</p>
                 </div>
             </div>
             <div id="panel2" class="tab-pane fade">
@@ -228,6 +230,8 @@
     </div>
 </div>
 <!--/.container-->
+
+
 
 <div class="footer" id="footerid">
     <div class="container">

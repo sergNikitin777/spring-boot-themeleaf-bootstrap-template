@@ -2,7 +2,7 @@ $(document).ready(function () {
 
     Array.prototype.sample = function(){
         return this[Math.floor(Math.random()*this.length)];
-    } // WIP1, нужно для рандомизации иконок, убрать, когда иконки будут в базе.
+    }; // WIP1, нужно для рандомизации иконок, убрать, когда иконки будут в базе.
 
     var xhrAddress = new XMLHttpRequest();
     var markersAddress;
@@ -11,29 +11,34 @@ $(document).ready(function () {
     xhrAddress.send();
 
     // костыль для лифлета, нужно вручную выставлять высоту карты
-    function toggleMapHeight() {
-        var screenHeight = document.documentElement.clientHeight
-            - document.getElementById("footerid").clientHeight
-            - document.getElementById("myNavbar").clientHeight - 15 + "px";
-        document.getElementById("mapid").style.height = screenHeight;
+    if (document.getElementById("mapid") != null) {
+        function toggleMapHeight() {
+            var screenHeight = document.documentElement.clientHeight
+                - document.getElementById("footerid").clientHeight
+                - document.getElementById("myNavbar").clientHeight - 15 + "px";
+            document.getElementById("mapid").style.height = screenHeight;
+        }
+
+        toggleMapHeight(); // в первый дёргаем раз при построении окна
+        $(window).resize(function () {
+            toggleMapHeight(); // потом при каждом растяжении окна
+            setTimeout(function () {
+                toggleMapHeight();
+            }, 100); //для медлительных дёргаем дважды
+        });
+
+
+        var mymap = L.map('mapid', {
+            center: [58.0099, 56.25],
+            zoom: 13,
+            zoomControl: false,
+            attributionControl: false
+        });
+        L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
+            maxZoom: 32,
+            id: 'mapbox.streets'
+        }).addTo(mymap);
     }
-    toggleMapHeight(); // в первый дёргаем раз при построении окна
-    $(window).resize(function() {
-        toggleMapHeight(); // потом при каждом растяжении окна
-        setTimeout(function() { toggleMapHeight(); }, 100); //для медлительных дёргаем дважды
-    });
-
-    var mymap = L.map('mapid', {
-        center: [58.0099, 56.25],
-        zoom: 13,
-        zoomControl: false,
-        attributionControl: false
-    });
-    L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
-        maxZoom: 32,
-        id: 'mapbox.streets'
-    }).addTo(mymap);
-
     var iconbigpurple = L.icon({
         iconUrl: 'icons/map/marker_purple_64.png',
         iconSize: [64, 64]
@@ -73,25 +78,27 @@ $(document).ready(function () {
             alert(xhrAddress.status + ': ' + xhrAddress.statusText);
         } else {
             markersAddress = JSON.parse(xhrAddress.responseText);
-            for (var i = 0; i < markersAddress.length; i++) {
-                if (markersAddress[i].parent != null) {
-                    markerList.set(markersAddress[i].id.toString(), //айдишник маркера = айдишник дерева
-                        L.marker([markersAddress[i].latitude, markersAddress[i].longitude],
-                            {
-                                icon:[iconmediumpurple, iconmediumred, iconmediumblue].sample(), // см. WIP1
-                                title:markersAddress[i].name
-                            }).addTo(mymap).bindPopup(markersAddress[i].description + "<br />" + markersAddress[i].name));
-                }
-                else {
-                    markerList.set(markersAddress[i].id.toString(),
-                        L.marker([markersAddress[i].latitude, markersAddress[i].longitude],
-                            {
-                                icon: iconempty, // города отмечаются маркерами с пустыми иконками
-                                title: markersAddress[i].name
-                            }).addTo(mymap));
+            if (document.getElementById('mapid') != null)
+            {
+                for (var i = 0; i < markersAddress.length; i++) {
+                    if (markersAddress[i].parent != null) {
+                        markerList.set(markersAddress[i].id.toString(), //айдишник маркера = айдишник дерева
+                            L.marker([markersAddress[i].latitude, markersAddress[i].longitude],
+                                {
+                                    icon: [iconmediumpurple, iconmediumred, iconmediumblue].sample(), // см. WIP1
+                                    title: markersAddress[i].name
+                                }).addTo(mymap).bindPopup(markersAddress[i].description + "<br />" + markersAddress[i].name));
+                    }
+                    else {
+                        markerList.set(markersAddress[i].id.toString(),
+                            L.marker([markersAddress[i].latitude, markersAddress[i].longitude],
+                                {
+                                    icon: iconempty, // города отмечаются маркерами с пустыми иконками
+                                    title: markersAddress[i].name
+                                }).addTo(mymap));
+                    }
                 }
             }
-            
             var treeData = [];
             var treeNode = {};
             // пересобираем объект, чтобы jstree нормально его читал, там с этим строго, см jstree.com/docs/json
@@ -111,7 +118,7 @@ $(document).ready(function () {
                     }
                 });
         }
-    }
+    };
 
     function iconZoomed(mark) {
         switch (mark._icon.outerHTML.split(" ")[1].substring(22, 23)) {
@@ -132,21 +139,26 @@ $(document).ready(function () {
                 break;
         }
     }
-
-    mymap.on('zoomend', function (ev) {
-        markerList.forEach(function(item) {iconZoomed(item);});
-    });
+    if (mymap != null) {
+        mymap.on('zoomend', function (ev) {
+            markerList.forEach(function (item) {
+                iconZoomed(item);
+            });
+        });
+    }
 
     $('#jstree_demo_div').on("changed.jstree", function (e, data) {
-        if (data.node.parent == "#") {
-            mymap.setView(markerList.get(data.node.id).getLatLng(), 13);
-        }
-        else {
-            mymap.setView(markerList.get(data.node.id).getLatLng(), 16);
-            var popup = L.popup()
-                .setLatLng(markerList.get(data.node.id).getLatLng())
-                .setContent(markerList.get(data.node.id)._popup._content)
-                .openOn(mymap);
+        if (mymap != null) {
+            if (data.node.parent == "#") {
+                mymap.setView(markerList.get(data.node.id).getLatLng(), 13);
+            }
+            else {
+                mymap.setView(markerList.get(data.node.id).getLatLng(), 16);
+                var popup = L.popup()
+                    .setLatLng(markerList.get(data.node.id).getLatLng())
+                    .setContent(markerList.get(data.node.id)._popup._content)
+                    .openOn(mymap);
+            }
         }
     });
 

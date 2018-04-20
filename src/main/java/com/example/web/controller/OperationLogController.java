@@ -11,6 +11,7 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -18,6 +19,15 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class OperationLogController {
     @Autowired
     OperationLogRepository repository;
+
+    @RequestMapping("/operlog")
+    public String getOperationList(Model model)
+    {
+        //log.debug("getUserList");
+        model.addAttribute(repository.findAll());
+
+        return "operlog";
+    }
 
     @RequestMapping(value = "/operationLogs", method = RequestMethod.GET)
     HttpEntity<PagedResources<OperationLog>> persons(Pageable pageable, PagedResourcesAssembler assembler) {
