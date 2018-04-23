@@ -101,6 +101,11 @@
             <artifactId>postgresql</artifactId>
             <version>42.1.4</version>
         </dependency>
+        <dependency>
+            <groupId>com.github.caldav4j</groupId>
+            <artifactId>caldav4j</artifactId>
+            <version>0.9.1</version>
+        </dependency>
     </dependencies>
 
 </project>
