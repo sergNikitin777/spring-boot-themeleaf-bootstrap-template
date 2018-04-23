@@ -48,17 +48,17 @@ public class CalendarController {
             HttpClient httpClient = new HttpClient();
             // I tried it with zimbra - but I had no luck using google calendar
             httpClient.getHostConfiguration().setHost("caldav.yandex.ru", 443, "https");
-            String username = "f.zeronov@yandex.ru";
-            UsernamePasswordCredentials httpCredentials = new UsernamePasswordCredentials(username, "liso09082011");
+            String username = "logistikatest@yandex.ru";
+            UsernamePasswordCredentials httpCredentials = new UsernamePasswordCredentials(username, "kjubcn123456");
             httpClient.getState().setCredentials(AuthScope.ANY, httpCredentials);
             httpClient.getParams().setAuthenticationPreemptive(true);
             // Need a proxy?
             //httpClient.getHostConfiguration().setProxy("phost", 8080);
 
-            //https://caldav.yandex.ru/calendars/f.zeronov%40yandex.ru/events-5818401/
+            //https://caldav.yandex.ru/calendars/logistikatest%40yandex.ru/events-5825759/
 
             CalDAVCollection collection = new CalDAVCollection(
-                    "/calendars/" + username + "/events-5818401",
+                    "/calendars/" + username + "/events-5825759",
                     (HostConfiguration) httpClient.getHostConfiguration().clone(),
                     new CalDAV4JMethodFactory(),
                     CalDAVConstants.PROC_ID_DEFAULT
