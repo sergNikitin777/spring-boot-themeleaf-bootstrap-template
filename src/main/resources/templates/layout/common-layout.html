@@ -3,271 +3,289 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <title layout:title-pattern="$CONTENT_TITLE - $DECORATOR_TITLE">Project
-        Skeleton Title</title>
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1, maximum-scale=1"/>
-    <!-- Bootstrap core CSS/JS -->
-    <link
-            href="http://cdn.jsdelivr.net/webjars/bootstrap/3.3.7/css/bootstrap.min.css"
-            th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}"
-            rel="stylesheet" media="screen"/>
-    <script th:src="@{/webjars/jquery/3.3.1/jquery.min.js}"></script>
-    <script th:src="@{/webjars/bootstrap/3.3.7/js/bootstrap.min.js}"></script>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+        <title layout:title-pattern="$CONTENT_TITLE - $DECORATOR_TITLE">Project
+            Skeleton Title</title>
+        <meta name="viewport"
+              content="width=device-width, initial-scale=1, maximum-scale=1"/>
+        <!-- Bootstrap core CSS/JS -->
+        <link rel="stylesheet" type="text/css" media="screen"
+              href="http://cdn.jsdelivr.net/webjars/bootstrap/3.3.7/css/bootstrap.min.css"
+              th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}"/>
+        <script th:src="@{/webjars/jquery/3.3.1/jquery.min.js}"></script>
+        <script th:src="@{/webjars/bootstrap/3.3.7/js/bootstrap.min.js}"></script>
 
-    <!--[if lt IE 9]>
-    <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
+        <!--[if lt IE 9]>
+        <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
 
-    <link rel="stylesheet" type="text/css" media="all"
-          href="../../static/css/bootstrap-datetimepicker.min.css" th:href="@{/css/bootstrap-datetimepicker.min.css}"/>
-    <!-- Styles for this template -->
-    <link rel="stylesheet" type="text/css" media="all"
-          href="../../static/css/dashboard.css" th:href="@{/css/dashboard.css}"/>
-    <!-- Custom CSS Style -->
-    <link rel="stylesheet" type="text/css" media="all"
-          href="../../static/css/custom-style.css" th:href="@{/css/custom-style.css}"/>
-    <link rel="stylesheet" type="text/css" media="all"
-          href="../../static/css/grid.css" th:href="@{/css/grid.css}"/>
-    <link rel="stylesheet" href="../../static/jstree/dist/themes/default/style.css"
-          th:href="@{/jstree/dist/themes/default/style.css}"/>
-    <!--script th:src="@{/jstree/dist/jstree.js}"></script-->
+        <link rel="stylesheet" type="text/css" media="all"
+              href="../../static/css/bootstrap-datetimepicker.min.css" th:href="@{/css/bootstrap-datetimepicker.min.css}"/>
+        <!-- Styles for this template -->
+        <link rel="stylesheet" type="text/css" media="all"
+              href="../../static/css/dashboard.css" th:href="@{/css/dashboard.css}"/>
+        <!-- Custom CSS Style -->
+        <link rel="stylesheet" type="text/css" media="all"
+              href="../../static/css/custom-style.css" th:href="@{/css/custom-style.css}"/>
+        <link rel="stylesheet" type="text/css" media="all"
+              href="../../static/css/grid.css" th:href="@{/css/grid.css}"/>
+        <link rel="stylesheet" href="../../static/jstree/dist/themes/default/style.css"
+              th:href="@{/jstree/dist/themes/default/style.css}"/>
+        <!--Import Google Icon Font-->
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
 
+        <script src="../../static/js/custom-scripts.js"
+                th:src="@{/js/custom-scripts.js}"></script>
+        <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+        <script type="text/javascript"
+                src="../../static/js/ie10-viewport-bug-workaround.js"
+                th:src="@{/js/ie10-viewport-bug-workaround.js}"></script>
+        <script type="text/javascript"
+                src="../../static/js/moment-with-locales.min.js"
+                th:src="@{/js/moment-with-locales.min.js}"></script>
+        <script type="text/javascript"
+                src="../../static/js/bootstrap-datetimepicker.min.js"
+                th:src="@{/js/bootstrap-datetimepicker.min.js}"></script>
+        <script type="text/javascript"
+                src="../../static/js/materialize.min.js"
+                th:src="@{/js/materialize.min.js}"></script>
+        <script type="text/javascript"
+                src="../../static/js/journal.js"
+                th:src="@{/js/journal.js}"></script>
 
-    <script src="../../../js/custom-scripts.js"
-            th:src="@{/js/custom-scripts.js}"></script>
-    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <script type="text/javascript"
-            src="../../js/ie10-viewport-bug-workaround.js"
-            th:src="@{/js/ie10-viewport-bug-workaround.js}"></script>
-    <script type="text/javascript"
-            src="../../js/moment-with-locales.min.js"
-            th:src="@{/js/moment-with-locales.min.js}"></script>
-    <script type="text/javascript"
-            src="../../js/bootstrap-datetimepicker.min.js"
-            th:src="@{/js/bootstrap-datetimepicker.min.js}"></script>
+    </head>
 
-</head>
-
-<body>
-<nav class="navbar navbar-inverse navbar-fixed-top hidden-xs hidden-sm visible-md visible-lg" role="navigation" id="myNavbar">
-    <div class="container-fluid">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse"
-                    data-target=".navbar-collapse">
-                <span class="sr-only">Toggle navigation</span> <span
-                    class="icon-bar"></span> <span class="icon-bar"></span> <span
-                    class="icon-bar"></span>
-            </button>
-        </div>
-        <div class="navbar-collapse collapse">
-            <ul class="nav navbar-nav">
-                <li>
-                    <p class="navbar-btn">
-                        <a data-toggle="tab" href="#panel1" class="btn btn-default"><img height="32px" width="32px"
-                                th:src="@{/icons/menu/view.png}"></img><b> Просмотр</b></a>
-                    </p>
-                </li>
-            </ul>
-            <ul class="nav navbar-nav navbar-right">
-                <li>
-                    <p class="navbar-btn" style="margin-right: 10px">
-                        <a data-toggle="tab" href="#panel2" class="btn btn-default"><b>Добавление </b><img height="32px" width="32px"
-                                th:src="@{/icons/menu/add.png}"></img></a>
-                    </p>
-                </li>
-            </ul>
-        </div>
-    </div>
-</nav>
-    <nav class="navbar navbar-inverse navbar-fixed-top visible-xs visible-sm hidden-md hidden-lg" role="navigation" id="myNavbar">
-        <div class="container-fluid">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse"
-                        data-target=".navbar-collapse">
-                    <span class="sr-only">Toggle navigation</span> <span
-                        class="icon-bar"></span> <span class="icon-bar"></span> <span
-                        class="icon-bar"></span>
-                </button>
+    <body>
+        <nav class="navbar navbar-inverse navbar-fixed-top hidden-xs hidden-sm visible-md visible-lg" role="navigation" id="myNavbar">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse"
+                            data-target=".navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span> <span
+                            class="icon-bar"></span> <span class="icon-bar"></span> <span
+                            class="icon-bar"></span>
+                    </button>
+                </div>
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li>
+                            <p class="navbar-btn">
+                                <a data-toggle="tab" href="#panel1" class="btn btn-default"><img height="32px" width="32px"
+                                                                                                 th:src="@{/icons/menu/view.png}"></img><b> Просмотр</b></a>
+                            </p>
+                        </li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <p class="navbar-btn" style="margin-right: 10px">
+                                <a data-toggle="tab" href="#panel2" class="btn btn-default"><b>Добавление </b><img height="32px" width="32px"
+                                                                                                                   th:src="@{/icons/menu/add.png}"></img></a>
+                            </p>
+                        </li>
+                    </ul>
+                </div>
             </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>
-                        <p class="navbar-btn btn-block">
-                            <a data-toggle="tab" href="#panel1" class="btn btn-block"><b>Просмотр</b></a>
-                        </p>
-                    </li>
-                    <li>
-                        <p class="navbar-btn btn-block">
-                            <a data-toggle="tab" href="#panel2" class="btn btn-block"><b>Добавление</b></a>
-                        </p>
-                    </li>
-                </ul>
+        </nav>
+        <nav class="navbar navbar-inverse navbar-fixed-top visible-xs visible-sm hidden-md hidden-lg" role="navigation" id="myNavbar">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse"
+                            data-target=".navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span> <span
+                            class="icon-bar"></span> <span class="icon-bar"></span> <span
+                            class="icon-bar"></span>
+                    </button>
+                </div>
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li>
+                            <p class="navbar-btn btn-block">
+                                <a data-toggle="tab" href="#panel1" class="btn btn-block"><b>Просмотр</b></a>
+                            </p>
+                        </li>
+                        <li>
+                            <p class="navbar-btn btn-block">
+                                <a data-toggle="tab" href="#panel2" class="btn btn-block"><b>Добавление</b></a>
+                            </p>
+                        </li>
+                    </ul>
+                </div>
             </div>
-        </div>
-    </nav>
-<br/>
-<div class="container-fluid height-full">
-    <div class="row content">
-        <div class="tab-content">
-            <div id="panel1" class="tab-pane fade in active">
-                <table class="table table-hover">
-                    <thead class="thead-inverse">
-                    <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">Дата и время</th>
-                        <th scope="col">Клиент</th>
-                        <th scope="col">Адрес</th>
-                        <th scope="col">Водитель</th>
-                        <th scope="col">Машина</th>
-                        <th scope="col">Грузчики</th>
-                        <th scope="col">Описание</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr class="success">
-                        <th scope="row">1</th>
-                        <td>17.04.2018 12:00</td>
-                        <td>А.А. Иванов</td>
-                        <td>Пермь, ул. Куйбышева, 36</td>
-                        <td>Алибек</td>
-                        <td>Газель АА001А</td>
-                        <td>2</td>
-                        <td>Шкаф сборный IKEA, 50 кг</td>
-                    </tr>
-                    <tr class="danger">
-                        <th scope="row">2</th>
-                        <td>18.04.2018 14:00</td>
-                        <td>А.А. Петров</td>
-                        <td>Пермь, ул. Ленина, 45</td>
-                        <td>Насым</td>
-                        <td>Газель ББ002Б</td>
-                        <td>3</td>
-                        <td>Офисная бумага, 400 уп</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">3</th>
-                        <td>18.04.2018 10:00</td>
-                        <td>А.А. Сидоров</td>
-                        <td>Пермь, ул. Пушкина, 107а</td>
-                        <td>Артур</td>
-                        <td>Газель АА001А</td>
-                        <td>2</td>
-                        <td>Хлеб, 500 шт</td>
-                    </tr>
-                    <tr class="danger">
-                        <th scope="row">4</th>
-                        <td>18.04.2018 13:00</td>
-                        <td>А.А. Слуцкий</td>
-                        <td>Пермь, ул. Советская, 102</td>
-                        <td>Камиль</td>
-                        <td>Газель ВВ003В</td>
-                        <td>1</td>
-                        <td>Стиральная машина Indesit, 35 кг</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">5</th>
-                        <td>18.04.2018 16:00</td>
-                        <td>А.А. Денисов</td>
-                        <td>Пермь, ул. Ленина, 28</td>
-                        <td>Игорь</td>
-                        <td>Газель ББ002Б</td>
-                        <td>2</td>
-                        <td>Холодильник Bosh, 60 кг</td>
-                    </tr>
-                    <tr class="success">
-                        <th scope="row">6</th>
-                        <td>18.04.2018 19:00</td>
-                        <td>А.А. Васильев</td>
-                        <td>Пермь, ул. Плеханова, 2</td>
-                        <td>Сергей</td>
-                        <td>Цистерна ГГ004Г</td>
-                        <td>4</td>
-                        <td>Пиво, 2000 л</td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
-            <div id="panel2" class="tab-pane fade">
-                <div>
-                    <form>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label for="InputTime">Дата и время</label>
-                                <div class="input-group" id="datetimepicker">
-                                    <input type="text" class="form-control"/>
-                                    <span class="input-group-addon">
-                                        <i class="glyphicon glyphicon-calendar"></i>
-                                    </span>
+        </nav>
+        <br/>
+        <div class="container-fluid height-full">
+            <div class="row content">
+                <div class="tab-content">
+                    <div id="panel1" class="tab-pane fade in active">
+                        <table class="table table-hover fullscreen">
+                            <thead class="thead-inverse">
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Дата и время</th>
+                                    <th scope="col">Клиент</th>
+                                    <th scope="col">Адрес</th>
+                                    <th scope="col">Водитель</th>
+                                    <th scope="col">Машина</th>
+                                    <th scope="col">Грузчики</th>
+                                    <th scope="col">Описание</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="success">
+                                    <th scope="row">1</th>
+                                    <td>17.04.2018 12:00</td>
+                                    <td>А.А. Иванов</td>
+                                    <td>Пермь, ул. Куйбышева, 36</td>
+                                    <td>Алибек</td>
+                                    <td>Газель АА001А</td>
+                                    <td>2</td>
+                                    <td>Шкаф сборный IKEA, 50 кг</td>
+                                </tr>
+                                <tr class="danger">
+                                    <th scope="row">2</th>
+                                    <td>18.04.2018 14:00</td>
+                                    <td>А.А. Петров</td>
+                                    <td>Пермь, ул. Ленина, 45</td>
+                                    <td>Насым</td>
+                                    <td>Газель ББ002Б</td>
+                                    <td>3</td>
+                                    <td>Офисная бумага, 400 уп</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">3</th>
+                                    <td>18.04.2018 10:00</td>
+                                    <td>А.А. Сидоров</td>
+                                    <td>Пермь, ул. Пушкина, 107а</td>
+                                    <td>Артур</td>
+                                    <td>Газель АА001А</td>
+                                    <td>2</td>
+                                    <td>Хлеб, 500 шт</td>
+                                </tr>
+                                <tr class="danger">
+                                    <th scope="row">4</th>
+                                    <td>18.04.2018 13:00</td>
+                                    <td>А.А. Слуцкий</td>
+                                    <td>Пермь, ул. Советская, 102</td>
+                                    <td>Камиль</td>
+                                    <td>Газель ВВ003В</td>
+                                    <td>1</td>
+                                    <td>Стиральная машина Indesit, 35 кг</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">5</th>
+                                    <td>18.04.2018 16:00</td>
+                                    <td>А.А. Денисов</td>
+                                    <td>Пермь, ул. Ленина, 28</td>
+                                    <td>Игорь</td>
+                                    <td>Газель ББ002Б</td>
+                                    <td>2</td>
+                                    <td>Холодильник Bosh, 60 кг</td>
+                                </tr>
+                                <tr class="success">
+                                    <th scope="row">6</th>
+                                    <td>18.04.2018 19:00</td>
+                                    <td>А.А. Васильев</td>
+                                    <td>Пермь, ул. Плеханова, 2</td>
+                                    <td>Сергей</td>
+                                    <td>Цистерна ГГ004Г</td>
+                                    <td>4</td>
+                                    <td>Пиво, 2000 л</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div id="panel2" class="tab-pane fade">
+                        <div>
+                            <form>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="InputTime">Дата и время</label>
+                                        <div class="input-group" id="datetimepicker">
+                                            <input type="text" class="form-control" placeholder="Выберите дату и время"/>
+                                            <span class="input-group-addon">
+                                                <i class="glyphicon glyphicon-calendar"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="InputClient">ФИО Клиента</label>
+                                        <input type="text" class="form-control" id="InputClient" placeholder="Введите ФИО клиента"/>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="InputCity">Город</label>
+                                        <select class="form-control" id="InputCity">
+                                            <option>Выберите город</option>
+                                            <option>Пермь</option>
+                                            <option>Краснокамск</option>
+                                            <option>Кунгур</option>
+                                            <option>Березники</option>
+                                            <option>Лысьва</option>
+                                            <option>Соликамск</option>
+                                            <option>Очёр</option>
+                                            <option>Нытва</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="InputAddress">Адрес</label>
+                                        <input type="text" class="form-control" id="InputAddress" placeholder="Введите улицу и дом"/>
+                                    </div>
                                 </div>
-                                <script>
-                                    $(function () {
-                                        $('#datetimepicker').datetimepicker({
-                                            locale: 'ru'
-                                        });
-                                    });
-                                </script>
-                            </div>
-                            <div class="form-group">
-                                <label for="InputClient">ФИО Клиента</label>
-                                <input type="text" class="form-control" id="InputClient" placeholder="Введите ФИО клиента"/>
-                            </div>
-                            <div class="form-group">
-                                <label for="InputPhone">Телефон клиента</label>
-                                <input type="tel" class="form-control" id="InputPhone" placeholder="Введите номер телефона"/>
-                            </div>
-                            <div class="form-group">
-                                <label for="InputCity">Город</label>
-                                <input type="text" class="form-control" id="InputCity" placeholder="Введите город"/>
-                            </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>Телефон клиента</label>
+                                        <input type="tel" class="masked form-control" id="InputPhone" placeholder="X (XXX) XXX-XX-XX"
+                                               pattern="\d{1}\(\d{3}\) \d{3}\-\d{4}" title="10-digit number" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="InputDriver">Водитель</label>
+                                        <input type="text" class="form-control" id="InputDriver" placeholder="Введите имя водителя"/>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="InputCar">Машина</label>
+                                        <input type="text" class="form-control" id="InputCar" placeholder="Введите марку и номер машины"/>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="InputGofers">Грузчики</label>
+                                        <select class="form-control" id="InputGofers">
+                                            <option>Выберите количество грузчиков</option>
+                                            <option>1</option>
+                                            <option>2</option>
+                                            <option>3</option>
+                                            <option>4</option>
+                                            <option>5</option>
+                                            <option>6</option>
+                                            <option>7</option>
+                                            <option>8</option>
+                                            <option>9</option>
+                                            <option>10</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for ="description">Описание груза</label>
+                                        <textarea class="form-control noresize" id="description" placeholder="Введите описание"></textarea>
+                                    </div>
+                                    <div>
+                                        <button type="button" class="btn btn-block submit"><i class="fa fa-paper-plane" aria-hidden="true"></i>Отправить</button>
+                                    </div>
+                                    <br/>
+                                </div>
+                            </form>
                         </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label for="InputAddress">Адрес</label>
-                                <input type="text" class="form-control" id="InputAddress" placeholder="Введите улицу и дом"/>
-                            </div>
-                            <div class="form-group">
-                                <label for="InputDriver">Водитель</label>
-                                <input type="text" class="form-control" id="InputDriver" placeholder="Введите имя водителя"/>
-                            </div>
-                            <div class="form-group">
-                                <label for="InputCar">Машина</label>
-                                <input type="text" class="form-control" id="InputCar" placeholder="Введите марку и номер машины"/>
-                            </div>
-                            <div class="form-group">
-                                <label for="InputGofers">Грузчики</label>
-                                <input type="text" class="form-control" id="InputGofers" placeholder="Введите количество грузчиков"/>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label for ="description">Описание груза</label>
-                                <textarea class="form-control" id="description" placeholder="Введите описание"></textarea>
-                            </div>
-                            <div>
-                                <button type="button" class="btn btn-default submit"><i class="fa fa-paper-plane" aria-hidden="true"></i>Отправить</button>
-                            </div>
-                        </div>
-                    </form>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-</div>
-<!--/.container-->
+        <!--/.container-->
+        <div layout:fragment="custom-scripts">
+            <!--Custom page specific scripts goes here-->
+        </div>
 
-<div class="footer" id="footerid">
-    <div class="container">
-        <p class="text-muted">&copy; prmIT</p>
-    </div>
-</div>
-
-
-<div layout:fragment="custom-scripts">
-    <!--Custom page specific scripts goes here-->
-</div>
-
-</body>
+        <script type="text/javascript"
+                src="../../static/js/masking-input.js"
+                th:src="@{/js/masking-input.js}"
+                data-autoinit="true"></script>
+    </body>
 </html>
