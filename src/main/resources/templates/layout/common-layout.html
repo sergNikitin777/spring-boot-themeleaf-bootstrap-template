@@ -71,16 +71,28 @@
                     <ul class="nav navbar-nav">
                         <li>
                             <p class="navbar-btn">
-                                <a data-toggle="tab" href="#panel1" class="btn btn-default"><img height="32px" width="32px"
-                                                                                                 th:src="@{/icons/menu/view.png}"></img><b> Просмотр</b></a>
+                                <a data-toggle="tab" id="view" href="#panel1" class="btn btn-default viewbtn"><img height="32px" width="32px"
+                                                                                                 th:src="@{/icons/menu/view_blue.png}"></img><b> Просмотреть</b></a>
+                            </p>
+                        </li>
+                        <li>
+                            <p class="navbar-btn">
+                                <a data-toggle="tab" id="refresh" class="btn btn-default"><img height="32px" width="32px"
+                                                                                                 th:src="@{/icons/menu/refresh_blue.png}"></img><b> Обновить</b></a>
+                            </p>
+                        </li>
+                        <li>
+                            <p class="navbar-btn">
+                                <a data-toggle="tab" id="report" class="btn btn-default"><img height="32px" width="32px"
+                                                                                               th:src="@{/icons/menu/download_blue.png}"></img><b> Загрузить отчёт</b></a>
                             </p>
                         </li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
                         <li>
                             <p class="navbar-btn" style="margin-right: 10px">
-                                <a data-toggle="tab" href="#panel2" class="btn btn-default"><b>Добавление </b><img height="32px" width="32px"
-                                                                                                                   th:src="@{/icons/menu/add.png}"></img></a>
+                                <a data-toggle="tab" id="add" href="#panel2" class="btn btn-default addbtn"><b>Добавить </b><img height="32px" width="32px"
+                                                                                                                   th:src="@{/icons/menu/add_blue.png}"></img></a>
                             </p>
                         </li>
                     </ul>
@@ -101,12 +113,22 @@
                     <ul class="nav navbar-nav">
                         <li>
                             <p class="navbar-btn btn-block">
-                                <a data-toggle="tab" href="#panel1" class="btn btn-block navbtn"><b>Просмотр</b></a>
+                                <a data-toggle="tab" id="view_block" href="#panel1" class="btn btn-block navbtn viewbtn"><b>Просмотреть</b></a>
                             </p>
                         </li>
                         <li>
                             <p class="navbar-btn btn-block">
-                                <a data-toggle="tab" href="#panel2" class="btn btn-block navbtn"><b>Добавление</b></a>
+                                <a data-toggle="tab" id="add_block" href="#panel2" class="btn btn-block navbtn addbtn"><b>Добавить</b></a>
+                            </p>
+                        </li>
+                        <li>
+                            <p class="navbar-btn btn-block">
+                                <a data-toggle="tab" id="refresh_block" class="btn btn-block navbtn"><b>Обновить</b></a>
+                            </p>
+                        </li>
+                        <li>
+                            <p class="navbar-btn btn-block">
+                                <a data-toggle="tab" id="report_block" class="btn btn-block navbtn"><b>Загрузить отчёт</b></a>
                             </p>
                         </li>
                     </ul>
@@ -131,67 +153,8 @@
                                     <th scope="col">Описание</th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                <tr>
-                                    <th scope="row">1</th>
-                                    <td>17.04.2018 12:00</td>
-                                    <td class = "name">А.А. Иванов</td>
-                                    <td>Пермь, ул. Куйбышева, 36</td>
-                                    <td>Алибек</td>
-                                    <td>Газель АА001А</td>
-                                    <td>2</td>
-                                    <td>Шкаф сборный IKEA, 50 кг</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">2</th>
-                                    <td>18.04.2018 14:00</td>
-                                    <td class = "name">А.А. Петров</td>
-                                    <td>Пермь, ул. Ленина, 45</td>
-                                    <td>Насым</td>
-                                    <td>Газель ББ002Б</td>
-                                    <td>3</td>
-                                    <td>Офисная бумага, 400 уп</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">3</th>
-                                    <td>18.04.2018 10:00</td>
-                                    <td class = "name">А.А. Сидоров</td>
-                                    <td>Пермь, ул. Пушкина, 107а</td>
-                                    <td>Артур</td>
-                                    <td>Газель АА001А</td>
-                                    <td>2</td>
-                                    <td>Хлеб, 500 шт</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">4</th>
-                                    <td>18.04.2018 13:00</td>
-                                    <td class = "name">А.А. Слуцкий</td>
-                                    <td>Пермь, ул. Советская, 102</td>
-                                    <td>Камиль</td>
-                                    <td>Газель ВВ003В</td>
-                                    <td>1</td>
-                                    <td>Стиральная машина Indesit, 35 кг</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">5</th>
-                                    <td>18.04.2018 16:00</td>
-                                    <td class = "name">А.А. Денисов</td>
-                                    <td>Пермь, ул. Ленина, 28</td>
-                                    <td>Игорь</td>
-                                    <td>Газель ББ002Б</td>
-                                    <td>2</td>
-                                    <td>Холодильник Bosh, 60 кг</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">6</th>
-                                    <td>18.04.2018 19:00</td>
-                                    <td class = "name">А.А. Васильев</td>
-                                    <td>Пермь, ул. Плеханова, 2</td>
-                                    <td>Сергей</td>
-                                    <td>Цистерна ГГ004Г</td>
-                                    <td>4</td>
-                                    <td>Пиво, 2000 л</td>
-                                </tr>
+                            <tbody id="tablebody">
+
                             </tbody>
                         </table>
                     </div>
