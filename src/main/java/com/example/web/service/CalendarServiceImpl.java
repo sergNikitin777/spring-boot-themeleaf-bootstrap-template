@@ -7,11 +7,13 @@ import net.fortuna.ical4j.model.Calendar;
 import net.fortuna.ical4j.model.Component;
 import net.fortuna.ical4j.model.ComponentList;
 import net.fortuna.ical4j.model.component.VEvent;
+import net.fortuna.ical4j.model.component.VTimeZone;
 import org.apache.commons.httpclient.HostConfiguration;
 import org.apache.commons.httpclient.UsernamePasswordCredentials;
 import org.apache.commons.httpclient.auth.AuthScope;
 import org.osaf.caldav4j.CalDAVCollection;
 import org.osaf.caldav4j.CalDAVConstants;
+import org.osaf.caldav4j.exceptions.CalDAV4JException;
 import org.osaf.caldav4j.methods.CalDAV4JMethodFactory;
 import org.osaf.caldav4j.methods.HttpClient;
 import org.osaf.caldav4j.model.request.CalendarQuery;
@@ -62,6 +64,7 @@ public class CalendarServiceImpl implements CalendarService {
             CalendarQuery calendarQuery = gq.generate();
             List<Calendar> calendars = collection.queryCalendars(httpClient, calendarQuery);
 
+
             for (Calendar calendar : calendars) {
                 ComponentList componentList = calendar.getComponents().getComponents(Component.VEVENT);
                 Iterator<VEvent> eventIterator = componentList.iterator();
@@ -77,5 +80,27 @@ public class CalendarServiceImpl implements CalendarService {
         }
 
         return vEvents;
+    }
+
+    @Override
+    public void addVevent(String caldavHost, Integer caldavPort, String protocol, String username, String password, String calPrefix, String calPostfix,
+                          VEvent vEvent, VTimeZone vTimeZone) throws CalDAV4JException {
+
+        HttpClient httpClient = new HttpClient();
+        // I tried it with zimbra - but I had no luck using google calendar
+        httpClient.getHostConfiguration().setHost(caldavHost, caldavPort, protocol);
+
+        UsernamePasswordCredentials httpCredentials = new UsernamePasswordCredentials(username, password);
+        httpClient.getState().setCredentials(AuthScope.ANY, httpCredentials);
+        httpClient.getParams().setAuthenticationPreemptive(true);
+
+        CalDAVCollection collection = new CalDAVCollection(
+                calPrefix + username + calPostfix,
+                (HostConfiguration) httpClient.getHostConfiguration().clone(),
+                new CalDAV4JMethodFactory(),
+                CalDAVConstants.PROC_ID_DEFAULT
+        );
+
+        collection.add(httpClient,vEvent,vTimeZone);
     }
 }

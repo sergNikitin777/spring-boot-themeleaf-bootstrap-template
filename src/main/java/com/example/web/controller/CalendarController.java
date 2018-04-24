@@ -1,10 +1,12 @@
 package com.example.web.controller;
 
+import com.example.web.pojo.CalendarAddVeventReqPojo;
 import com.example.web.pojo.CalendarReqPojo;
 import com.example.web.service.CalendarService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import net.fortuna.ical4j.model.component.VEvent;
+import org.osaf.caldav4j.exceptions.CalDAV4JException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -51,6 +53,27 @@ public class CalendarController {
                 calendarReqPojo.getCalPrefix(),
                 calendarReqPojo.getCalPostfix());
         return new ResponseEntity<>(vEvents, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/calendar/addvevent", method = RequestMethod.POST)
+    public ResponseEntity<VEvent> calendarAddVevent(@Valid @RequestBody CalendarAddVeventReqPojo calendarAddVeventReqPojo) {
+
+        try {
+            calendarService.addVevent(calendarAddVeventReqPojo.getCaldavHost(),
+                    calendarAddVeventReqPojo.getCaldavPort(),
+                    calendarAddVeventReqPojo.getProtocol(),
+                    calendarAddVeventReqPojo.getUserName(),
+                    calendarAddVeventReqPojo.getPassword(),
+                    calendarAddVeventReqPojo.getCalPrefix(),
+                    calendarAddVeventReqPojo.getCalPostfix(),
+                    calendarAddVeventReqPojo.getVEvent(),
+                    calendarAddVeventReqPojo.getTimeZone());
+                    return new ResponseEntity<>(calendarAddVeventReqPojo.getVEvent(), HttpStatus.OK);
+        } catch (CalDAV4JException e) {
+            e.printStackTrace();
+            return new ResponseEntity<VEvent>(calendarAddVeventReqPojo.getVEvent(), HttpStatus.BAD_REQUEST);
+        }
+
     }
 
 }
