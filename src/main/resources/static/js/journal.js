@@ -4,8 +4,11 @@ $(document).ready(function () {
             locale: 'ru'
         });
     });
-    $('.btn-block a').on('click', function () {
+    $('.navbtn a').on('click', function () {
         $('.navbar-toggle').click()
+    });
+    $('.btn-block').on('click', function () {
+        $(this).blur();
     });
     $("#tableId tr").click(function() {
         var confirmed = confirm("Отправить СМС клиенту " + $(this).children(".name").html() + "?")
