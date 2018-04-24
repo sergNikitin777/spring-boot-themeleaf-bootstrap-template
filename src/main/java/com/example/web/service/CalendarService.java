@@ -10,6 +10,8 @@ public interface CalendarService {
 
     List<VEvent> findAllEvents(String caldavHost, Integer caldavPort, String protocol, String username, String password, String calPrefix, String calPostfix);
 
+    List<VTimeZone> findAllTimeZones(String caldavHost, Integer caldavPort, String protocol, String username, String password, String calPrefix, String calPostfix);
+
     void addVevent(String caldavHost, Integer caldavPort, String protocol, String username, String password, String calPrefix, String calPostfix,
                    VEvent vEvent, VTimeZone vTimeZone) throws CalDAV4JException;
 }
