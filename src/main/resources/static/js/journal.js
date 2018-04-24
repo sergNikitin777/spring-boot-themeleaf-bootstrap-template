@@ -7,4 +7,7 @@ $(document).ready(function () {
     $('.btn-block a').on('click', function () {
         $('.navbar-toggle').click()
     });
+    $("#tableId tr").click(function() {
+        confirm("Отправить СМС клиенту " + $(this).children(".name").html() + "?");
+    });
 });
