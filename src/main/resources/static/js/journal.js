@@ -4,12 +4,14 @@ $(document).ready(function () {
             locale: 'ru'
         });
     });
+
     $('.navbtn a').on('click', function () {
         $('.navbar-toggle').click()
     });
-    $('.btn-block').on('click', function () {
+    $('.btn').on('click', function () {
         $(this).blur();
     });
+
     $("#tableId tr").click(function() {
         var confirmed = confirm("Отправить СМС клиенту " + $(this).children(".name").html() + "?")
         if(confirmed) {
