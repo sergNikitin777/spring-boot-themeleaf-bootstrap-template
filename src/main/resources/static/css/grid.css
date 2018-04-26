@@ -1,37 +1,44 @@
-
 .navbar {
-  margin-bottom: 0;
-  border-radius: 0;
+    margin-bottom: 0;
+    border-radius: 0;
+    background-color: #162C9A;
+}
+
+.navbar-right {
+    margin-right: 3px !important;
 }
 
 /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
 .row.content {
-padding:0;
-margin:0;
-height:100%;
+    padding:0;
+    margin:0;
+    height:100%;
 }
 
 /* Set gray background color and 100% height */
 .sidenav {
-  padding-top: 20px;
-  background-color: #f1f1f1;
-  height: 100%;
+    padding-top: 20px;
+    background-color: #f1f1f1;
+    height: 100%;
 }
 
 /* Set black background color, white text and some padding */
 footer {
-  background-color: #555;
-  color: white;
-  padding: 0px;
+    background-color: #555;
+    color: white;
+    padding: 0px;
 }
 
 /* On small screens, set height to 'auto' for sidenav and grid */
 @media screen and (max-width: 767px) {
-  .sidenav {
-	height: auto;
-	padding: 5px;
-  }
-  .row.content {height:auto;}
+    .sidenav {
+        height: auto;
+        padding: 5px;
+    }
+    .row.content {height:auto;}
+    .viewpoint-control {
+        margin: -30px 23px -10px;
+    }
 }
 .dropdown:hover .dropdown-menu {
     display: block;
@@ -39,14 +46,6 @@ footer {
 
 .navbar-nav > li > a, .navbar-brand {
     padding-bottom:0 !important;
-    height: 60px;
-}
-
-.btn-margin-left {
-    margin-left: 10px;
-}
-.btn-margin-right {
-    margin-right: 2px;
 }
 
 nav {
@@ -54,10 +53,10 @@ nav {
 }
 
 .btn {
-  background-color: #222222;
-  border-color: #222222;
-  color: #ffffff;
-  white-space:normal !important;
+    background-color: #162C9A;
+    border-color: #162C9A;
+    color: #ffffff;
+    white-space:normal !important;
 }
 
 .btn:hover {
@@ -68,4 +67,28 @@ nav {
 .noresize {
     resize: none;
     height: 207px !important;
+}
+
+#calendar {
+    width: 100% !important;
+    margin: -10px;
+}
+
+#viewpoint ul {
+    height: 30px;
+    margin: -20px 0 0;
+}
+
+.viewpoint-control {
+    list-style-type: none;
+    padding: 0;
+    overflow: hidden;;
+}
+
+.viewpoint-control li {
+    float: right;
+}
+
+#monthviewpoint {
+    margin-right: 13px;
 }

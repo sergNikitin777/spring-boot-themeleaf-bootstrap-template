@@ -2,9 +2,108 @@ $(document).ready(function () {
     var options = { year: 'numeric', month: 'long', day: 'numeric', timeZone: '' };
     var xhrCalendarEvents = new XMLHttpRequest();
     var eventList = new Map();
-    updateTable();
+    var currentDate = new Date();
+    var year = currentDate.getFullYear();
+    var month = currentDate.getMonth() + 1;
+    var day = currentDate.getDate();
+    $('#calendar').attr("src", "https://calendar.yandex.ru/day?uid=641146316&show_date="+year+"-"+month+"-"+day+"&embed=&private_token=cf54ec9c0ec6b90948d04f8d9ddc71462918b926&tz_id=Asia%2FYekaterinburg");
 
-    function updateTable () {
+    toggleCalendarHeight();
+    updateTable("month");
+
+    function toggleCalendarHeight() {
+        var screenHeight = document.documentElement.clientHeight
+            - 60 +  "px";
+        document.getElementById("calendar").style.height = screenHeight;
+    }
+
+    function getUID() {
+        return "ne" + Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 5) + "yandex.ru";
+    }
+
+    function getUTC(date) {
+        var dateUTC = '';
+        dateUTC += date.getUTCFullYear();
+        if (date.getUTCMonth() < 10) dateUTC += '0' + date.getUTCMonth();
+        else dateUTC += date.getUTCMonth();
+        if (date.getUTCDate() < 10) dateUTC += '0' + date.getUTCDate();
+        else dateUTC += date.getUTCDate();
+        dateUTC += 'T'
+        if (date.getUTCHours() < 10) dateUTC += '0' + date.getUTCHours();
+        else dateUTC += date.getUTCHours();
+        if (date.getUTCMinutes() < 10) dateUTC += '0' + date.getUTCMinutes();
+        else dateUTC += date.getUTCMinutes();
+        if (date.getUTCSeconds() < 10) dateUTC += '0' + date.getUTCSeconds();
+        else dateUTC += date.getUTCSeconds();
+        return dateUTC;
+    }
+
+    function addEvent(){
+        var dateandtime         = $('#InputTime').val();
+        var dateandtimeLocal    = new Date(dateandtime.substr(6,4), dateandtime.substr(3,2), dateandtime.substr(0,2), dateandtime.substr(11,2), dateandtime.substr(14,2));
+        var dateandtimeUTC      = getUTC(dateandtimeLocal);
+        var currentDateUTC      = getUTC(currentDate);
+        var enddate             = new Date(dateandtimeLocal.getTime() + 3600000);
+        var enddateUTC          = getUTC(enddate);
+        var summary             = $('#InputClient').val();
+        var location            = $('#InputAddress').val() + ', ' + $('#InputCity').val();
+        var description         = 'Водитель ' + $('#InputDriver').val() + '; ' + $('#InputCar').val() + '; ' +
+                                    $('#InputGofers').val() + ' грузчик(ов); ' + $('#description').val();
+
+        var vEvent = JSON.parse(JSON.stringify(eventList[0]));
+        vEvent.properties[0].date = dateandtimeLocal.getTime();
+        vEvent.properties[0].value = dateandtimeUTC;
+        vEvent.properties[1].date = enddate.getTime();
+        vEvent.properties[1].value = enddateUTC;
+        vEvent.properties[2].value = summary;
+        vEvent.properties[3].value = getUID();
+        vEvent.properties[5].date = currentDate.getTime();
+        vEvent.properties[5].dateTime = currentDate.getTime();
+        vEvent.properties[5].value = currentDateUTC;
+        vEvent.properties[6].date = currentDate.getTime();
+        vEvent.properties[6].dateTime = currentDate.getTime();
+        vEvent.properties[6].value = currentDateUTC;
+        vEvent.properties[7].value = location;
+        vEvent.properties[8].value = description;
+        vEvent.properties[9].value = "https://calendar.yandex.ru/event?event_id=" + Math.round(Math.random()*10000000000).toString();
+        vEvent.properties[9].uri = vEvent.properties[9].value;
+        vEvent.location.value = vEvent.properties[7].value;
+        vEvent.url.value = vEvent.properties[9].value;
+        vEvent.url.uri = vEvent.properties[9].value;
+        vEvent.summary.value = vEvent.properties[2].value;
+        vEvent.description.value = vEvent.properties[8].value;
+        vEvent.endDate.date = vEvent.properties[1].date;
+        vEvent.endDate.value = vEvent.properties[1].value;
+        vEvent.dateStamp.date = vEvent.properties[5].date;
+        vEvent.dateStamp.dateTime = vEvent.properties[5].dateTime;
+        vEvent.dateStamp.value = vEvent.properties[5].value;
+        vEvent.created.date = vEvent.properties[5].date;
+        vEvent.created.dateTime = vEvent.properties[5].dateTime;
+        vEvent.created.value = vEvent.properties[5].value;
+        vEvent.startDate.date = vEvent.properties[0].date;
+        vEvent.startDate.value = vEvent.properties[0].value;
+        vEvent.uid.value = vEvent.properties[3].value;
+
+        
+    }
+
+    function updateTable (viewpoint) {
+        var limitms = new Date();
+        switch (viewpoint) {
+            case "day":   {
+                limitms.setDate(limitms.getDate() + 1);
+                break;
+            }
+            case "week":  {
+                limitms.setDate(limitms.getDate() + 7);
+                break;
+            }
+            case "month": {
+
+                limitms.setMonth(limitms.getMonth() + 1);
+                break;
+            }
+        }
         xhrCalendarEvents.open('POST', 'calendar/eventsbyparam', true);
         xhrCalendarEvents.setRequestHeader("Content-type", "application/json");
         xhrCalendarEvents.onreadystatechange = function () {
@@ -15,7 +114,7 @@ $(document).ready(function () {
                 });
 
                 for (var i = 0; i < eventList.length; i++) {
-                    if (eventList[i].description != null) {
+                    if ((eventList[i].description != null) && (new Date(eventList[i].startDate.date) < limitms) && (new Date(eventList[i].startDate.date) > currentDate)) {
                         var index = i + 1;
                         var row = $('<tr class="clickrow">');
                         row.on('click', function() {
@@ -64,35 +163,46 @@ $(document).ready(function () {
 
     $(function () {
         $('#datetimepicker').datetimepicker({
-            locale: 'ru'
+            locale: 'ru',
+            sideBySide: true
         });
     });
 
+    // Пользовательские события
     $('.navbtn').on('click', function () {
         $('.navbar-toggle').click();
     });
     $('.btn').on('click', function () {
         $(this).blur();
     });
-    $('.addbtn').on('click', function () {
-        $('#refresh').hide();
-        $('#refresh_block').hide();
-        $('#report').hide();
-        $('#report_block').hide();
-    });
-    $('.viewbtn').on('click', function () {
-        $('#refresh').show();
-        $('#refresh_block').show();
-        $('#report').show();
-        $('#report_block').show();
+
+    $('#dayviewpoint').on('click', function() {
+        $("#tablebody").html("");
+        updateTable('day');
     });
 
-    $('#refresh').on('click', function () {
+    $('#weekviewpoint').on('click', function() {
         $("#tablebody").html("");
-        updateTable ();
+        updateTable('week');
     });
-    $('#refresh_block').on('click', function () {
+
+    $('#monthviewpoint').on('click', function() {
         $("#tablebody").html("");
-        updateTable ();
+        updateTable('month');
+    });
+
+    $('#Send').on('click', function(){
+        addEvent();
+    })
+
+    $('#InputTime').keypress(function( event ) {
+        event.preventDefault();
+    });
+
+    $(window).resize(function () {
+        toggleCalendarHeight(); // потом при каждом растяжении окна
+        setTimeout(function () {
+            toggleCalendarHeight();
+        }, 100); //для медлительных дёргаем дважды
     });
 });
