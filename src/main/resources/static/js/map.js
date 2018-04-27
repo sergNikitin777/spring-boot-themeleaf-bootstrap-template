@@ -1,5 +1,10 @@
 $(document).ready(function () {
 
+    $('.leftmenutrigger').on('click', function(e) {
+        $('.side-nav').toggleClass("open");
+        e.preventDefault();
+    });
+
     Array.prototype.sample = function(){
         return this[Math.floor(Math.random()*this.length)];
     }; // WIP1, нужно для рандомизации иконок, убрать, когда иконки будут в базе.
@@ -14,8 +19,7 @@ $(document).ready(function () {
     if (document.getElementById("mapid") != null) {
         function toggleMapHeight() {
             var screenHeight = document.documentElement.clientHeight
-                - document.getElementById("footerid").clientHeight
-                - document.getElementById("myNavbar").clientHeight - 15 + "px";
+                - document.getElementById("footerid").clientHeight - 20 +  "px";
             document.getElementById("mapid").style.height = screenHeight;
         }
 

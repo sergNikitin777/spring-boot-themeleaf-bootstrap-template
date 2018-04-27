@@ -1,248 +1,260 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	xmlns:th="http://www.thymeleaf.org"
-	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <title layout:title-pattern="$CONTENT_TITLE - $DECORATOR_TITLE">&copy; prmIT</title>
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1, maximum-scale=1"/>
-    <!-- Bootstrap core CSS/JS -->
-    <link
-            href="http://cdn.jsdelivr.net/webjars/bootstrap/3.3.7/css/bootstrap.min.css"
-            th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}"
-            rel="stylesheet" media="screen"/>
-    <script th:src="@{/webjars/jquery/3.3.1/jquery.min.js}"></script>
-    <script th:src="@{/webjars/bootstrap/3.3.7/js/bootstrap.min.js}"></script>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+        <title layout:title-pattern="$CONTENT_TITLE - $DECORATOR_TITLE">&copy; prmIT</title>
+        <meta name="viewport"
+              content="width=device-width, initial-scale=1, maximum-scale=1"/>
+        <!-- Bootstrap core CSS/JS -->
+        <link
+                href="http://cdn.jsdelivr.net/webjars/bootstrap/3.3.7/css/bootstrap.min.css"
+                th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}"
+                rel="stylesheet" media="screen"/>
+        <script th:src="@{/webjars/jquery/3.3.1/jquery.min.js}"></script>
+        <script th:src="@{/webjars/bootstrap/3.3.7/js/bootstrap.min.js}"></script>
 
-    <!--[if lt IE 9]>
-    <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
+        <!--[if lt IE 9]>
+        <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
 
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css"
-          integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ=="
-          crossorigin=""/>
-    <script src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js"
-            integrity="sha512-/Nsx9X4HebavoBvEBuyp3I7od5tA0UzAxs+j83KgC8PU0kgB4XiK4Lfe4y4cgBtaRJQEIFCW+oC506aPT2L1zw=="
-            crossorigin=""></script>
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css"
+              integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ=="
+              crossorigin=""/>
+        <script src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js"
+                integrity="sha512-/Nsx9X4HebavoBvEBuyp3I7od5tA0UzAxs+j83KgC8PU0kgB4XiK4Lfe4y4cgBtaRJQEIFCW+oC506aPT2L1zw=="
+                crossorigin=""></script>
 
-    <!-- Styles for this template -->
-    <link rel="stylesheet" type="text/css" media="all"
-          href="../../static/css/dashboard.css" th:href="@{/css/dashboard.css}"/>
-    <!-- Custom CSS Style -->
-    <link rel="stylesheet" type="text/css" media="all"
-          href="../../static/css/custom-style.css" th:href="@{/css/custom-style.css}"/>
-    <link rel="stylesheet" type="text/css" media="all"
-          href="../../static/css/grid.css" th:href="@{/css/grid.css}"/>
-    <link rel="stylesheet" href="../../static/jstree/dist/themes/default/style.css"
-          th:href="@{/jstree/dist/themes/default/style.css}"/>
+        <!-- Styles for this template -->
+        <link rel="stylesheet" type="text/css" media="all"
+              href="../../static/css/dashboard.css" th:href="@{/css/dashboard.css}"/>
+        <!-- Custom CSS Style -->
+        <link rel="stylesheet" type="text/css" media="all"
+              href="../../static/css/custom-style.css" th:href="@{/css/custom-style.css}"/>
+        <link rel="stylesheet" type="text/css" media="all"
+              href="../../static/css/grid.css" th:href="@{/css/grid.css}"/>
+        <link rel="stylesheet" href="../../static/jstree/dist/themes/default/style.css"
+              th:href="@{/jstree/dist/themes/default/style.css}"/>
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" />
 
-    <script th:src="@{/jstree/dist/jstree.min.js}"></script>
-    <!--script th:src="@{/jstree/dist/jstree.js}"></script-->
-
-
-    <script src="../../../js/custom-scripts.js"
-            th:src="@{/js/custom-scripts.js}"></script>
-    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <script type="text/javascript"
-            src="../../js/ie10-viewport-bug-workaround.js"
-            th:src="@{/js/ie10-viewport-bug-workaround.js}"></script>
-
-    <script th:src="@{/js/map.js}"></script>
+        <script th:src="@{/jstree/dist/jstree.min.js}"></script>
+        <!--script th:src="@{/jstree/dist/jstree.js}"></script-->
 
 
-</head>
+        <script src="../../../js/custom-scripts.js"
+                th:src="@{/js/custom-scripts.js}"></script>
+        <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+        <script type="text/javascript"
+                src="../../js/ie10-viewport-bug-workaround.js"
+                th:src="@{/js/ie10-viewport-bug-workaround.js}"></script>
 
-<body>
-<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation" id="myNavbar">
-    <div class="container-fluid">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse"
-                    data-target=".navbar-collapse">
-                <span class="sr-only">Toggle navigation</span> <span
-                    class="icon-bar"></span> <span class="icon-bar"></span> <span
-                    class="icon-bar"></span>
-            </button>
-        </div>
-        <div class="navbar-collapse collapse">
-            <ul class="nav navbar-nav">
-                <li>
-                    <p class="navbar-btn">
-                        <a href="#" th:href="@{/operlog}" class="btn btn-default"><img
-                              th:src="@{/icons/menu/books.png}"></img><b> Отчеты</b></a>
-                    </p>
-                </li>
-                <li>
-                    <p class="navbar-btn">
-                        <a href="#panel1" th:href="@{/home}" class="btn btn-default"><img
-                                th:src="@{/icons/menu/world.png}"></img><b> Карта</b></a>
-                    </p>
-                </li>
-                <li>
-                    <p class="navbar-btn">
-                        <a data-toggle="tab" href="#panel2" class="btn btn-default"><img
-                                th:src="@{/icons/menu/book.png}"></img><b> Текущие работы</b></a>
-                    </p>
-                </li>
-                <li>
-                    <p class="navbar-btn">
-                        <a data-toggle="tab" href="#panel2" class="btn btn-default"><img
-                                th:src="@{/icons/menu/phone.png}"></img><b> Оповестить службу</b></a>
-                    </p>
-                </li>
-                <li>
-                    <p class="navbar-btn">
-                        <a data-toggle="tab" href="#panel2" class="btn btn-default"><img
-                                th:src="@{/icons/menu/contact.png}"></img><b> Журнал</b></a>
-                    </p>
-                </li>
-                <li>
-                    <p class="navbar-btn">
-                        <a href="#" class="btn btn-default"><img th:src="@{/icons/menu/Settings.png}" height="32"
-                                                                 width="32"></img><b> Настройка</b></a>
-                    </p>
-                </li>
-                <li>
-                    <p class="navbar-btn">
-                        <a href="#" class="btn btn-default"><img th:src="@{/icons/menu/Time.png}"></img><b> Календарь</b></a>
-                    </p>
-                </li>
-                <li>
-                    <p class="navbar-btn">
-                        <a href="#" class="btn btn-default"><img th:src="@{/icons/menu/Keys.png}"></img><b> Ключи</b></a>
-                    </p>
-                </li>
-            </ul>
-            <ul class="nav navbar-nav navbar-right">
-                <li>
-                    <p class="navbar-btn">
-                        <a href="#" class="btn btn-default"><b>Администрирование</b><img
-                                th:src="@{/icons/menu/admin.png}"></img></a>
-                    </p>
-                </li>
-            </ul>
+        <script th:src="@{/js/map.js}"></script>
 
-        </div>
-    </div>
-</nav>
-<br/>
-<div class="container-fluid height-full">
 
-    <div class="row content">
-        <div class="col-sx-3 col-sm-3 col-md-3 col-lg-3 sidenav" id="jstree_demo_div">
-        </div>
-        <div class="tab-content col-sx-9 col-sm-9 col-md-9 col-lg-9">
-            <div id="panel1" class="tab-pane fade in active">
-                <div layout:fragment="content">
-                    <p>Page content goes here</p>
+    </head>
+
+    <body>
+        <br/>
+        <div class="container-fluid height-full">
+
+            <div class="row content">
+                <div class="col-sx-3 col-sm-3 col-md-3 col-lg-3">
+                    <div class="nav-side-menu">
+                        <div class="brand">Emercom</div>
+                        <i class="fa fa-bars fa-2x toggle-btn" data-toggle="collapse" data-target="#menu-content"></i>
+
+                        <div class="menu-list">
+
+                            <ul id="menu-content" class="menu-content collapse out">
+                                <li>
+                                    <a data-toggle="tab" href="#panel11"><i class="fa fa-bell fa-lg"></i>Уведомления</a>
+                                </li>
+                                <li>
+                                    <a data-toggle="tab"  href="#panel2"><i class="fa fa-building fa-lg"></i>Оборудование</a>
+                                </li>
+                                <li>
+                                    <a data-toggle="tab"  href="#panel3"><i class="fa fa-suitcase fa-lg"></i>Контракты</a>
+                                </li>
+                                <li>
+                                    <a data-toggle="tab"  href="#panel4"><i class="fa fa-tasks fa-lg"></i>Задачи</a>
+                                </li>
+                                <li>
+                                    <a data-toggle="tab"  href="#panel5"><i class="fa fa-circle fa-lg"></i>Заявки</a>
+                                </li>
+
+                                <li data-toggle="collapse" data-target="#service" class="collapsed">
+                                    <a href="#panel6"><i class="fa fa-university fa-lg"></i> Компании <span class="arrow"></span></a>
+                                </li>
+                                <ul class="sub-menu collapse" id="service">
+                                    <li><a href="#panel7">Заказчики</a></li>
+                                    <li><a href="#panel8">Исполнители</a></li>
+                                    <li><a href="#panel9">Связанные организации</a></li>
+                                </ul>
+                                <li>
+                                    <a data-toggle="tab"  href="#panel10"><i class="fa fa-file-text-o fa-lg"></i>Документы</a>
+                                </li>
+                                <li>
+                                    <a  data-toggle="tab" href="#panel13"><i class="fa fa-users fa-lg"></i>Сотрудники</a>
+                                </li>
+                                <li>
+                                    <a  data-toggle="tab" href="#panel12"><i class="fa fa-calendar fa-lg"></i>Календарь</a>
+                                </li>
+                                <li>
+                                    <a  data-toggle="tab" href="#panel1"><i class="fa fa-globe fa-lg"></i>Карта</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-content col-sx-9 col-sm-9 col-md-9 col-lg-9">
+                    <div id="panel1" class="tab-pane fade in active">
+                        <div layout:fragment="content">
+                            <p>Page content goes here</p>
+                        </div>
+                    </div>
+                    <div id="panel2" class="tab-pane fade">
+                        <table class="table table-hover">
+                            <thead class="thead-inverse">
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Дата выполнения</th>
+                                    <th scope="col">Объект</th>
+                                    <th scope="col">Кем проверен</th>
+                                    <th scope="col">Статус</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="success">
+                                    <th scope="row">1</th>
+                                    <td>10.01.2018</td>
+                                    <td>Луначарского 54</td>
+                                    <td>Иван</td>
+                                    <td>Выполнено</td>
+                                </tr>
+                                <tr class="danger">
+                                    <th scope="row">2</th>
+                                    <td>10.01.2018</td>
+                                    <td>Куйбышего 23</td>
+                                    <td>Иван</td>
+                                    <td>Не выполнено</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">3</th>
+                                    <td>12.01.2018</td>
+                                    <td>Монастырского 2</td>
+                                    <td>Виктор</td>
+                                    <td>Ожидается</td>
+                                </tr>
+                                <tr class="danger">
+                                    <th scope="row">2</th>
+                                    <td>12.01.2018</td>
+                                    <td>Куйбышего 102</td>
+                                    <td>Виктор</td>
+                                    <td>Не выполнено</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">3</th>
+                                    <td>12.01.2018</td>
+                                    <td>Куйбышего 122</td>
+                                    <td>Андрей</td>
+                                    <td>Ожидается</td>
+                                </tr>
+                                <tr class="success">
+                                    <th scope="row">2</th>
+                                    <td>14.01.2018</td>
+                                    <td>Петропавловская 11</td>
+                                    <td>Андрей</td>
+                                    <td>Выполнено</td>
+                                </tr>
+                                <tr class="success">
+                                    <th scope="row">3</th>
+                                    <td>15.01.2018</td>
+                                    <td>Петропавловская 23</td>
+                                    <td>Никита</td>
+                                    <td>Выполнено</td>
+                                </tr>
+                                <tr class="success">
+                                    <th scope="row">2</th>
+                                    <td>15.01.2018</td>
+                                    <td>Петропавловская 68</td>
+                                    <td>Никита</td>
+                                    <td>Выполнено</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">3</th>
+                                    <td>20.01.2018</td>
+                                    <td>Комсомольский проспект 70</td>
+                                    <td>Никита</td>
+                                    <td>Ожидается</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+                    <div id="panel3" class="tab-pane fade">
+                        <h3>Панель 3</h3>
+                        <p>Содержимое 3 панели...</p>
+                    </div>
+                    <div id="panel4" class="tab-pane fade">
+                        <h3>Панель 4</h3>
+                        <p>Содержимое 4 панели...</p>
+                    </div>
+                    <div id="panel5" class="tab-pane fade">
+                        <h3>Панель 5</h3>
+                        <p>Содержимое 5 панели...</p>
+                    </div>
+                    <div id="panel6" class="tab-pane fade">
+                        <h3>Панель 6</h3>
+                        <p>Содержимое 6 панели...</p>
+                    </div>
+                    <div id="panel7" class="tab-pane fade">
+                        <h3>Панель 7</h3>
+                        <p>Содержимое 7 панели...</p>
+                    </div>
+                    <div id="panel8" class="tab-pane fade">
+                        <h3>Панель 8</h3>
+                        <p>Содержимое 8 панели...</p>
+                    </div>
+                    <div id="panel9" class="tab-pane fade">
+                        <h3>Панель 9</h3>
+                        <p>Содержимое 9 панели...</p>
+                    </div>
+                    <div id="panel10" class="tab-pane fade">
+                        <h3>Панель 10</h3>
+                        <p>Содержимое 10 панели...</p>
+                    </div>
+                    <div id="panel11" class="tab-pane fade">
+                        <h3>Панель 11</h3>
+                        <p>Содержимое 11 панели...</p>
+                    </div>
+                    <div id="panel12" class="tab-pane fade">
+                        <h3>Панель 12</h3>
+                        <p>Содержимое 12 панели...</p>
+                    </div>
+                    <div id="panel13" class="tab-pane fade">
+                        <h3>Панель 12</h3>
+                        <p>Содержимое 12 панели...</p>
+                    </div>
                 </div>
             </div>
-            <div id="panel2" class="tab-pane fade">
-                <table class="table table-hover">
-                    <thead class="thead-inverse">
-                    <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">Дата выполнения</th>
-                        <th scope="col">Объект</th>
-                        <th scope="col">Кем проверен</th>
-                        <th scope="col">Статус</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr class="success">
-                        <th scope="row">1</th>
-                        <td>10.01.2018</td>
-                        <td>Луначарского 54</td>
-                        <td>Иван</td>
-                        <td>Выполнено</td>
-                    </tr>
-                    <tr class="danger">
-                        <th scope="row">2</th>
-                        <td>10.01.2018</td>
-                        <td>Куйбышего 23</td>
-                        <td>Иван</td>
-                        <td>Не выполнено</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">3</th>
-                        <td>12.01.2018</td>
-                        <td>Монастырского 2</td>
-                        <td>Виктор</td>
-                        <td>Ожидается</td>
-                    </tr>
-                    <tr class="danger">
-                        <th scope="row">2</th>
-                        <td>12.01.2018</td>
-                        <td>Куйбышего 102</td>
-                        <td>Виктор</td>
-                        <td>Не выполнено</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">3</th>
-                        <td>12.01.2018</td>
-                        <td>Куйбышего 122</td>
-                        <td>Андрей</td>
-                        <td>Ожидается</td>
-                    </tr>
-                    <tr class="success">
-                        <th scope="row">2</th>
-                        <td>14.01.2018</td>
-                        <td>Петропавловская 11</td>
-                        <td>Андрей</td>
-                        <td>Выполнено</td>
-                    </tr>
-                    <tr class="success">
-                        <th scope="row">3</th>
-                        <td>15.01.2018</td>
-                        <td>Петропавловская 23</td>
-                        <td>Никита</td>
-                        <td>Выполнено</td>
-                    </tr>
-                    <tr class="success">
-                        <th scope="row">2</th>
-                        <td>15.01.2018</td>
-                        <td>Петропавловская 68</td>
-                        <td>Никита</td>
-                        <td>Выполнено</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">3</th>
-                        <td>20.01.2018</td>
-                        <td>Комсомольский проспект 70</td>
-                        <td>Никита</td>
-                        <td>Ожидается</td>
-                    </tr>
-                    </tbody>
-                </table>
+        </div>
+        <!--/.container-->
 
-            </div>
-            <div id="panel3" class="tab-pane fade">
-                <h3>Панель 3</h3>
-                <p>Содержимое 3 панели...</p>
-            </div>
-            <div id="panel4" class="tab-pane fade">
-                <h3>Панель 4</h3>
-                <p>Содержимое 4 панели...</p>
+
+
+        <div class="footer" id="footerid">
+            <div class="container">
+                <p class="text-muted">&copy; prmIT</p>
             </div>
         </div>
-    </div>
-</div>
-<!--/.container-->
 
 
+        <div layout:fragment="custom-scripts">
+            <!--Custom page specific scripts goes here-->
+        </div>
 
-<div class="footer" id="footerid">
-    <div class="container">
-        <p class="text-muted">&copy; prmIT</p>
-    </div>
-</div>
-
-
-<div layout:fragment="custom-scripts">
-    <!--Custom page specific scripts goes here-->
-</div>
-
-</body>
+    </body>
 </html>
