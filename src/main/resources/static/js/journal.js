@@ -31,7 +31,7 @@ $(document).ready(function () {
         else dateUTC += date.getUTCMonth();
         if (date.getUTCDate() < 10) dateUTC += '0' + date.getUTCDate();
         else dateUTC += date.getUTCDate();
-        dateUTC += 'T'
+        dateUTC += 'T';
         if (date.getUTCHours() < 10) dateUTC += '0' + date.getUTCHours();
         else dateUTC += date.getUTCHours();
         if (date.getUTCMinutes() < 10) dateUTC += '0' + date.getUTCMinutes();
@@ -51,11 +51,12 @@ $(document).ready(function () {
             "protocol": "https",
             "userName": "logistikatest@yandex.ru"
         };
-        xhrTimeZone.open('POST', 'calendar/addevent', true);
+        xhrTimeZone.open('POST', 'calendar/timezones', true);
         xhrTimeZone.setRequestHeader("Content-type", "application/json");
+        xhrTimeZone.send(JSON.stringify(postJSON));
         xhrTimeZone.onreadystatechange = function () {
             if (xhrTimeZone.readyState == XMLHttpRequest.DONE && xhrTimeZone.status == 200) {
-                var tZ                  = JSON.parse(xhrTimeZone.responseText);
+                var tZ                  = JSON.parse(xhrTimeZone.responseText)[0];
                 var dateandtime         = $('#InputTime').val();
                 var dateandtimeLocal    = new Date(dateandtime.substr(6, 4), dateandtime.substr(3, 2), dateandtime.substr(0, 2),
                                             dateandtime.substr(11, 2), dateandtime.substr(14, 2));
@@ -102,21 +103,20 @@ $(document).ready(function () {
                 vEvent.startDate.value = vEvent.properties[0].value;
                 vEvent.uid.value = vEvent.properties[3].value;
 
-                postJSON.vevent = vEvent;
-                postJSON.timeZone = tZ;
-                xhrAddEvent.open('POST', '/calendar/timezones', true);
+                postJSON.vevent = JSON.stringify(vEvent);
+                postJSON.timeZone = JSON.stringify(tZ);
+                console.log(JSON.stringify(postJSON));
+                xhrAddEvent.open('POST', '/calendar/addvevent', true);
                 xhrAddEvent.setRequestHeader("Content-type", "application/json");
+                xhrAddEvent.send(JSON.stringify(postJSON));
                 xhrAddEvent.onreadystatechange = function () {
                     if (xhrAddEvent.readyState == XMLHttpRequest.DONE && xhrAddEvent.status == 200) {
                         console.log(xhrAddEvent.responseText);
                         updateTable('month');
                     }
                 };
-
-                xhrCalendarEvents.send(postJSON);
             }
         };
-        xhrTimeZone.send(postJSON);
     }
 
     function updateTable (viewpoint) {
@@ -225,7 +225,7 @@ $(document).ready(function () {
 
     $('#Send').on('click', function(){
         addEvent();
-    })
+    });
 
     $('#InputTime').keypress(function( event ) {
         event.preventDefault();
