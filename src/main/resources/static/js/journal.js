@@ -1,11 +1,14 @@
 $(document).ready(function () {
-    var options = { year: 'numeric', month: 'long', day: 'numeric', timeZone: '' };
-    var xhrCalendarEvents = new XMLHttpRequest();
-    var eventList = new Map();
-    var currentDate = new Date();
-    var year = currentDate.getFullYear();
-    var month = currentDate.getMonth() + 1;
-    var day = currentDate.getDate();
+    var options              = { year: 'numeric', month: 'long', day: 'numeric', timeZone: '' };
+    var xhrCalendarEvents    = new XMLHttpRequest();
+    var xhrAddEvent          = new XMLHttpRequest();
+    var xhrTimeZone          = new XMLHttpRequest();
+    var eventList            = new Map();
+    var tZ                   = new Map();
+    var currentDate          = new Date();
+    var year                 = currentDate.getFullYear();
+    var month                = currentDate.getMonth() + 1;
+    var day                  = currentDate.getDate();
     $('#calendar').attr("src", "https://calendar.yandex.ru/day?uid=641146316&show_date="+year+"-"+month+"-"+day+"&embed=&private_token=cf54ec9c0ec6b90948d04f8d9ddc71462918b926&tz_id=Asia%2FYekaterinburg");
 
     toggleCalendarHeight();
@@ -39,52 +42,81 @@ $(document).ready(function () {
     }
 
     function addEvent(){
-        var dateandtime         = $('#InputTime').val();
-        var dateandtimeLocal    = new Date(dateandtime.substr(6,4), dateandtime.substr(3,2), dateandtime.substr(0,2), dateandtime.substr(11,2), dateandtime.substr(14,2));
-        var dateandtimeUTC      = getUTC(dateandtimeLocal);
-        var currentDateUTC      = getUTC(currentDate);
-        var enddate             = new Date(dateandtimeLocal.getTime() + 3600000);
-        var enddateUTC          = getUTC(enddate);
-        var summary             = $('#InputClient').val();
-        var location            = $('#InputAddress').val() + ', ' + $('#InputCity').val();
-        var description         = 'Водитель ' + $('#InputDriver').val() + '; ' + $('#InputCar').val() + '; ' +
-                                    $('#InputGofers').val() + ' грузчик(ов); ' + $('#description').val();
+        var postJSON = {
+            "calPostfix": "/events-5825759",
+            "calPrefix": "/calendars/",
+            "caldavHost": "caldav.yandex.ru",
+            "caldavPort": 443,
+            "password": "kjubcn123456",
+            "protocol": "https",
+            "userName": "logistikatest@yandex.ru"
+        };
+        xhrTimeZone.open('POST', 'calendar/addevent', true);
+        xhrTimeZone.setRequestHeader("Content-type", "application/json");
+        xhrTimeZone.onreadystatechange = function () {
+            if (xhrTimeZone.readyState == XMLHttpRequest.DONE && xhrTimeZone.status == 200) {
+                var tZ                  = JSON.parse(xhrTimeZone.responseText);
+                var dateandtime         = $('#InputTime').val();
+                var dateandtimeLocal    = new Date(dateandtime.substr(6, 4), dateandtime.substr(3, 2), dateandtime.substr(0, 2),
+                                            dateandtime.substr(11, 2), dateandtime.substr(14, 2));
+                var dateandtimeUTC      = getUTC(dateandtimeLocal);
+                var currentDateUTC      = getUTC(currentDate);
+                var enddate             = new Date(dateandtimeLocal.getTime() + 3600000);
+                var enddateUTC          = getUTC(enddate);
+                var summary             = $('#InputClient').val();
+                var location            = $('#InputAddress').val() + ', ' + $('#InputCity').val();
+                var description         = 'Водитель ' + $('#InputDriver').val() + '; ' + $('#InputCar').val() + '; ' +
+                                            $('#InputGofers').val() + ' грузчик(ов); ' + $('#description').val();
 
-        var vEvent = JSON.parse(JSON.stringify(eventList[0]));
-        vEvent.properties[0].date = dateandtimeLocal.getTime();
-        vEvent.properties[0].value = dateandtimeUTC;
-        vEvent.properties[1].date = enddate.getTime();
-        vEvent.properties[1].value = enddateUTC;
-        vEvent.properties[2].value = summary;
-        vEvent.properties[3].value = getUID();
-        vEvent.properties[5].date = currentDate.getTime();
-        vEvent.properties[5].dateTime = currentDate.getTime();
-        vEvent.properties[5].value = currentDateUTC;
-        vEvent.properties[6].date = currentDate.getTime();
-        vEvent.properties[6].dateTime = currentDate.getTime();
-        vEvent.properties[6].value = currentDateUTC;
-        vEvent.properties[7].value = location;
-        vEvent.properties[8].value = description;
-        vEvent.properties[9].value = "https://calendar.yandex.ru/event?event_id=" + Math.round(Math.random()*10000000000).toString();
-        vEvent.properties[9].uri = vEvent.properties[9].value;
-        vEvent.location.value = vEvent.properties[7].value;
-        vEvent.url.value = vEvent.properties[9].value;
-        vEvent.url.uri = vEvent.properties[9].value;
-        vEvent.summary.value = vEvent.properties[2].value;
-        vEvent.description.value = vEvent.properties[8].value;
-        vEvent.endDate.date = vEvent.properties[1].date;
-        vEvent.endDate.value = vEvent.properties[1].value;
-        vEvent.dateStamp.date = vEvent.properties[5].date;
-        vEvent.dateStamp.dateTime = vEvent.properties[5].dateTime;
-        vEvent.dateStamp.value = vEvent.properties[5].value;
-        vEvent.created.date = vEvent.properties[5].date;
-        vEvent.created.dateTime = vEvent.properties[5].dateTime;
-        vEvent.created.value = vEvent.properties[5].value;
-        vEvent.startDate.date = vEvent.properties[0].date;
-        vEvent.startDate.value = vEvent.properties[0].value;
-        vEvent.uid.value = vEvent.properties[3].value;
+                var vEvent = JSON.parse(JSON.stringify(eventList[0]));
+                vEvent.properties[0].date = dateandtimeLocal.getTime();
+                vEvent.properties[0].value = dateandtimeUTC;
+                vEvent.properties[1].date = enddate.getTime();
+                vEvent.properties[1].value = enddateUTC;
+                vEvent.properties[2].value = summary;
+                vEvent.properties[3].value = getUID();
+                vEvent.properties[5].date = currentDate.getTime();
+                vEvent.properties[5].dateTime = currentDate.getTime();
+                vEvent.properties[5].value = currentDateUTC;
+                vEvent.properties[6].date = currentDate.getTime();
+                vEvent.properties[6].dateTime = currentDate.getTime();
+                vEvent.properties[6].value = currentDateUTC;
+                vEvent.properties[7].value = location;
+                vEvent.properties[8].value = description;
+                vEvent.properties[9].value = "https://calendar.yandex.ru/event?event_id=" + Math.round(Math.random() * 10000000000).toString();
+                vEvent.properties[9].uri = vEvent.properties[9].value;
+                vEvent.location.value = vEvent.properties[7].value;
+                vEvent.url.value = vEvent.properties[9].value;
+                vEvent.url.uri = vEvent.properties[9].value;
+                vEvent.summary.value = vEvent.properties[2].value;
+                vEvent.description.value = vEvent.properties[8].value;
+                vEvent.endDate.date = vEvent.properties[1].date;
+                vEvent.endDate.value = vEvent.properties[1].value;
+                vEvent.dateStamp.date = vEvent.properties[5].date;
+                vEvent.dateStamp.dateTime = vEvent.properties[5].dateTime;
+                vEvent.dateStamp.value = vEvent.properties[5].value;
+                vEvent.created.date = vEvent.properties[5].date;
+                vEvent.created.dateTime = vEvent.properties[5].dateTime;
+                vEvent.created.value = vEvent.properties[5].value;
+                vEvent.startDate.date = vEvent.properties[0].date;
+                vEvent.startDate.value = vEvent.properties[0].value;
+                vEvent.uid.value = vEvent.properties[3].value;
 
-        
+                postJSON.vevent = vEvent;
+                postJSON.timeZone = tZ;
+                xhrAddEvent.open('POST', '/calendar/timezones', true);
+                xhrAddEvent.setRequestHeader("Content-type", "application/json");
+                xhrAddEvent.onreadystatechange = function () {
+                    if (xhrAddEvent.readyState == XMLHttpRequest.DONE && xhrAddEvent.status == 200) {
+                        console.log(xhrAddEvent.responseText);
+                        updateTable('month');
+                    }
+                };
+
+                xhrCalendarEvents.send(postJSON);
+            }
+        };
+        xhrTimeZone.send(postJSON);
     }
 
     function updateTable (viewpoint) {
