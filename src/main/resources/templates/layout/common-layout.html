@@ -91,6 +91,21 @@
                     <ul class="nav navbar-nav navbar-right">
                         <li>
                             <p class="navbar-btn">
+                                <a id="dayviewpoint" class="btn btn-default hidebtn"><b>День</b></a>
+                            </p>
+                        </li>
+                        <li>
+                            <p class="navbar-btn">
+                                <a id="weekviewpoint" class="btn btn-default hidebtn"><b>Неделя</b></a>
+                            </p>
+                        </li>
+                        <li>
+                            <p class="navbar-btn">
+                                <a id="monthviewpoint" class="btn btn-default hidebtn"><b>Месяц</b></a>
+                            </p>
+                        </li>
+                        <li>
+                            <p class="navbar-btn">
                                 <a data-toggle="tab" id="settings" class="btn btn-default"><b>Настройки </b><img height="32px" width="32px"
                                                                                                                  th:src="@{/icons/menu/settings_blue.png}"></img></a>
                             </p>
@@ -113,22 +128,37 @@
                     <ul class="nav navbar-nav">
                         <li>
                             <p class="navbar-btn btn-block">
-                                <a data-toggle="tab" id="view_block" href="#panel1" class="btn btn-block navbtn viewbtn"><b>Просмотреть</b></a>
+                                <a data-toggle="tab" id="add_block" href="#panel3" class="btn btn-block navbtn viewbtn"><b>Добавить заявку</b></a>
                             </p>
                         </li>
                         <li>
                             <p class="navbar-btn btn-block">
-                                <a data-toggle="tab" id="add_block" href="#panel2" class="btn btn-block navbtn addbtn"><b>Добавить</b></a>
+                                <a data-toggle="tab" id="viewcalendar_block" href="#panel2" class="btn btn-block navbtn addbtn"><b>Календарь</b></a>
                             </p>
                         </li>
                         <li>
                             <p class="navbar-btn btn-block">
-                                <a data-toggle="tab" id="refresh_block" class="btn btn-block navbtn"><b>Обновить</b></a>
+                                <a data-toggle="tab" id="view_block" href="#panel1" class="btn btn-block navbtn"><b>Список заявок</b></a>
                             </p>
                         </li>
                         <li>
                             <p class="navbar-btn btn-block">
-                                <a data-toggle="tab" id="report_block" class="btn btn-block navbtn"><b>Загрузить отчёт</b></a>
+                                <a id="monthviewpoint_block" class="btn btn-block navbtn hidebtn">Месяц</a>
+                            </p>
+                        </li>
+                        <li>
+                            <p class="navbar-btn btn-block">
+                                <a id="weekviewpoint_block" class="btn btn-block navbtn hidebtn">Неделя</a>
+                            </p>
+                        </li>
+                        <li>
+                            <p class="navbar-btn btn-block">
+                                <a id="dayviewpoint_block" class="btn btn-block navbtn hidebtn">День</a>
+                            </p>
+                        </li>
+                        <li>
+                            <p class="navbar-btn btn-block">
+                                <a data-toggle="tab" id="settings_block" class="btn btn-block navbtn"><b>Настройки</b></a>
                             </p>
                         </li>
                     </ul>
@@ -140,25 +170,6 @@
             <div class="row content">
                 <div class="tab-content">
                     <div id="panel1" class="tab-pane fade">
-                        <div id="viewpoint" class="row">
-                            <ul class="viewpoint-control">
-                                <li>
-                                    <p class="navbar-btn">
-                                        <a id="monthviewpoint" class="btn btn-xs btn-default"><b>Месяц</b></a>
-                                    </p>
-                                </li>
-                                <li>
-                                    <p class="navbar-btn">
-                                        <a id="weekviewpoint" class="btn btn-xs btn-default"><b>Неделя</b></a>
-                                    </p>
-                                </li>
-                                <li>
-                                    <p class="navbar-btn">
-                                        <a id="dayviewpoint" class="btn btn-xs btn-default"><b>День</b></a>
-                                    </p>
-                                </li>
-                            </ul>
-                        </div>
                         <table id="tableId" class="table table-hover fullscreen">
                             <thead class="thead-inverse">
                                 <tr>

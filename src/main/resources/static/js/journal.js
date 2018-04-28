@@ -12,7 +12,7 @@ $(document).ready(function () {
     $('#calendar').attr("src", "https://calendar.yandex.ru/day?uid=641146316&show_date="+year+"-"+month+"-"+day+"&embed=&private_token=cf54ec9c0ec6b90948d04f8d9ddc71462918b926&tz_id=Asia%2FYekaterinburg");
 
     toggleCalendarHeight();
-    updateTable("month");
+    //updateTable("month");
 
     function toggleCalendarHeight() {
         var screenHeight = document.documentElement.clientHeight
@@ -223,12 +223,35 @@ $(document).ready(function () {
         updateTable('month');
     });
 
+    $('#dayviewpoint_block').on('click', function() {
+        $("#tablebody").html("");
+        updateTable('day');
+    });
+
+    $('#weekviewpoint_block').on('click', function() {
+        $("#tablebody").html("");
+        updateTable('week');
+    });
+
+    $('#monthviewpoint_block').on('click', function() {
+        $("#tablebody").html("");
+        updateTable('month');
+    });
+
     $('#Send').on('click', function(){
         addEvent();
     });
 
     $('#InputTime').keypress(function( event ) {
         event.preventDefault();
+    });
+
+    $('#add,#add_block,#viewcalendar,#viewcalendar_block,#settings,#settings_block').on('click', function() {
+        $('.hidebtn').attr('style', 'visibility: hidden');
+    });
+
+    $('#view,#view_block').on('click', function(){
+        $('.hidebtn').attr('style', 'visibility: visible');
     });
 
     $(window).resize(function () {

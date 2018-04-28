@@ -74,15 +74,10 @@ nav {
     margin: -10px;
 }
 
-#viewpoint ul {
-    height: 30px;
-    margin: -20px 0 0;
-}
-
 .viewpoint-control {
     list-style-type: none;
     padding: 0;
-    overflow: hidden;;
+    overflow: hidden;
 }
 
 .viewpoint-control li {
@@ -91,4 +86,17 @@ nav {
 
 #monthviewpoint {
     margin-right: 13px;
+    margin-top: 5px;
+}
+
+#weekviewpoint {
+    margin-top: 5px;
+}
+
+#dayviewpoint {
+    margin-top: 5px;
+}
+
+.hidebtn {
+    visibility: hidden;
 }
