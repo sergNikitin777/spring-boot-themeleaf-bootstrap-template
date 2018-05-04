@@ -69,6 +69,7 @@ $(document).ready(function () {
                 var description         = 'Водитель ' + $('#InputDriver').val() + '; ' + $('#InputCar').val() + '; ' +
                                             $('#InputGofers').val() + ' грузчик(ов); ' + $('#description').val();
 
+                /*
                 var vEvent = JSON.parse(JSON.stringify(eventList[0]));
                 vEvent.properties[0].date = dateandtimeLocal.getTime();
                 vEvent.properties[0].value = dateandtimeUTC;
@@ -102,9 +103,14 @@ $(document).ready(function () {
                 vEvent.startDate.date = vEvent.properties[0].date;
                 vEvent.startDate.value = vEvent.properties[0].value;
                 vEvent.uid.value = vEvent.properties[3].value;
+                */
 
-                postJSON.vevent = JSON.stringify(vEvent);
-                postJSON.timeZone = JSON.stringify(tZ);
+                //postJSON.vevent = JSON.stringify(vEvent);
+                //postJSON.timeZone = JSON.stringify(tZ);
+                postJSON.startDate = new Date();
+                postJSON.endDate = new Date();
+                postJSON.eventName = 'My Event '+dateandtimeLocal.getTime();
+
                 console.log(JSON.stringify(postJSON));
                 xhrAddEvent.open('POST', '/calendar/addvevent', true);
                 xhrAddEvent.setRequestHeader("Content-type", "application/json");

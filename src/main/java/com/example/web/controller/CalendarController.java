@@ -5,6 +5,9 @@ import com.example.web.pojo.CalendarReqPojo;
 import com.example.web.service.CalendarService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import net.fortuna.ical4j.model.Date;
+import net.fortuna.ical4j.model.TimeZoneRegistry;
+import net.fortuna.ical4j.model.TimeZoneRegistryFactory;
 import net.fortuna.ical4j.model.component.VEvent;
 import net.fortuna.ical4j.model.component.VTimeZone;
 import org.osaf.caldav4j.exceptions.CalDAV4JException;
@@ -18,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 
 import javax.validation.Valid;
+import java.util.Calendar;
 import java.util.List;
 
 @Slf4j
@@ -73,7 +77,20 @@ public class CalendarController {
     @RequestMapping(value = "/calendar/addvevent", method = RequestMethod.POST)
     public ResponseEntity<VEvent> calendarAddVevent(@Valid @RequestBody CalendarAddVeventReqPojo calendarAddVeventReqPojo) {
 
+        final java.util.Date startDate = calendarAddVeventReqPojo.getStartDate();
+        final java.util.Date endDate = calendarAddVeventReqPojo.getEndDate();
+
+        final VEvent nve = new VEvent(new Date(startDate.getTime()), new Date(endDate.getTime()), calendarAddVeventReqPojo.getEventName());
         try {
+
+            net.fortuna.ical4j.model.TimeZone fortuneTZ = null;
+            TimeZoneRegistry registry = TimeZoneRegistryFactory.getInstance().createRegistry();
+
+            String localTimeZone = Calendar.getInstance().getTimeZone().getID();
+            fortuneTZ = registry.getTimeZone(localTimeZone);//gets the server time zone.
+            VTimeZone tz = fortuneTZ.getVTimeZone();//an iCalendar VTIMEZONE component.
+
+
             calendarService.addVevent(calendarAddVeventReqPojo.getCaldavHost(),
                     calendarAddVeventReqPojo.getCaldavPort(),
                     calendarAddVeventReqPojo.getProtocol(),
@@ -81,12 +98,12 @@ public class CalendarController {
                     calendarAddVeventReqPojo.getPassword(),
                     calendarAddVeventReqPojo.getCalPrefix(),
                     calendarAddVeventReqPojo.getCalPostfix(),
-                    calendarAddVeventReqPojo.getVEvent(),
-                    calendarAddVeventReqPojo.getTimeZone());
-                    return new ResponseEntity<>(calendarAddVeventReqPojo.getVEvent(), HttpStatus.OK);
+                    nve,
+                    tz);
+                    return new ResponseEntity<>(nve, HttpStatus.OK);
         } catch (CalDAV4JException e) {
             e.printStackTrace();
-            return new ResponseEntity<VEvent>(calendarAddVeventReqPojo.getVEvent(), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(nve, HttpStatus.BAD_REQUEST);
         }
 
     }

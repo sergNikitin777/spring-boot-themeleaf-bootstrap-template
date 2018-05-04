@@ -3,9 +3,7 @@ package com.example.web.pojo;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
-import net.fortuna.ical4j.model.TimeZone;
-import net.fortuna.ical4j.model.component.VEvent;
-import net.fortuna.ical4j.model.component.VTimeZone;
+import java.util.Date;
 
 @Data
 @Getter
@@ -19,6 +17,11 @@ public class CalendarAddVeventReqPojo {
     private String calPrefix = "/calendars/";
     private String calPostfix = "/events-5825759";
 
-    private VEvent vEvent;
-    private VTimeZone timeZone;
+    private Date startDate;
+    private Date endDate;
+
+    private String eventName;
+
+    //private VEvent vEvent;
+    //private VTimeZone timeZone;
 }
