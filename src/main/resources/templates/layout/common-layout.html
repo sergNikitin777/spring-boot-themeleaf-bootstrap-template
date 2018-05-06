@@ -71,7 +71,7 @@
                                     <a data-toggle="tab" href="#panel11"><i class="fa fa-bell fa-lg"></i>Уведомления</a>
                                 </li>
                                 <li>
-                                    <a data-toggle="tab" href="#panel2"><i class="fa fa-building fa-lg"></i>Оборудование</a>
+                                    <a data-toggle="tab" href="#panel2_0"><i class="fa fa-building fa-lg"></i>Оборудование</a>
                                 </li>
                                 <li>
                                     <a data-toggle="tab" href="#panel3"><i class="fa fa-suitcase fa-lg"></i>Контракты</a>
@@ -113,14 +113,169 @@
                             <p>Page content goes here</p>
                         </div>
                     </div>
-                    <div id="panel2" class="tab-pane fade">
-                        <div layout:fragment="device_content">
-                            <p>Page content goes here</p>
-                        </div>
+                    <div id="panel2_0" class="tab-pane fade">
+                        <table class="table table-hover">
+                            <thead class="thead-inverse">
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Дата выполнения</th>
+                                    <th scope="col">Объект</th>
+                                    <th scope="col">Кем проверен</th>
+                                    <th scope="col">Статус</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="success">
+                                    <th scope="row">1</th>
+                                    <td>10.01.2018</td>
+                                    <td>Луначарского 54</td>
+                                    <td>Иван</td>
+                                    <td>Выполнено</td>
+                                </tr>
+                                <tr class="danger">
+                                    <th scope="row">2</th>
+                                    <td>10.01.2018</td>
+                                    <td>Куйбышего 23</td>
+                                    <td>Иван</td>
+                                    <td>Не выполнено</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">3</th>
+                                    <td>12.01.2018</td>
+                                    <td>Монастырского 2</td>
+                                    <td>Виктор</td>
+                                    <td>Ожидается</td>
+                                </tr>
+                                <tr class="danger">
+                                    <th scope="row">2</th>
+                                    <td>12.01.2018</td>
+                                    <td>Куйбышего 102</td>
+                                    <td>Виктор</td>
+                                    <td>Не выполнено</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">3</th>
+                                    <td>12.01.2018</td>
+                                    <td>Куйбышего 122</td>
+                                    <td>Андрей</td>
+                                    <td>Ожидается</td>
+                                </tr>
+                                <tr class="success">
+                                    <th scope="row">2</th>
+                                    <td>14.01.2018</td>
+                                    <td>Петропавловская 11</td>
+                                    <td>Андрей</td>
+                                    <td>Выполнено</td>
+                                </tr>
+                                <tr class="success">
+                                    <th scope="row">3</th>
+                                    <td>15.01.2018</td>
+                                    <td>Петропавловская 23</td>
+                                    <td>Никита</td>
+                                    <td>Выполнено</td>
+                                </tr>
+                                <tr class="success">
+                                    <th scope="row">2</th>
+                                    <td>15.01.2018</td>
+                                    <td>Петропавловская 68</td>
+                                    <td>Никита</td>
+                                    <td>Выполнено</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">3</th>
+                                    <td>20.01.2018</td>
+                                    <td>Комсомольский проспект 70</td>
+                                    <td>Никита</td>
+                                    <td>Ожидается</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <button type="button" class="btn btn-danger btn-circle btn-xl">
+                            <a href="#panel2_1" data-toggle="tab" aria-controls="panel2_1" role="tab">
+                                <i class="fa fa-plus"></i>
+                            </a>
+                        </button>
+                    </div>
+                    <div id="panel2_1" class="tab-pane fade">
+                        <section>
+                            <div class="wizard">
+                                <div class="wizard-inner">
+                                    <div class="connecting-line"></div>
+                                    <ul class="nav nav-tabs" role="tablist">
+
+                                        <li role="presentation" class="active">
+                                            <a href="#step1" data-toggle="tab" aria-controls="step1" role="tab" title="Step 1">
+                                                <span class="round-tab">
+                                                    <i class="glyphicon glyphicon-folder-open"></i>
+                                                </span>
+                                            </a>
+                                        </li>
+
+                                        <li role="presentation" class="disabled">
+                                            <a href="#step2" data-toggle="tab" aria-controls="step2" role="tab" title="Step 2">
+                                                <span class="round-tab">
+                                                    <i class="glyphicon glyphicon-pencil"></i>
+                                                </span>
+                                            </a>
+                                        </li>
+                                        <li role="presentation" class="disabled">
+                                            <a href="#step3" data-toggle="tab" aria-controls="step3" role="tab" title="Step 3">
+                                                <span class="round-tab">
+                                                    <i class="glyphicon glyphicon-picture"></i>
+                                                </span>
+                                            </a>
+                                        </li>
+
+                                        <li role="presentation" class="disabled">
+                                            <a href="#complete" data-toggle="tab" aria-controls="complete" role="tab" title="Complete">
+                                                <span class="round-tab">
+                                                    <i class="glyphicon glyphicon-ok"></i>
+                                                </span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+
+                                <form role="form">
+                                    <div class="tab-content">
+                                        <div class="tab-pane active" role="tabpanel" id="step1">
+                                            <h3>Step 1</h3>
+                                            <p>This is step 1</p>
+                                            <ul class="list-inline pull-right">
+                                                <li><button type="button" class="btn btn-primary next-step">Save and continue</button></li>
+                                            </ul>
+                                        </div>
+                                        <div class="tab-pane" role="tabpanel" id="step2">
+                                            <h3>Step 2</h3>
+                                            <p>This is step 2</p>
+                                            <ul class="list-inline pull-right">
+                                                <li><button type="button" class="btn btn-default prev-step">Previous</button></li>
+                                                <li><button type="button" class="btn btn-primary next-step">Save and continue</button></li>
+                                            </ul>
+                                        </div>
+                                        <div class="tab-pane" role="tabpanel" id="step3">
+                                            <h3>Step 3</h3>
+                                            <p>This is step 3</p>
+                                            <ul class="list-inline pull-right">
+                                                <li><button type="button" class="btn btn-default prev-step">Previous</button></li>
+                                                <li><button type="button" class="btn btn-default next-step">Skip</button></li>
+                                                <li><button type="button" class="btn btn-primary btn-info-full next-step">Save and continue</button></li>
+                                            </ul>
+                                        </div>
+                                        <div class="tab-pane" role="tabpanel" id="complete">
+                                            <h3>Complete</h3>
+                                            <p>You have successfully completed all steps.</p>
+                                            <ul class="list-inline pull-right">
+                                                <li><button type="button" class="btn btn-primary"><a data-toggle="tab" href="#panel2_0">Save and continue</a></button></li>
+                                            </ul>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                </form>
+                            </div>
+                        </section>
                     </div>
                     <div id="panel3" class="tab-pane fade">
-                        <h3>Панель 3</h3>
-                        <p>Содержимое 3 панели...</p>
                     </div>
                     <div id="panel4" class="tab-pane fade">
                         <h3>Панель 4</h3>
