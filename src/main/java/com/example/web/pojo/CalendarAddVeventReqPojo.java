@@ -20,7 +20,10 @@ public class CalendarAddVeventReqPojo {
     private Date startDate;
     private Date endDate;
 
+    private Integer durationHour;
+
     private String eventName;
+    private String eventDescription;
 
     //private VEvent vEvent;
     //private VTimeZone timeZone;

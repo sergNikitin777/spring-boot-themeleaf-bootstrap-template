@@ -5,11 +5,11 @@ import com.example.web.pojo.CalendarReqPojo;
 import com.example.web.service.CalendarService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import net.fortuna.ical4j.model.Date;
-import net.fortuna.ical4j.model.TimeZoneRegistry;
-import net.fortuna.ical4j.model.TimeZoneRegistryFactory;
+import net.fortuna.ical4j.model.*;
 import net.fortuna.ical4j.model.component.VEvent;
 import net.fortuna.ical4j.model.component.VTimeZone;
+import net.fortuna.ical4j.model.property.Description;
+import net.fortuna.ical4j.model.property.Priority;
 import org.osaf.caldav4j.exceptions.CalDAV4JException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -78,9 +78,11 @@ public class CalendarController {
     public ResponseEntity<VEvent> calendarAddVevent(@Valid @RequestBody CalendarAddVeventReqPojo calendarAddVeventReqPojo) {
 
         final java.util.Date startDate = calendarAddVeventReqPojo.getStartDate();
-        final java.util.Date endDate = calendarAddVeventReqPojo.getEndDate();
 
-        final VEvent nve = new VEvent(new Date(startDate.getTime()), new Date(endDate.getTime()), calendarAddVeventReqPojo.getEventName());
+        final VEvent vEvent = new VEvent(new DateTime(startDate.getTime()), new Dur(0,calendarAddVeventReqPojo.getDurationHour(),0,0), calendarAddVeventReqPojo.getEventName());
+
+        vEvent.getProperties().add(new Description(calendarAddVeventReqPojo.getEventDescription()));
+
         try {
 
             net.fortuna.ical4j.model.TimeZone fortuneTZ = null;
@@ -98,12 +100,12 @@ public class CalendarController {
                     calendarAddVeventReqPojo.getPassword(),
                     calendarAddVeventReqPojo.getCalPrefix(),
                     calendarAddVeventReqPojo.getCalPostfix(),
-                    nve,
+                    vEvent,
                     tz);
-                    return new ResponseEntity<>(nve, HttpStatus.OK);
+                    return new ResponseEntity<>(vEvent, HttpStatus.OK);
         } catch (CalDAV4JException e) {
             e.printStackTrace();
-            return new ResponseEntity<>(nve, HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(vEvent, HttpStatus.BAD_REQUEST);
         }
 
     }

@@ -108,8 +108,9 @@ $(document).ready(function () {
                 //postJSON.vevent = JSON.stringify(vEvent);
                 //postJSON.timeZone = JSON.stringify(tZ);
                 postJSON.startDate = new Date();
-                postJSON.endDate = new Date();
+                postJSON.durationHour = 1;
                 postJSON.eventName = 'My Event '+dateandtimeLocal.getTime();
+                postJSON.eventDescription = 'My Description '+dateandtimeLocal.getTime();
 
                 console.log(JSON.stringify(postJSON));
                 xhrAddEvent.open('POST', '/calendar/addvevent', true);
