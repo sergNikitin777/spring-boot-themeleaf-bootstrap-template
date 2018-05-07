@@ -125,14 +125,17 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr class="success">
+                                <tr class="success header expand">
                                     <th scope="row">1</th>
                                     <td>10.01.2018</td>
                                     <td>Луначарского 54</td>
                                     <td>Иван</td>
                                     <td>Выполнено</td>
                                 </tr>
-                                <tr class="danger">
+                                <tr>
+                                    <th colspan="4">Дополнительная информация</th>
+                                </tr>
+                                <tr class="danger header expand">
                                     <th scope="row">2</th>
                                     <td>10.01.2018</td>
                                     <td>Куйбышего 23</td>
@@ -140,13 +143,19 @@
                                     <td>Не выполнено</td>
                                 </tr>
                                 <tr>
+                                    <th colspan="4">Дополнительная информация</th>
+                                </tr>
+                                <tr class="danger header expand">
                                     <th scope="row">3</th>
                                     <td>12.01.2018</td>
                                     <td>Монастырского 2</td>
                                     <td>Виктор</td>
                                     <td>Ожидается</td>
                                 </tr>
-                                <tr class="danger">
+                                <tr>
+                                    <th colspan="4">Дополнительная информация</th>
+                                </tr>
+                                <tr class="danger header expand">
                                     <th scope="row">2</th>
                                     <td>12.01.2018</td>
                                     <td>Куйбышего 102</td>
@@ -154,27 +163,39 @@
                                     <td>Не выполнено</td>
                                 </tr>
                                 <tr>
+                                    <th colspan="4">Дополнительная информация</th>
+                                </tr>
+                                <tr class="danger header expand">
                                     <th scope="row">3</th>
                                     <td>12.01.2018</td>
                                     <td>Куйбышего 122</td>
                                     <td>Андрей</td>
                                     <td>Ожидается</td>
                                 </tr>
-                                <tr class="success">
+                                <tr>
+                                    <th colspan="4">Дополнительная информация</th>
+                                </tr>
+                                <tr class="success header expand">
                                     <th scope="row">2</th>
                                     <td>14.01.2018</td>
                                     <td>Петропавловская 11</td>
                                     <td>Андрей</td>
                                     <td>Выполнено</td>
                                 </tr>
-                                <tr class="success">
+                                <tr>
+                                    <th colspan="4">Дополнительная информация</th>
+                                </tr>
+                                <tr class="success header expand">
                                     <th scope="row">3</th>
                                     <td>15.01.2018</td>
                                     <td>Петропавловская 23</td>
                                     <td>Никита</td>
                                     <td>Выполнено</td>
                                 </tr>
-                                <tr class="success">
+                                <tr>
+                                    <th colspan="4">Дополнительная информация</th>
+                                </tr>
+                                <tr class="success header expand">
                                     <th scope="row">2</th>
                                     <td>15.01.2018</td>
                                     <td>Петропавловская 68</td>
@@ -182,19 +203,34 @@
                                     <td>Выполнено</td>
                                 </tr>
                                 <tr>
+                                    <th colspan="4">Дополнительная информация</th>
+                                </tr>
+                                <tr class="danger header expand">
                                     <th scope="row">3</th>
                                     <td>20.01.2018</td>
                                     <td>Комсомольский проспект 70</td>
                                     <td>Никита</td>
                                     <td>Ожидается</td>
                                 </tr>
+                                <tr>
+                                    <th colspan="4">Дополнительная информация</th>
+                                </tr>
                             </tbody>
                         </table>
-                        <button type="button" class="btn btn-danger btn-circle btn-xl">
-                            <a href="#panel2_1" data-toggle="tab" aria-controls="panel2_1" role="tab">
-                                <i class="fa fa-plus"></i>
-                            </a>
-                        </button>
+                        <ul class="list-inline pull-right">
+                            <li>
+                                <button type="button" class="btn btn-danger btn-circle btn-xl btn-expand">
+                                    <i class="fa fa-expand"></i>
+                                </button>
+                            </li>
+                            <li>
+                                <a href="#panel2_1" data-toggle="tab" aria-controls="panel2_1" role="tab">
+                                    <button type="button" class="btn btn-danger btn-circle btn-xl">
+                                        <i class="fa fa-plus"></i>
+                                    </button>
+                                </a>
+                            </li>
+                        </ul>
                     </div>
                     <div id="panel2_1" class="tab-pane fade">
                         <section>
@@ -204,7 +240,7 @@
                                     <ul class="nav nav-tabs" role="tablist">
 
                                         <li role="presentation" class="active">
-                                            <a href="#step1" data-toggle="tab" aria-controls="step1" role="tab" title="Step 1">
+                                            <a href="#step1" data-toggle="tab" aria-controls="step1" role="tab" title="Шаг 1">
                                                 <span class="round-tab">
                                                     <i class="glyphicon glyphicon-folder-open"></i>
                                                 </span>
@@ -212,14 +248,14 @@
                                         </li>
 
                                         <li role="presentation" class="disabled">
-                                            <a href="#step2" data-toggle="tab" aria-controls="step2" role="tab" title="Step 2">
+                                            <a href="#step2" data-toggle="tab" aria-controls="step2" role="tab" title="Шаг 2">
                                                 <span class="round-tab">
                                                     <i class="glyphicon glyphicon-pencil"></i>
                                                 </span>
                                             </a>
                                         </li>
                                         <li role="presentation" class="disabled">
-                                            <a href="#step3" data-toggle="tab" aria-controls="step3" role="tab" title="Step 3">
+                                            <a href="#step3" data-toggle="tab" aria-controls="step3" role="tab" title="Шаг 3">
                                                 <span class="round-tab">
                                                     <i class="glyphicon glyphicon-picture"></i>
                                                 </span>
@@ -227,7 +263,7 @@
                                         </li>
 
                                         <li role="presentation" class="disabled">
-                                            <a href="#complete" data-toggle="tab" aria-controls="complete" role="tab" title="Complete">
+                                            <a href="#complete" data-toggle="tab" aria-controls="complete" role="tab" title="Финиш">
                                                 <span class="round-tab">
                                                     <i class="glyphicon glyphicon-ok"></i>
                                                 </span>
@@ -239,34 +275,38 @@
                                 <form role="form">
                                     <div class="tab-content">
                                         <div class="tab-pane active" role="tabpanel" id="step1">
-                                            <h3>Step 1</h3>
-                                            <p>This is step 1</p>
+                                            <h3>Шаг 1</h3>
+                                            <p>Форма на шаге 1</p>
                                             <ul class="list-inline pull-right">
-                                                <li><button type="button" class="btn btn-primary next-step">Save and continue</button></li>
+                                                <li><button type="button" class="btn btn-primary next-step">Продолжить</button></li>
                                             </ul>
                                         </div>
                                         <div class="tab-pane" role="tabpanel" id="step2">
-                                            <h3>Step 2</h3>
-                                            <p>This is step 2</p>
+                                            <h3>Шаг 2</h3>
+                                            <p>Форма на шаге 2</p>
                                             <ul class="list-inline pull-right">
-                                                <li><button type="button" class="btn btn-default prev-step">Previous</button></li>
-                                                <li><button type="button" class="btn btn-primary next-step">Save and continue</button></li>
+                                                <li><button type="button" class="btn btn-default prev-step">Назад</button></li>
+                                                <li><button type="button" class="btn btn-primary next-step">Продолжить</button></li>
                                             </ul>
                                         </div>
                                         <div class="tab-pane" role="tabpanel" id="step3">
-                                            <h3>Step 3</h3>
-                                            <p>This is step 3</p>
+                                            <h3>Шаг 3</h3>
+                                            <p>Форма на шаге 3</p>
                                             <ul class="list-inline pull-right">
-                                                <li><button type="button" class="btn btn-default prev-step">Previous</button></li>
-                                                <li><button type="button" class="btn btn-default next-step">Skip</button></li>
-                                                <li><button type="button" class="btn btn-primary btn-info-full next-step">Save and continue</button></li>
+                                                <li><button type="button" class="btn btn-default prev-step">Назад</button></li>
+                                                <li><button type="button" class="btn btn-default next-step">Пропустить</button></li>
+                                                <li><button type="button" class="btn btn-primary btn-info-full next-step">Продолжить</button></li>
                                             </ul>
                                         </div>
                                         <div class="tab-pane" role="tabpanel" id="complete">
-                                            <h3>Complete</h3>
-                                            <p>You have successfully completed all steps.</p>
+                                            <h3>Финиш</h3>
+                                            <p>Вы закончили заполнение форм.</p>
                                             <ul class="list-inline pull-right">
-                                                <li><button type="button" class="btn btn-primary"><a data-toggle="tab" href="#panel2_0">Save and continue</a></button></li>
+                                                <li><a data-toggle="tab" href="#panel2_0">
+                                                    <button type="button" class="btn btn-primary btn-info-full next-step">
+                                                        Сохранить
+                                                    </button>
+                                                </a></li>
                                             </ul>
                                         </div>
                                         <div class="clearfix"></div>

@@ -210,6 +210,27 @@ $(document).ready(function () {
         prevTab($active);
 
     });
+
+    $('.header').click(function(){
+        $(this).toggleClass('expand').nextUntil('tr.header').slideToggle(100);
+    });
+
+    $('.btn-expand').click (function() {
+        var all = $('.header'),
+            active = all.filter('.expand');
+
+        if (all.length && all.length === active.length) {
+            // All open; close them
+            all.removeClass('expand').next().slideToggle(100);
+        }
+        else {
+            // At least some are closed, open all
+            all.not('.expand').addClass('expand').next().slideToggle(100);
+        }
+    });
+
+    $('.header').toggleClass('expand').nextUntil('tr.header').slideToggle(100);
+
 });
 
 function nextTab(elem) {

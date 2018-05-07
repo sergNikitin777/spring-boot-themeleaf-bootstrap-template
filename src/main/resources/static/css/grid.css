@@ -34,6 +34,20 @@
     z-index: 1;
 }
 
+a {
+    text-decoration: none;
+}
+
+.wizard .btn a {
+    color: #999999;
+    text-decoration: none;
+}
+
+.wizard .btn a:hover {
+    color: #fff;
+    text-decoration: none;
+}
+
 .wizard .nav-tabs > li.active > a, .wizard .nav-tabs > li.active > a:hover, .wizard .nav-tabs > li.active > a:focus {
     color: #555555;
     cursor: default;
@@ -154,9 +168,6 @@ span.round-tab:hover {
     border-radius: 35px;
     font-size: 24px;
     line-height: 1.33;
-    position: absolute;
-    right:    0;
-    bottom:   0;
 }
 
 #mapid {
