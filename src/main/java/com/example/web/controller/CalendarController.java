@@ -1,6 +1,7 @@
 package com.example.web.controller;
 
 import com.example.web.pojo.CalendarAddVeventReqPojo;
+import com.example.web.pojo.CalendarDeleteVeventReqPojo;
 import com.example.web.pojo.CalendarReqPojo;
 import com.example.web.service.CalendarService;
 import lombok.RequiredArgsConstructor;
@@ -78,7 +79,7 @@ public class CalendarController {
 
         final java.util.Date startDate = calendarAddVeventReqPojo.getStartDate();
 
-        final VEvent vEvent = new VEvent(new DateTime(startDate.getTime()), new Dur(0,calendarAddVeventReqPojo.getDurationHours(),calendarAddVeventReqPojo.getDurationMinutes(),0), calendarAddVeventReqPojo.getEventName());
+        final VEvent vEvent = new VEvent(new DateTime(startDate.getTime()), new Dur(0, calendarAddVeventReqPojo.getDurationHours(), calendarAddVeventReqPojo.getDurationMinutes(), 0), calendarAddVeventReqPojo.getEventName());
 
         vEvent.getProperties().add(new Description(calendarAddVeventReqPojo.getEventDescription()));
 
@@ -101,7 +102,7 @@ public class CalendarController {
                     calendarAddVeventReqPojo.getCalPostfix(),
                     vEvent,
                     tz);
-                    return new ResponseEntity<>(vEvent, HttpStatus.OK);
+            return new ResponseEntity<>(vEvent, HttpStatus.OK);
         } catch (CalDAV4JException e) {
             e.printStackTrace();
             return new ResponseEntity<>(vEvent, HttpStatus.BAD_REQUEST);
@@ -109,4 +110,22 @@ public class CalendarController {
 
     }
 
+
+    @RequestMapping(value = "/calendar/delvevent", method = RequestMethod.POST)
+    public ResponseEntity<String> calendarDeleteVevent(@Valid @RequestBody CalendarDeleteVeventReqPojo deleteVeventReqPojo) {
+        try {
+            calendarService.deleteVevent(deleteVeventReqPojo.getCaldavHost(),
+                    deleteVeventReqPojo.getCaldavPort(),
+                    deleteVeventReqPojo.getProtocol(),
+                    deleteVeventReqPojo.getUserName(),
+                    deleteVeventReqPojo.getPassword(),
+                    deleteVeventReqPojo.getCalPrefix(),
+                    deleteVeventReqPojo.getCalPostfix(),
+                    deleteVeventReqPojo.getUid());
+            return new ResponseEntity<>("Событие удалено", HttpStatus.OK);
+        } catch (CalDAV4JException e) {
+            e.printStackTrace();
+            return new ResponseEntity<>("Ошибка удаления события", HttpStatus.BAD_REQUEST);
+        }
+    }
 }

@@ -154,5 +154,28 @@ public class CalendarServiceImpl implements CalendarService {
         );
 
         collection.add(httpClient,vEvent,vTimeZone);
+
+    }
+
+    @Override
+    public void deleteVevent(String caldavHost, Integer caldavPort, String protocol, String username, String password,
+                             String calPrefix, String calPostfix, String uid) throws CalDAV4JException{
+
+        HttpClient httpClient = new HttpClient();
+        // I tried it with zimbra - but I had no luck using google calendar
+        httpClient.getHostConfiguration().setHost(caldavHost, caldavPort, protocol);
+
+        UsernamePasswordCredentials httpCredentials = new UsernamePasswordCredentials(username, password);
+        httpClient.getState().setCredentials(AuthScope.ANY, httpCredentials);
+        httpClient.getParams().setAuthenticationPreemptive(true);
+
+        CalDAVCollection collection = new CalDAVCollection(
+                calPrefix + username + calPostfix,
+                (HostConfiguration) httpClient.getHostConfiguration().clone(),
+                new CalDAV4JMethodFactory(),
+                CalDAVConstants.PROC_ID_DEFAULT
+        );
+
+        collection.delete(httpClient,Component.VEVENT,uid);
     }
 }
