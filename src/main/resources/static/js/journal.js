@@ -12,7 +12,7 @@ $(document).ready(function () {
     $('#calendar').attr("src", "https://calendar.yandex.ru/day?uid=641146316&show_date="+year+"-"+month+"-"+day+"&embed=&private_token=cf54ec9c0ec6b90948d04f8d9ddc71462918b926&tz_id=Asia%2FYekaterinburg");
 
     toggleCalendarHeight();
-    //updateTable("month");
+    updateTable("month");
 
     function toggleCalendarHeight() {
         var screenHeight = document.documentElement.clientHeight
@@ -51,78 +51,28 @@ $(document).ready(function () {
             "protocol": "https",
             "userName": "logistikatest@yandex.ru"
         };
-        xhrTimeZone.open('POST', 'calendar/timezones', true);
-        xhrTimeZone.setRequestHeader("Content-type", "application/json");
-        xhrTimeZone.send(JSON.stringify(postJSON));
-        xhrTimeZone.onreadystatechange = function () {
-            if (xhrTimeZone.readyState == XMLHttpRequest.DONE && xhrTimeZone.status == 200) {
-                var tZ                  = JSON.parse(xhrTimeZone.responseText)[0];
-                var dateandtime         = $('#InputTime').val();
-                var dateandtimeLocal    = new Date(dateandtime.substr(6, 4), dateandtime.substr(3, 2), dateandtime.substr(0, 2),
-                                            dateandtime.substr(11, 2), dateandtime.substr(14, 2));
-                var dateandtimeUTC      = getUTC(dateandtimeLocal);
-                var currentDateUTC      = getUTC(currentDate);
-                var enddate             = new Date(dateandtimeLocal.getTime() + 3600000);
-                var enddateUTC          = getUTC(enddate);
-                var summary             = $('#InputClient').val();
-                var location            = $('#InputAddress').val() + ', ' + $('#InputCity').val();
-                var description         = 'Водитель ' + $('#InputDriver').val() + '; ' + $('#InputCar').val() + '; ' +
-                                            $('#InputGofers').val() + ' грузчик(ов); ' + $('#description').val();
+        var dateandtime         = $('#InputTime').val();
+        var dateandtimeLocal    = new Date(dateandtime.substr(6, 4), dateandtime.substr(3, 2) - 1, dateandtime.substr(0, 2),
+            dateandtime.substr(11, 2), dateandtime.substr(14, 2));
+        var summary             = $('#InputClient').val();
+        var location            = $('#InputAddress').val() + ', ' + $('#InputCity').val();
+        var description         = 'Водитель ' + $('#InputDriver').val() + '; ' + $('#InputCar').val() + '; ' +
+            $('#InputGofers').val() + ' грузчик(ов); ' + $('#description').val();
 
-                /*
-                var vEvent = JSON.parse(JSON.stringify(eventList[0]));
-                vEvent.properties[0].date = dateandtimeLocal.getTime();
-                vEvent.properties[0].value = dateandtimeUTC;
-                vEvent.properties[1].date = enddate.getTime();
-                vEvent.properties[1].value = enddateUTC;
-                vEvent.properties[2].value = summary;
-                vEvent.properties[3].value = getUID();
-                vEvent.properties[5].date = currentDate.getTime();
-                vEvent.properties[5].dateTime = currentDate.getTime();
-                vEvent.properties[5].value = currentDateUTC;
-                vEvent.properties[6].date = currentDate.getTime();
-                vEvent.properties[6].dateTime = currentDate.getTime();
-                vEvent.properties[6].value = currentDateUTC;
-                vEvent.properties[7].value = location;
-                vEvent.properties[8].value = description;
-                vEvent.properties[9].value = "https://calendar.yandex.ru/event?event_id=" + Math.round(Math.random() * 10000000000).toString();
-                vEvent.properties[9].uri = vEvent.properties[9].value;
-                vEvent.location.value = vEvent.properties[7].value;
-                vEvent.url.value = vEvent.properties[9].value;
-                vEvent.url.uri = vEvent.properties[9].value;
-                vEvent.summary.value = vEvent.properties[2].value;
-                vEvent.description.value = vEvent.properties[8].value;
-                vEvent.endDate.date = vEvent.properties[1].date;
-                vEvent.endDate.value = vEvent.properties[1].value;
-                vEvent.dateStamp.date = vEvent.properties[5].date;
-                vEvent.dateStamp.dateTime = vEvent.properties[5].dateTime;
-                vEvent.dateStamp.value = vEvent.properties[5].value;
-                vEvent.created.date = vEvent.properties[5].date;
-                vEvent.created.dateTime = vEvent.properties[5].dateTime;
-                vEvent.created.value = vEvent.properties[5].value;
-                vEvent.startDate.date = vEvent.properties[0].date;
-                vEvent.startDate.value = vEvent.properties[0].value;
-                vEvent.uid.value = vEvent.properties[3].value;
-                */
+        postJSON.startDate = dateandtimeLocal;
+        postJSON.durationHours = 1;
+        postJSON.durationMinutes = 0;
+        postJSON.eventName = summary;
+        postJSON.eventDescription = description;
 
-                //postJSON.vevent = JSON.stringify(vEvent);
-                //postJSON.timeZone = JSON.stringify(tZ);
-                postJSON.startDate = new Date();
-                postJSON.durationHours = 1;
-                postJSON.durationMinutes = 13;
-                postJSON.eventName = 'My Event '+dateandtimeLocal.getTime();
-                postJSON.eventDescription = 'My Description '+dateandtimeLocal.getTime();
-
-                console.log(JSON.stringify(postJSON));
-                xhrAddEvent.open('POST', '/calendar/addvevent', true);
-                xhrAddEvent.setRequestHeader("Content-type", "application/json");
-                xhrAddEvent.send(JSON.stringify(postJSON));
-                xhrAddEvent.onreadystatechange = function () {
-                    if (xhrAddEvent.readyState == XMLHttpRequest.DONE && xhrAddEvent.status == 200) {
-                        console.log(xhrAddEvent.responseText);
-                        updateTable('month');
-                    }
-                };
+        console.log(JSON.stringify(postJSON));
+        xhrAddEvent.open('POST', '/calendar/addvevent', true);
+        xhrAddEvent.setRequestHeader("Content-type", "application/json");
+        xhrAddEvent.send(JSON.stringify(postJSON));
+        xhrAddEvent.onreadystatechange = function () {
+            if (xhrAddEvent.readyState == XMLHttpRequest.DONE && xhrAddEvent.status == 200) {
+                console.log(xhrAddEvent.responseText);
+                updateTable('month');
             }
         };
     }
@@ -155,7 +105,6 @@ $(document).ready(function () {
 
                 for (var i = 0; i < eventList.length; i++) {
                     if ((eventList[i].description != null) && (new Date(eventList[i].startDate.date) < limitms) && (new Date(eventList[i].startDate.date) > currentDate)) {
-                        var index = i + 1;
                         var row = $('<tr class="clickrow">');
                         row.on('click', function() {
                             var confirmed = confirm("Отправить СМС клиенту " + $(this).children(".name").html() + "?");
@@ -170,15 +119,16 @@ $(document).ready(function () {
                         });
                         var dtLocalized = new Date(eventList[i].startDate.date).toLocaleString('ru-RU', {
                             year: 'numeric', month: 'long', day: 'numeric',
-                            timeZone: eventList[i].startDate.timeZone,
                             hour: 'numeric', minute: 'numeric'
                         });
                         var description = ('' + eventList[i].description.value).split(';');
+                        var locationvalue = '';
+                        if (eventList[i].location == null) locationvalue = 'Не указан';
+                        else locationvalue = eventList[i].location.value;
 
-                        row.append('<th scope = "row">' + index + '</th>');
                         row.append('<td class = "datetime">' + dtLocalized + '</td>');
                         row.append('<td class = "name">' + eventList[i].summary.value + '</td>');
-                        row.append('<td class = "location">' + eventList[i].location.value + '</td>');
+                        row.append('<td class = "location">' + locationvalue + '</td>');
                         row.append('<td class = "driver">' + description[0].split(' ')[1] + '</td>');
                         row.append('<td class = "car">' + description[1] + '</td>');
                         row.append('<td class = "gofers">' + description[2].split(' ')[1] + '</td>');
