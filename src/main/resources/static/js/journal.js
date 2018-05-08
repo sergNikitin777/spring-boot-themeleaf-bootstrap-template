@@ -2,7 +2,7 @@ $(document).ready(function () {
     var options              = { year: 'numeric', month: 'long', day: 'numeric', timeZone: '' };
     var xhrCalendarEvents    = new XMLHttpRequest();
     var xhrAddEvent          = new XMLHttpRequest();
-    var xhrTimeZone          = new XMLHttpRequest();
+    var xhrDeleteEvent       = new XMLHttpRequest();
     var eventList            = new Map();
     var tZ                   = new Map();
     var currentDate          = new Date();
@@ -71,9 +71,32 @@ $(document).ready(function () {
         xhrAddEvent.send(JSON.stringify(postJSON));
         xhrAddEvent.onreadystatechange = function () {
             if (xhrAddEvent.readyState == XMLHttpRequest.DONE && xhrAddEvent.status == 200) {
-                console.log(xhrAddEvent.responseText);
+                setTimeout(function () {
+                    updateTable('month');
+                }, 1000);
+            }
+        };
+    }
+
+    function deleteEvent(id) {
+        var postJSON = {
+            "calPostfix": "/events-5825759",
+            "calPrefix": "/calendars/",
+            "caldavHost": "caldav.yandex.ru",
+            "caldavPort": 443,
+            "password": "kjubcn123456",
+            "protocol": "https",
+            "userName": "logistikatest@yandex.ru",
+            "uid": id
+        };
+        xhrDeleteEvent.open('POST', '/calendar/delvevent', true);
+        xhrDeleteEvent.setRequestHeader("Content-type", "application/json");
+        xhrDeleteEvent.send(JSON.stringify(postJSON));
+        xhrDeleteEvent.onreadystatechange = function () {
+            if (xhrDeleteEvent.readyState == XMLHttpRequest.DONE && xhrDeleteEvent.status == 200) {
                 updateTable('month');
             }
+            else console.log(xhrDeleteEvent.status);
         };
     }
 
@@ -105,16 +128,11 @@ $(document).ready(function () {
 
                 for (var i = 0; i < eventList.length; i++) {
                     if ((eventList[i].description != null) && (new Date(eventList[i].startDate.date) < limitms) && (new Date(eventList[i].startDate.date) > currentDate)) {
-                        var row = $('<tr class="clickrow">');
+                        var row = $('<tr class="clickrow" id="' + eventList[i].uid.value + '">');
                         row.on('click', function() {
-                            var confirmed = confirm("Отправить СМС клиенту " + $(this).children(".name").html() + "?");
+                            var confirmed = confirm("Удалить событие " + $(this).children(".name").html() + "?");
                             if(confirmed) {
-                                $(this).removeClass('danger');
-                                $(this).addClass('success');
-                            }
-                            else {
-                                $(this).removeClass('success');
-                                $(this).addClass('danger');
+                                deleteEvent('' + $(this)[0].id);
                             }
                         });
                         var dtLocalized = new Date(eventList[i].startDate.date).toLocaleString('ru-RU', {
