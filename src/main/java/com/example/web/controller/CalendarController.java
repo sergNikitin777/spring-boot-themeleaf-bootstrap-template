@@ -9,7 +9,6 @@ import net.fortuna.ical4j.model.*;
 import net.fortuna.ical4j.model.component.VEvent;
 import net.fortuna.ical4j.model.component.VTimeZone;
 import net.fortuna.ical4j.model.property.Description;
-import net.fortuna.ical4j.model.property.Priority;
 import org.osaf.caldav4j.exceptions.CalDAV4JException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -85,7 +84,7 @@ public class CalendarController {
 
         try {
 
-            net.fortuna.ical4j.model.TimeZone fortuneTZ = null;
+            net.fortuna.ical4j.model.TimeZone fortuneTZ;
             TimeZoneRegistry registry = TimeZoneRegistryFactory.getInstance().createRegistry();
 
             String localTimeZone = Calendar.getInstance().getTimeZone().getID();
