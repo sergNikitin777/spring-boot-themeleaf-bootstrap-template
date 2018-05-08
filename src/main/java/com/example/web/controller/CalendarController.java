@@ -78,7 +78,7 @@ public class CalendarController {
 
         final java.util.Date startDate = calendarAddVeventReqPojo.getStartDate();
 
-        final VEvent vEvent = new VEvent(new DateTime(startDate.getTime()), new Dur(0,calendarAddVeventReqPojo.getDurationHour(),0,0), calendarAddVeventReqPojo.getEventName());
+        final VEvent vEvent = new VEvent(new DateTime(startDate.getTime()), new Dur(0,calendarAddVeventReqPojo.getDurationHours(),calendarAddVeventReqPojo.getDurationMinutes(),0), calendarAddVeventReqPojo.getEventName());
 
         vEvent.getProperties().add(new Description(calendarAddVeventReqPojo.getEventDescription()));
 

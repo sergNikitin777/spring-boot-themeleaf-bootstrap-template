@@ -20,7 +20,8 @@ public class CalendarAddVeventReqPojo {
     private Date startDate;
     private Date endDate;
 
-    private Integer durationHour;
+    private Integer durationHours;
+    private Integer durationMinutes;
 
     private String eventName;
     private String eventDescription;

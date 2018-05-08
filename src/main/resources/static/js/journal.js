@@ -108,7 +108,8 @@ $(document).ready(function () {
                 //postJSON.vevent = JSON.stringify(vEvent);
                 //postJSON.timeZone = JSON.stringify(tZ);
                 postJSON.startDate = new Date();
-                postJSON.durationHour = 1;
+                postJSON.durationHours = 1;
+                postJSON.durationMinutes = 13;
                 postJSON.eventName = 'My Event '+dateandtimeLocal.getTime();
                 postJSON.eventDescription = 'My Description '+dateandtimeLocal.getTime();
 
