@@ -1,51 +1,53 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:th="http://www.thymeleaf.org"
-	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	layout:decorator="layout/common-layout"
-	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout/common-layout"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 
 <head>
-<title>Home</title>
+    <title>Home</title>
 </head>
 
 <body th:with="page='home'">
 
-	<div layout:fragment="content">
-		<div id="panel1" class="tab-pane fade in active">
-			<div class = "row content">
-				<!--<div id="infotab" class="col-sx-2 col-sm-2 col-md-2 col-lg-2">-->
-					<!--<br/>-->
-					<!--<table>-->
-						<!--<thead>-->
-						<!--<th>Информация о выбранном объекте по адресу </th>-->
-						<!--</thead>-->
-						<!--<tbody>-->
-						<!--<tr class="success header expand" style="cursor: pointer;">-->
-							<!--<th scope="row">Устройство 1</th>-->
-						<!--</tr>-->
-						<!--<tr>-->
-							<!--<th>Характеристики</th>-->
-						<!--</tr>-->
-						<!--<tr>-->
-							<!--<td>Марка</td>-->
-						<!--</tr>-->
-						<!--<tr>-->
-							<!--<td>Тип</td>-->
-						<!--</tr>-->
-						<!--<tr>-->
-							<!--<td>Необходимый допуск</td>-->
-						<!--</tr>-->
-						<!--</tbody>-->
-					<!--</table>-->
-				<!--</div>-->
-				<div id="jstree_demo_div" class="col-sx-3 col-sm-3 col-md-3 col-lg-3">
-				</div>
-				<div  id="mapid" class="col-sx-9 col-sm-9 col-md-9 col-lg-9">
-				</div>
+<div layout:fragment="content">
+    <div id="panel1" class="tab-pane fade in active">
+        <div class="row content">
+            <!--<div id="infotab" class="col-sx-2 col-sm-2 col-md-2 col-lg-2">-->
+            <!--<br/>-->
+            <!--<table>-->
+            <!--<thead>-->
+            <!--<th>Информация о выбранном объекте по адресу </th>-->
+            <!--</thead>-->
+            <!--<tbody>-->
+            <!--<tr class="success header expand" style="cursor: pointer;">-->
+            <!--<th scope="row">Устройство 1</th>-->
+            <!--</tr>-->
+            <!--<tr>-->
+            <!--<th>Характеристики</th>-->
+            <!--</tr>-->
+            <!--<tr>-->
+            <!--<td>Марка</td>-->
+            <!--</tr>-->
+            <!--<tr>-->
+            <!--<td>Тип</td>-->
+            <!--</tr>-->
+            <!--<tr>-->
+            <!--<td>Необходимый допуск</td>-->
+            <!--</tr>-->
+            <!--</tbody>-->
+            <!--</table>-->
+            <!--</div>-->
+            <div class="cont">
+                <div id="jstree_demo_div" class="col-sx-3 col-sm-3 col-md-3 col-lg-3">
+                </div>
+                <div id="mapid" class="col-sx-9 col-sm-9 col-md-9 col-lg-9">
+                </div>
+            </div>
 
-			</div>
-		</div>
-	</div>
+        </div>
+    </div>
+</div>
 </body>
 </html>

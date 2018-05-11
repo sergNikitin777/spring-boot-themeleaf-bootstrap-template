@@ -30,3 +30,39 @@ body {
 .container .text-muted {
     margin: 0px 0;
 }
+
+.desktop-widget-tasks{
+    width: 400px;
+    height: 400px;
+    margin-top: 20px;
+    margin-right: 10px;
+    float: left;
+}
+
+.desktop-widget-overdue{
+    width: 250px;
+    margin-top: 20px;
+    clear:both;
+    height: 190px;
+}
+
+.cont{
+    margin-top: 80px;
+}
+
+.desktop-group {
+    float: left;
+    margin-right: 10px;
+}
+
+.widget-cases{
+    color: grey;
+    padding-right: 16px;
+    font-size: 16px;
+}
+
+.widget-cases-num {
+    font-size: 40px;
+    padding-left: 22px;
+    padding-right: 20px;
+}
