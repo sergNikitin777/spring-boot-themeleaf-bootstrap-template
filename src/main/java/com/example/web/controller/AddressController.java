@@ -26,19 +26,25 @@ public class AddressController {
 
     private final AddressService addressService;
 
-    @RequestMapping("/admin/address")
-    public String getAddressList(Model model)
-    {
-        log.debug("getAddressList");
-        model.addAttribute(addressService.findAll());
+//    @RequestMapping("/admin/address")
+//    public String getAddressList(Model model)
+//    {
+//        log.debug("getAddressList");
+//        model.addAttribute(addressService.findAll());
+//
+//        return "addressList";
+//    }
 
-        return "addressList";
-    }
+//    @RequestMapping(value = "/admin/address", method = RequestMethod.GET)
+//    public ResponseEntity<List<Address>> addresses(@PathParam("id") Integer id) {
+//        List<Address> addresses = addressService.findAll();
+//        return new ResponseEntity<>(addresses, HttpStatus.OK);
+//    }
 
     @RequestMapping(value = "/admin/address", method = RequestMethod.GET)
-    public ResponseEntity<List<Address>> addresses(@PathParam("id") Integer id) {
-        List<Address> addresses = addressService.findAll();
-        return new ResponseEntity<>(addresses, HttpStatus.OK);
+    public ResponseEntity<List<Address>> getAddressList() {
+        log.debug("getDeviceList");
+        return new ResponseEntity<>(addressService.findAll(), HttpStatus.OK);
     }
 
 
