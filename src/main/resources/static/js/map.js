@@ -19,8 +19,10 @@ $(document).ready(function () {
     if (document.getElementById("mapid") != null) {
         function toggleMapHeight() {
             var screenHeight = document.documentElement.clientHeight
-                - document.getElementById("footerid").clientHeight - 20 +  "px";
+                - document.getElementById("footerid").clientHeight
+                - document.getElementById("navbarid").clientHeight - 20 +  "px";
             document.getElementById("mapid").style.height = screenHeight;
+            document.getElementById('mapid').style.marginTop = document.getElementById("navbarid").clientHeight/3 + "px";
         }
 
         toggleMapHeight(); // в первый дёргаем раз при построении окна
@@ -108,16 +110,27 @@ $(document).ready(function () {
             // пересобираем объект, чтобы jstree нормально его читал, там с этим строго, см jstree.com/docs/json
             for (var i = 0; i < markersAddress.length; i++) {
                 treeNode.id = markersAddress[i].id; // айдишник дерева = айдишник маркера
-                if (markersAddress[i].parent == null) treeNode.parent = "#";
-                else treeNode.parent = markersAddress[i].parent.id;
-                treeNode.text = markersAddress[i].name;
+                if (markersAddress[i].parent == null) {
+                    treeNode.parent = "#";
+                    treeNode.text = "\t&#x26EA; " + markersAddress[i].name; // Отмечаем отдельно города
+                }
+                else {
+                    treeNode.parent = markersAddress[i].parent.id;
+                    treeNode.text = markersAddress[i].name;
+                }
                 treeData.push(treeNode);
                 treeNode = {};
             }
 
             $('#jstree_demo_div')
                 .jstree({
+                    plugins: ["addHTML"],
                     core: {
+                        'themes': {
+                            'name': 'proton',
+                            'responsive': true,
+                            'icons': false
+                        },
                         data: treeData
                     }
                 });
@@ -150,6 +163,30 @@ $(document).ready(function () {
             });
         });
     }
+
+    $.jstree.plugins.addHTML = function (options, parent) {
+        this.redraw_node = function(obj, deep,
+                                    callback, force_draw) {
+            obj = parent.redraw_node.call(
+                this, obj, deep, callback, force_draw
+            );
+            if (obj) {
+                var node = this.get_node(jQuery(obj).attr('id'));
+                if (node &&
+                    node.data &&
+                    ( "addHTML" in node.data ) ) {
+                    jQuery(obj).append(
+                        "<div style='margin-left: 50px'>" +
+                        node.data.addHTML +
+                        "</div>"
+                    );
+                }
+            }
+            return obj;
+        };
+    };
+
+    $.jstree.defaults.addHTML = {};
 
     $('#jstree_demo_div').on("changed.jstree", function (e, data) {
         if (mymap != null) {
@@ -231,6 +268,15 @@ $(document).ready(function () {
 
     $('.header').toggleClass('expand').nextUntil('tr.header').slideToggle(100);
 
+    $('.spinnable').hover(
+        function(){ $(this).addClass('fa-spin') },
+        function(){ $(this).removeClass('fa-spin') }
+    )
+
+    $('.choseone').on('click', 'li', function() {
+        $('.choseone li.active').removeClass('active');
+        $(this).addClass('active');
+    });
 });
 
 function nextTab(elem) {
