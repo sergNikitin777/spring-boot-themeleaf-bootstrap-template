@@ -38,7 +38,7 @@ public class AddressController {
     @RequestMapping(value = "/admin/address", method = RequestMethod.GET)
     public ResponseEntity<List<Address>> addresses(@PathParam("id") Integer id) {
         List<Address> addresses = addressService.findAll();
-        return new ResponseEntity<List<Address>>(addresses, HttpStatus.OK);
+        return new ResponseEntity<>(addresses, HttpStatus.OK);
     }
 
 

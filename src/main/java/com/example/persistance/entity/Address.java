@@ -53,5 +53,17 @@ public class Address implements Serializable {
 
     @Column
     private Float longitude;
+
+    @Column
+    private String mark;
+
+    @Column
+    private String model;
+
+    @Column
+    private String type;
+
+    @Column
+    private String accsess;
     
 }
