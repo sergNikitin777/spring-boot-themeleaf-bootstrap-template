@@ -5,10 +5,6 @@ $(document).ready(function () {
         e.preventDefault();
     });
 
-    Array.prototype.sample = function(){
-        return this[Math.floor(Math.random()*this.length)];
-    }; // WIP1, нужно для рандомизации иконок, убрать, когда иконки будут в базе.
-
     var xhrAddress = new XMLHttpRequest();
     var markersAddress;
     var markerList = new Map();
@@ -45,37 +41,11 @@ $(document).ready(function () {
             id: 'mapbox.streets'
         }).addTo(mymap);
     }
-    var iconbigpurple = L.icon({
-        iconUrl: 'icons/map/marker_purple_64.png',
-        iconSize: [64, 64]
-    }), iconmediumpurple = L.icon({
-        iconUrl: 'icons/map/marker_purple_64.png',
-        iconSize: [32, 32]
-    }), iconsmallpurple = L.icon({
-        iconUrl: 'icons/map/marker_purple_64.png',
-        iconSize: [16, 16]
-    }), iconbigblue = L.icon({
-        iconUrl: 'icons/map/marker_blue_64.png',
-        iconSize: [64, 64]
-    }), iconmediumblue = L.icon({
-        iconUrl: 'icons/map/marker_blue_64.png',
-        iconSize: [32, 32]
-    }), iconsmallblue = L.icon({
-        iconUrl: 'icons/map/marker_blue_64.png',
-        iconSize: [16, 16]
-    }), iconbigred = L.icon({
-        iconUrl: 'icons/map/marker_red_64.png',
-        iconSize: [64, 64]
-    }), iconmediumred = L.icon({
-        iconUrl: 'icons/map/marker_red_64.png',
-        iconSize: [32, 32]
-    }), iconsmallred = L.icon({
-        iconUrl: 'icons/map/marker_red_64.png',
-        iconSize: [16, 16]
-    }), iconempty = L.icon({
+
+    var iconempty = L.icon({
         iconUrl: 'icons/map/transparent-square-tiles.png',
         iconSize: [1, 1]
-    }); // WIP2, это всё надо в базу.
+    });
 
     xhrAddress.onreadystatechange = function() {
         if (xhrAddress.readyState != 4) return;
@@ -88,12 +58,53 @@ $(document).ready(function () {
             {
                 for (var i = 0; i < markersAddress.length; i++) {
                     if (markersAddress[i].parent != null) {
+                        var iconoptions = {};
+                        iconoptions.icon = 'building';
+                        iconoptions.iconShape = 'marker';
+                        iconoptions.backgroundColor = 'transparent';
+                        iconoptions.iconSize = L.point(32, 32);
+                        iconoptions.iconAnchor = L.point(16, 32);
+                        iconoptions.innerIconStyle = 'font-size:16px;position:relative;top:5%;left:5%';
+                        switch (markersAddress[i].accsess) {
+                            case '1': {
+                                iconoptions.borderColor = '#ff0000';
+                                iconoptions.textColor = '#ff0000';
+                                break;
+                            }
+                            case '2': {
+                                iconoptions.borderColor = '#0000ff';
+                                iconoptions.textColor = '#0000ff';
+                                break;
+                            }
+                            case '3': {
+                                iconoptions.borderColor = '#00ff00';
+                                iconoptions.textColor = '#00ff00';
+                                break;
+                            }
+                            case '4': {
+                                iconoptions.borderColor = '#ffff00';
+                                iconoptions.textColor = '#ffff00';
+                                break;
+                            }
+                            default: {
+                                break;
+                            }
+                        }
                         markerList.set(markersAddress[i].id.toString(), //айдишник маркера = айдишник дерева
                             L.marker([markersAddress[i].latitude, markersAddress[i].longitude],
                                 {
-                                    icon: [iconmediumpurple, iconmediumred, iconmediumblue].sample(), // см. WIP1
+                                    icon: L.BeautifyIcon.icon(iconoptions),
                                     title: markersAddress[i].name
-                                }).addTo(mymap).bindPopup(markersAddress[i].description + "<br />" + markersAddress[i].name));
+                                }
+                            ).addTo(mymap).bindPopup(
+                                markersAddress[i].description + '<br/>' +
+                                markersAddress[i].name + '<br/>' +
+                                'Марка: ' + markersAddress[i].mark + '<br/>' +
+                                'Модель: ' + markersAddress[i].model + '<br/>' +
+                                'Тип: ' + markersAddress[i].type + '<br/>' +
+                                'Доступ: ' + markersAddress[i].accsess
+                            )
+                        );
                     }
                     else {
                         markerList.set(markersAddress[i].id.toString(),
@@ -117,10 +128,11 @@ $(document).ready(function () {
                     treeNode = {};
                 }
                 else {
-                    var multiLineMarkup = '<div>Марка: ' +  markersAddress[i].mark + '</div>' +
-                        '<div>Модель: ' +                   markersAddress[i].model + '</div>' +
-                        '<div>Тип: ' +                      markersAddress[i].type + '</div>' +
-                        '<div>Доступ: ' +                   markersAddress[i].accsess + '</div>';
+                    var multiLineMarkup =
+                        '<div>Марка: ' +    markersAddress[i].mark + '</div>' +
+                        '<div>Модель: ' +   markersAddress[i].model + '</div>' +
+                        '<div>Тип: ' +      markersAddress[i].type + '</div>' +
+                        '<div>Доступ: ' +   markersAddress[i].accsess + '</div>';
                     treeNode.parent = markersAddress[i].parent.id;
                     treeNode.text = "\t&#x2617; " + markersAddress[i].name;
                     treeData.push(treeNode);
@@ -150,22 +162,34 @@ $(document).ready(function () {
     };
 
     function iconZoomed(mark) {
-        switch (mark._icon.outerHTML.split(" ")[1].substring(22, 23)) {
-            case "p":
-                if (mymap.getZoom() > 7)  mark.setIcon(iconsmallpurple);
-                if (mymap.getZoom() > 10) mark.setIcon(iconmediumpurple);
-                if (mymap.getZoom() > 13) mark.setIcon(iconbigpurple);
-                break;
-            case "b":
-                if (mymap.getZoom() > 7)  mark.setIcon(iconsmallblue);
-                if (mymap.getZoom() > 10) mark.setIcon(iconmediumblue);
-                if (mymap.getZoom() > 13) mark.setIcon(iconbigblue);
-                break;
-            case "r":
-                if (mymap.getZoom() > 7)  mark.setIcon(iconsmallred);
-                if (mymap.getZoom() > 10) mark.setIcon(iconmediumred);
-                if (mymap.getZoom() > 13) mark.setIcon(iconbigred);
-                break;
+        if (mark._icon.firstChild != null) {
+            if (mymap.getZoom() > 7) {
+                $(mark._icon.firstChild).height(12);
+                $(mark._icon.firstChild).width(12);
+                $(mark._icon.firstChild).css('margin-top', -16);
+                $(mark._icon.firstChild).css('margin-left', -8);
+                $(mark._icon.firstChild.firstChild).css('font-size', 6);
+                $(mark._icon.firstChild.firstChild).css('top', '-50%');
+                $(mark._icon.firstChild.firstChild).css('left', '5%');
+            }
+            if (mymap.getZoom() > 10) {
+                $(mark._icon.firstChild).height(28);
+                $(mark._icon.firstChild).width(28);
+                $(mark._icon.firstChild).css('margin-top', -32);
+                $(mark._icon.firstChild).css('margin-left', -16);
+                $(mark._icon.firstChild.firstChild).css('font-size', 16);
+                $(mark._icon.firstChild.firstChild).css('top', '5%');
+                $(mark._icon.firstChild.firstChild).css('left', '5%');
+            }
+            if (mymap.getZoom() > 13) {
+                $(mark._icon.firstChild).height(60);
+                $(mark._icon.firstChild).width(60);
+                $(mark._icon.firstChild).css('margin-top', -64);
+                $(mark._icon.firstChild).css('margin-left', -32);
+                $(mark._icon.firstChild.firstChild).css('font-size', 32);
+                $(mark._icon.firstChild.firstChild).css('top', '10%');
+                $(mark._icon.firstChild.firstChild).css('left', '0%');
+            }
         }
     }
     if (mymap != null) {
