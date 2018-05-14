@@ -173,12 +173,13 @@ span.round-tab:hover {
 #mapid {
     margin-top: -135px !important;
     margin-left: 300px;
+    position: fixed;
 }
 
 #jstree_demo_div {
     margin-top: -135px;
     margin-left: -40px;
-    overflow: hidden;
+    overflow-y: scroll;
 }
 
 body{

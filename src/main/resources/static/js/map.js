@@ -113,13 +113,25 @@ $(document).ready(function () {
                 if (markersAddress[i].parent == null) {
                     treeNode.parent = "#";
                     treeNode.text = "\t&#x26EA; " + markersAddress[i].name; // Отмечаем отдельно города
+                    treeData.push(treeNode);
+                    treeNode = {};
                 }
                 else {
+                    var multiLineMarkup = '<div>Марка: ' +  markersAddress[i].mark + '</div>' +
+                        '<div>Модель: ' +                   markersAddress[i].model + '</div>' +
+                        '<div>Тип: ' +                      markersAddress[i].type + '</div>' +
+                        '<div>Доступ: ' +                   markersAddress[i].accsess + '</div>';
                     treeNode.parent = markersAddress[i].parent.id;
-                    treeNode.text = markersAddress[i].name;
+                    treeNode.text = "\t&#x2617; " + markersAddress[i].name;
+                    treeData.push(treeNode);
+                    treeNode = {};
+                    treeNode.id = markersAddress[i].id + 'char';
+                    treeNode.parent = markersAddress[i].id;
+                    treeNode.text = 'Характеристики:';
+                    treeNode.data = {'addHTML': multiLineMarkup};
+                    treeData.push(treeNode);
+                    treeNode = {};
                 }
-                treeData.push(treeNode);
-                treeNode = {};
             }
 
             $('#jstree_demo_div')
