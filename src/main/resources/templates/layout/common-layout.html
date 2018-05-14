@@ -71,8 +71,8 @@
                     <ul class="nav navbar-nav">
                         <li>
                             <p class="navbar-btn">
-                                <a data-toggle="tab" id="add" href="#panel3" class="btn btn-default addbtn"><img height="32px" width="32px"
-                                                                                                                 th:src="@{/icons/menu/add_blue.png}"></img><b> Добавить заявку</b></a>
+                                <a data-toggle="modal" id="add" href="#panel3" class="btn btn-default addbtn"><img height="32px" width="32px"
+                                                                                                                   th:src="@{/icons/menu/add_blue.png}"></img><b> Добавить заявку</b></a>
                             </p>
                         </li>
                         <li>
@@ -128,7 +128,7 @@
                     <ul class="nav navbar-nav">
                         <li>
                             <p class="navbar-btn btn-block">
-                                <a data-toggle="tab" id="add_block" href="#panel3" class="btn btn-block navbtn viewbtn"><b>Добавить заявку</b></a>
+                                <a data-toggle="modal" id="add_block" href="#panel3" class="btn btn-block navbtn viewbtn"><b>Добавить заявку</b></a>
                             </p>
                         </li>
                         <li>
@@ -189,98 +189,106 @@
                     <div id="panel2" class="tab-pane fade in active">
                         <iframe id="calendar" src=""></iframe>
                     </div>
-                    <div id="panel3" class="tab-pane fade">
-                        <div>
-                            <form>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label for="InputTime">Дата и время</label>
-                                        <div class="input-group" id="datetimepicker">
-                                            <input type="text" class="form-control" placeholder="Выберите дату и время" id="InputTime" />
-                                            <span class="input-group-addon">
-                                                <i class="glyphicon glyphicon-calendar"></i>
-                                            </span>
-                                        </div>
+                </div>
+            </div>
+        </div>
+        <div id="panel3" class="modal fade">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Добавление новой заявки</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="InputTime">Дата и время</label>
+                                    <div class="input-group" id="datetimepicker">
+                                        <input type="text" class="form-control" placeholder="Выберите дату и время" id="InputTime" />
+                                        <span class="input-group-addon">
+                                            <i class="glyphicon glyphicon-calendar"></i>
+                                        </span>
                                     </div>
-                                    <div class="form-group">
-                                        <label for="InputClient">ФИО Клиента</label>
-                                        <input type="text" class="form-control" id="InputClient" placeholder="Введите ФИО клиента"/>
-                                    </div>
-                                    <div class="row">
-                                        <div class="form-group col-md-6">
-                                            <label for="InputCity">Город</label>
-                                            <select class="form-control" id="InputCity">
-                                                <option>Выберите город</option>
-                                                <option>Пермь</option>
-                                                <option>Краснокамск</option>
-                                                <option>Кунгур</option>
-                                                <option>Березники</option>
-                                                <option>Лысьва</option>
-                                                <option>Соликамск</option>
-                                                <option>Очёр</option>
-                                                <option>Нытва</option>
-                                            </select>
-                                        </div>
-                                        <div class="form-group col-md-6">
-                                            <label for="InputAddress">Адрес</label>
-                                            <input type="text" class="form-control" id="InputAddress" placeholder="Введите улицу и дом"/>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="InputCity">Уведомление</label>
-                                        <select class="form-control" id="InputNotification">
-                                            <option>Выберите время уведомления</option>
-                                            <option>За 15 минут</option>
-                                            <option>За 30 минут</option>
-                                            <option>За час</option>
+                                </div>
+                                <div class="form-group">
+                                    <label for="InputClient">ФИО Клиента</label>
+                                    <input type="text" class="form-control" id="InputClient" placeholder="Введите ФИО клиента"/>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group col-md-6">
+                                        <label for="InputCity">Город</label>
+                                        <select class="form-control" id="InputCity">
+                                            <option>Выберите город</option>
+                                            <option>Пермь</option>
+                                            <option>Краснокамск</option>
+                                            <option>Кунгур</option>
+                                            <option>Березники</option>
+                                            <option>Лысьва</option>
+                                            <option>Соликамск</option>
+                                            <option>Очёр</option>
+                                            <option>Нытва</option>
                                         </select>
                                     </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label>Телефон клиента</label>
-                                        <input type="tel" class="masked form-control" id="InputPhone" placeholder="X (XXX) XXX-XX-XX"
-                                               pattern="\d{1}\(\d{3}\) \d{3}\-\d{4}" title="10-digit number" />
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="InputDriver">Водитель</label>
-                                        <input type="text" class="form-control" id="InputDriver" placeholder="Введите имя водителя"/>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="InputCar">Машина</label>
-                                        <input type="text" class="form-control" id="InputCar" placeholder="Введите марку и номер машины"/>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="InputGofers">Грузчики</label>
-                                        <select class="form-control" id="InputGofers">
-                                            <option>Выберите количество грузчиков</option>
-                                            <option>1</option>
-                                            <option>2</option>
-                                            <option>3</option>
-                                            <option>4</option>
-                                            <option>5</option>
-                                            <option>6</option>
-                                            <option>7</option>
-                                            <option>8</option>
-                                            <option>9</option>
-                                            <option>10</option>
-                                        </select>
+                                    <div class="form-group col-md-6">
+                                        <label for="InputAddress">Адрес</label>
+                                        <input type="text" class="form-control" id="InputAddress" placeholder="Введите улицу и дом"/>
                                     </div>
                                 </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label for ="description">Описание груза</label>
-                                        <textarea class="form-control noresize" id="description" placeholder="Введите описание"></textarea>
-                                    </div>
-                                    <div>
-                                        <button type="button" class="btn btn-block submit" id="Send">
-                                            <i class="fa fa-paper-plane" aria-hidden="true"></i>Отправить
-                                        </button>
-                                    </div>
-                                    <br/>
+                                <div class="form-group">
+                                    <label for="InputCity">Уведомление</label>
+                                    <select class="form-control" id="InputNotification">
+                                        <option>Выберите время уведомления</option>
+                                        <option>За 15 минут</option>
+                                        <option>За 30 минут</option>
+                                        <option>За час</option>
+                                    </select>
                                 </div>
-                            </form>
-                        </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>Телефон клиента</label>
+                                    <input type="tel" class="masked form-control" id="InputPhone" placeholder="X (XXX) XXX-XX-XX"
+                                           pattern="\d{1}\(\d{3}\) \d{3}\-\d{4}" title="10-digit number" />
+                                </div>
+                                <div class="form-group">
+                                    <label for="InputDriver">Водитель</label>
+                                    <input type="text" class="form-control" id="InputDriver" placeholder="Введите имя водителя"/>
+                                </div>
+                                <div class="form-group">
+                                    <label for="InputCar">Машина</label>
+                                    <input type="text" class="form-control" id="InputCar" placeholder="Введите марку и номер машины"/>
+                                </div>
+                                <div class="form-group">
+                                    <label for="InputGofers">Грузчики</label>
+                                    <select class="form-control" id="InputGofers">
+                                        <option>Выберите количество грузчиков</option>
+                                        <option>1</option>
+                                        <option>2</option>
+                                        <option>3</option>
+                                        <option>4</option>
+                                        <option>5</option>
+                                        <option>6</option>
+                                        <option>7</option>
+                                        <option>8</option>
+                                        <option>9</option>
+                                        <option>10</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for ="description">Описание груза</label>
+                                    <textarea class="form-control noresize" id="description" placeholder="Введите описание"></textarea>
+                                </div>
+                                <br/>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-fixed-footer">
+                        <button type="button" class="btn btn-block submit" id="Send" data-dismiss="modal">
+                            <i class="fa fa-paper-plane" aria-hidden="true"></i>Отправить
+                        </button>
                     </div>
                 </div>
             </div>
