@@ -12,5 +12,9 @@ public class DevicePojo {
     private Integer addressId;
     private Integer deviceGroupId;
     private String name;
-
+    private String description;
+    private String mark;
+    private String model;
+    private Boolean heightAccess;
+    private Boolean electricityAccess;
 }

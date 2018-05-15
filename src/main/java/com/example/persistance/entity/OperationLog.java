@@ -18,6 +18,18 @@ public class OperationLog implements Serializable {
 
     private static final long serialVersionUID = 2882267245170513193L;
 
+    public OperationLog() {
+
+    }
+
+    public OperationLog(Operation operation, Employee employee, Device device, Date creationDate, String status) {
+        this.operation = operation;
+        this.employee = employee;
+        this.device = device;
+        this.creationDate = creationDate;
+        this.status = status;
+    }
+
     @Id
     @SequenceGenerator(name = "pk_sequence", sequenceName = "operation_log_id_seq", allocationSize = 1)
     @Column(name = "id", unique = true, nullable = false)
@@ -28,7 +40,10 @@ public class OperationLog implements Serializable {
     private Operation operation;
 
     @ManyToOne()
-    private User user;
+    private Employee employee;
+
+    @ManyToOne()
+    private Device device;
 
     @Column
     private Date creationDate;

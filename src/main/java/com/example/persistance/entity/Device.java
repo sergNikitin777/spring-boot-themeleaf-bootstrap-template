@@ -1,6 +1,7 @@
 package com.example.persistance.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -14,6 +15,23 @@ import javax.persistence.*;
 @Setter
 @EqualsAndHashCode
 public class Device {
+
+
+    public Device() {
+
+    }
+
+    public Device(DeviceGroup deviceGroup, Address address, String name, String description, String mark, String model, Boolean heightAccess, Boolean electricityAccess, DeviceStatus status) {
+        this.name = name;
+        this.description = description;
+        this.mark = mark;
+        this.model = model;
+        this.heightAccess = heightAccess;
+        this.electricityAccess = electricityAccess;
+        this.status = status;
+        this.address = address;
+        this.deviceGroup = deviceGroup;
+    }
 
     @Id
     @SequenceGenerator(name = "pk_sequence", sequenceName = "device_id_seq", allocationSize = 1)
@@ -33,14 +51,19 @@ public class Device {
     @ManyToOne(fetch = FetchType.LAZY)
     private DeviceGroup deviceGroup;
 
-    public Device() {
+    @Column
+    private String description;
 
-    }
+    @Column
+    private String mark;
 
-    public Device(DeviceGroup deviceGroup, Address address, String name, DeviceStatus status) {
-        this.name = name;
-        this.status = status;
-        this.address = address;
-        this.deviceGroup = deviceGroup;
-    }
+    @Column
+    private String model;
+
+    @Column
+    private Boolean heightAccess;
+
+    @Column
+    private Boolean electricityAccess;
+
 }
