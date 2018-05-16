@@ -25,7 +25,5 @@ public class CalendarAddVeventReqPojo {
 
     private String eventName;
     private String eventDescription;
-
-    //private VEvent vEvent;
-    //private VTimeZone timeZone;
+    private String eventLocation;
 }

@@ -10,6 +10,7 @@ import net.fortuna.ical4j.model.*;
 import net.fortuna.ical4j.model.component.VEvent;
 import net.fortuna.ical4j.model.component.VTimeZone;
 import net.fortuna.ical4j.model.property.Description;
+import net.fortuna.ical4j.model.property.Location;
 import org.osaf.caldav4j.exceptions.CalDAV4JException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -82,6 +83,8 @@ public class CalendarController {
         final VEvent vEvent = new VEvent(new DateTime(startDate.getTime()), new Dur(0, calendarAddVeventReqPojo.getDurationHours(), calendarAddVeventReqPojo.getDurationMinutes(), 0), calendarAddVeventReqPojo.getEventName());
 
         vEvent.getProperties().add(new Description(calendarAddVeventReqPojo.getEventDescription()));
+
+        vEvent.getProperties().add(new Location(calendarAddVeventReqPojo.getEventLocation()));
 
         try {
 
