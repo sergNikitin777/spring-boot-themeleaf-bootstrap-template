@@ -44,6 +44,7 @@ $(document).ready(function () {
         postJSON.durationMinutes = 0;
         postJSON.eventName = summary;
         postJSON.eventDescription = description;
+        postJSON.eventLocation = location;
 
         console.log(JSON.stringify(postJSON));
         xhrAddEvent.open('POST', '/calendar/addvevent', true);
@@ -82,11 +83,15 @@ $(document).ready(function () {
                 var dt = new Date(eventList[i].startDate.date);
                 var summary = eventList[i].summary.value;
                 var description = eventList[i].description.value;
+                var locationvalue;
+                if (eventList[i].location == null) locationvalue = null;
+                else locationvalue = eventList[i].location.value;
                 postJSONtoAdd.startDate = dt;
                 postJSONtoAdd.durationHours = 1;
                 postJSONtoAdd.durationMinutes = 0;
                 postJSONtoAdd.eventName = summary;
                 postJSONtoAdd.eventDescription = description;
+                postJSONtoAdd.eventLocation = locationvalue;
                 xhrAddEvent.open('POST', '/calendar/addvevent', true);
                 xhrAddEvent.setRequestHeader("Content-type", "application/json");
                 xhrAddEvent.send(JSON.stringify(postJSONtoAdd));
@@ -128,11 +133,15 @@ $(document).ready(function () {
                 var dt = new Date(eventListR[i].startDate.date);
                 var summary = eventListR[i].summary.value;
                 var description = eventListR[i].description.value;
+                var locationvalue;
+                if (eventListR[i].location == null) locationvalue = null;
+                else locationvalue = eventListR[i].location.value;
                 postJSONtoAdd.startDate = dt;
                 postJSONtoAdd.durationHours = 1;
                 postJSONtoAdd.durationMinutes = 0;
                 postJSONtoAdd.eventName = summary;
                 postJSONtoAdd.eventDescription = description;
+                postJSONtoAdd.eventLocation = locationvalue;
                 xhrAddEvent.open('POST', '/calendar/addvevent', true);
                 xhrAddEvent.setRequestHeader("Content-type", "application/json");
                 xhrAddEvent.send(JSON.stringify(postJSONtoAdd));
