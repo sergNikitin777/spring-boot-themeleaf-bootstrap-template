@@ -25,10 +25,9 @@
 	padding: 0;
 }
 .fa-loading-content {
-	background: rgba(235, 235, 235, 0.9);
+	background: rgba(235, 235, 235, 0);
 	display: inline-block;
 	min-width: 280px;
-	box-shadow: 2px 2px 2px #999;
 	text-align: left;
 }
 
@@ -44,12 +43,12 @@
 .jq-fa-loading.loading .fa-loading-header { display: none; }
 .jq-fa-loading.loading.has-text .fa-loading-header { display: block; }
 
-.jq-fa-loading .fa-loading-icon { color: #000; }
+.jq-fa-loading .fa-loading-icon { color: #ddd; }
 .jq-fa-loading.success .fa-loading-icon{ color: #080; }
 .jq-fa-loading.fail .fa-loading-icon{ color: #800; }
 
 .jq-fa-loading .fa-loading-text{
-	color: #333;
+	color: #ddd;
 	display: inline-block;
 	margin-left: 1em;
 }

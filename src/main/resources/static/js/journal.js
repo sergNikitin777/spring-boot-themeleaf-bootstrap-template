@@ -302,6 +302,7 @@ $(document).ready(function () {
                                 $("#tablebody").append(row);
                             }
                         }
+                        $('#tableId').faLoading(false);
                     }
                 };
 
@@ -314,7 +315,6 @@ $(document).ready(function () {
                     "protocol": "https",
                     "userName": "logistikatest@yandex.ru"
                 }));
-                $('#tableId').faLoading(false);
             }
         };
 
