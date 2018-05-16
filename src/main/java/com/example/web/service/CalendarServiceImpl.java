@@ -64,14 +64,18 @@ public class CalendarServiceImpl implements CalendarService {
             CalendarQuery calendarQuery = gq.generate();
             List<Calendar> calendars = collection.queryCalendars(httpClient, calendarQuery);
 
+            if (calendars!=null) {
 
-            for (Calendar calendar : calendars) {
-                ComponentList componentList = calendar.getComponents().getComponents(Component.VEVENT);
-                Iterator<VEvent> eventIterator = componentList.iterator();
-                while (eventIterator.hasNext()) {
-                    VEvent ve = eventIterator.next();
+                for (Calendar calendar : calendars) {
+                    if (calendar != null && calendar.getComponents() != null) {
+                        ComponentList componentList = calendar.getComponents().getComponents(Component.VEVENT);
+                        Iterator<VEvent> eventIterator = componentList.iterator();
+                        while (eventIterator.hasNext()) {
+                            VEvent ve = eventIterator.next();
 
-                    vEvents.add(ve);
+                            vEvents.add(ve);
+                        }
+                    }
                 }
             }
 
