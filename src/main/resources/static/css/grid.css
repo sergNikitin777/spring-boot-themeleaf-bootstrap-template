@@ -72,6 +72,10 @@ nav {
     color: #222222;
 }
 
+.modal-amend {
+    margin-top: 150px;
+}
+
 .noresize {
     resize: none;
     height: 256px !important;
@@ -84,7 +88,7 @@ tr.strikeout td:before {
     padding: 5px 10px;
     left: 20px;
     border-bottom: 1px solid #111;
-    width: 96%;
+    width: 85%;
 }
 
 #calendar {

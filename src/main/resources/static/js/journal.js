@@ -7,6 +7,7 @@ $(document).ready(function () {
     var eventList                   = new Map();
     var eventListR                  = new Map();
     var currentDate                 = new Date();
+    var idToAmend;
     var year                        = currentDate.getFullYear();
     var month                       = currentDate.getMonth() + 1;
     var day                         = currentDate.getDate();
@@ -19,6 +20,52 @@ $(document).ready(function () {
         var screenHeight = document.documentElement.clientHeight
             - 60 +  "px";
         document.getElementById("calendar").style.height = screenHeight;
+    }
+
+    function amendEventById(id) {
+        var postJSON = {
+            "calPostfix": "/events-5825759",
+            "calPrefix": "/calendars/",
+            "caldavHost": "caldav.yandex.ru",
+            "caldavPort": 443,
+            "password": "kjubcn123456",
+            "protocol": "https",
+            "userName": "logistikatest@yandex.ru"
+        };
+        var postJSONtoRemove = {
+            "calPostfix": "/events-5825759",
+            "calPrefix": "/calendars/",
+            "caldavHost": "caldav.yandex.ru",
+            "caldavPort": 443,
+            "password": "kjubcn123456",
+            "protocol": "https",
+            "userName": "logistikatest@yandex.ru",
+            "uid": id
+        };
+
+        var dateandtime         = $('#InputTimeamend').val();
+        var dateandtimeLocal    = new Date(dateandtime.substr(6, 4), dateandtime.substr(3, 2) - 1, dateandtime.substr(0, 2),
+            dateandtime.substr(11, 2), dateandtime.substr(14, 2));
+        var summary             = $('#InputClientamend').val();
+        var location            = $('#InputAddressamend').val() + ', ' + $('#InputCityamend').val();
+        var description         = 'Водитель ' + $('#InputDriveramend').val() + '; ' + $('#InputCaramend').val() + '; ' +
+            $('#InputGofersamend').val() + ' грузчик(ов); ' + $('#descriptionamend').val();
+
+        postJSON.startDate = dateandtimeLocal;
+        postJSON.durationHours = 1;
+        postJSON.durationMinutes = 0;
+        postJSON.eventName = summary;
+        postJSON.eventDescription = description;
+        postJSON.eventLocation = location;
+
+        xhrAddEvent.open('POST', '/calendar/addvevent', true);
+        xhrAddEvent.setRequestHeader("Content-type", "application/json");
+        xhrAddEvent.send(JSON.stringify(postJSON));
+        xhrAddEvent.onreadystatechange = function () {
+            if (xhrAddEvent.readyState == XMLHttpRequest.DONE && xhrAddEvent.status == 200) {
+                deleteEvent(postJSONtoRemove);
+            }
+        };
     }
 
     function addEvent(){
@@ -46,7 +93,6 @@ $(document).ready(function () {
         postJSON.eventDescription = description;
         postJSON.eventLocation = location;
 
-        console.log(JSON.stringify(postJSON));
         xhrAddEvent.open('POST', '/calendar/addvevent', true);
         xhrAddEvent.setRequestHeader("Content-type", "application/json");
         xhrAddEvent.send(JSON.stringify(postJSON));
@@ -170,6 +216,7 @@ $(document).ready(function () {
 
     function updateTable (viewpoint) {
         $("#tablebody").html("");
+        $("#tableId").faLoading({icon: "fa-refresh", spin: true});
         var limitms = new Date();
         switch (viewpoint) {
             case "day":   {
@@ -216,7 +263,7 @@ $(document).ready(function () {
                         row.append('<td class = "gofers">' + description[2].split(' ')[1] + '</td>');
                         row.append('<td class = "description">' + description[3] + '</td>');
                         row.append('<td class = "buttons"><a class="btn btn-sm edit"><i class="fa fa-edit"></i></a>&nbsp;' +
-                            '<a class="btn btn-sm delete"><i class="fa fa-trash-o"></i></a></td>');
+                            '<a class="btn btn-sm remove"><i class="fa fa-trash-o"></i></a></td>');
 
                         $("#tablebody").append(row);
                     }
@@ -249,7 +296,8 @@ $(document).ready(function () {
                                 row.append('<td class = "car">' + description[1] + '</td>');
                                 row.append('<td class = "gofers">' + description[2].split(' ')[1] + '</td>');
                                 row.append('<td class = "description">' + description[3] + '</td>');
-                                row.append('<td class = "buttons"><a class="btn btn-sm rebuild"><i class="fa fa-undo"></i></a></td>');
+                                row.append('<td class = "buttons"><a class="btn btn-sm rebuild"><i class="fa fa-undo"></i></a>&nbsp;' +
+                                    '<a class="btn btn-sm btn-danger delete" style="background-color: red"><i class="fa fa-trash-o"></i></a></td>');
 
                                 $("#tablebody").append(row);
                             }
@@ -266,6 +314,7 @@ $(document).ready(function () {
                     "protocol": "https",
                     "userName": "logistikatest@yandex.ru"
                 }));
+                $('#tableId').faLoading(false);
             }
         };
 
@@ -287,6 +336,13 @@ $(document).ready(function () {
         });
     });
 
+    $(function () {
+        $('#datetimepickeramend').datetimepicker({
+            locale: 'ru',
+            sideBySide: true
+        });
+    });
+
     // Пользовательские события
     $('.navbtn').on('click', function () {
         $('.navbar-toggle').click();
@@ -295,11 +351,29 @@ $(document).ready(function () {
         $(this).blur();
     });
 
-    $(document).on('click', '.delete', function() {
+    $(document).on('click', '.remove', function() {
         var button = $(this).parent();
         if ((button.parent()[0].id != '') && (button.parent()[0].id != null)) {
             if (confirm("Удалить заявку?")) {
                 removeEvent('' + button.parent()[0].id);
+            }
+        }
+    });
+
+    $(document).on('click', '.delete', function() {
+        var button = $(this).parent();
+        if ((button.parent()[0].id != '') && (button.parent()[0].id != null)) {
+            if (confirm("Удалить заявку окончательно?")) {
+                deleteEvent({
+                    "calPostfix": "/events-5903307",
+                    "calPrefix": "/calendars/",
+                    "caldavHost": "caldav.yandex.ru",
+                    "caldavPort": 443,
+                    "password": "kjubcn123456",
+                    "protocol": "https",
+                    "userName": "logistikatest@yandex.ru",
+                    "uid": button.parent()[0].id
+                });
             }
         }
     });
@@ -313,9 +387,33 @@ $(document).ready(function () {
         }
     });
 
-    $(document).on('click', '.edit', function() {
+    $('.modal').modal({
+        dismissible: true
+    });
 
-    }
+    $(document).on('click', '.edit', function() {
+        idToAmend = $(this).parent().parent()[0].id;
+        $('#panel4').modal("open");
+        for (var i = 0; i < eventList.length; i++) {
+            if (eventList[i].uid.value == idToAmend) {
+                var description = ('' + eventList[i].description.value).split(';');
+                var dateString = new Date(eventList[i].startDate.date).toLocaleString('ru-RU', {
+                    year: 'numeric', month: 'numeric', day: 'numeric',
+                    hour: 'numeric', minute: 'numeric'
+                }).split(',');
+                $('#InputTimeamend').val(dateString[0]+dateString[1]);
+                $('#InputClientamend').val(eventList[i].summary.value);
+                if (eventList[i].location != null) {
+                    $('#InputCityamend').val(eventList[i].location.value.split(',')[2]);
+                    $('#InputAddressamend').val(eventList[i].location.value.split(',')[0] + ', ' + eventList[i].location.value.split(',')[1]);
+                }
+                $('#InputDriveramend').val(description[0].split(' ')[1]);
+                $('#InputCaramend').val(description[1]);
+                $('#InputGofersamend').val(description[2].split(' ')[1]);
+                $('#descriptionamend').val(description[3]);
+            }
+        }
+    });
 
     $('#dayviewpoint').on('click', function() {
         updateTable('day');
@@ -345,11 +443,16 @@ $(document).ready(function () {
         addEvent();
     });
 
+    $('#Amend').on('click', function(){
+        $('#panel4').modal('close');
+        amendEventById(idToAmend);
+    });
+
     $('#InputTime').keypress(function( event ) {
         event.preventDefault();
     });
 
-    $('#add,#add_block,#viewcalendar,#viewcalendar_block,#settings,#settings_block').on('click', function() {
+    $('#viewcalendar,#viewcalendar_block,#settings,#settings_block').on('click', function() {
         $('.hidebtn').attr('style', 'visibility: hidden');
     });
 
