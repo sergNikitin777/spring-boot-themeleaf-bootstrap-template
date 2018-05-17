@@ -208,7 +208,7 @@
                     </div>
                     <div class="modal-body">
                         <form>
-                            <div class="col-md-4">
+                            <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="InputTime">Дата и время</label>
                                     <div class="input-group" id="datetimepicker">
@@ -217,56 +217,10 @@
                                             <i class="glyphicon glyphicon-calendar"></i>
                                         </span>
                                     </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="InputClient">ФИО Клиента</label>
-                                    <input type="text" class="form-control" id="InputClient" placeholder="Введите ФИО клиента"/>
-                                </div>
-                                <div class="row">
-                                    <div class="form-group col-md-6">
-                                        <label for="InputCity">Город</label>
-                                        <select class="form-control" id="InputCity">
-                                            <option>Выберите город</option>
-                                            <option>Пермь</option>
-                                            <option>Краснокамск</option>
-                                            <option>Кунгур</option>
-                                            <option>Березники</option>
-                                            <option>Лысьва</option>
-                                            <option>Соликамск</option>
-                                            <option>Очёр</option>
-                                            <option>Нытва</option>
-                                        </select>
-                                    </div>
-                                    <div class="form-group col-md-6">
-                                        <label for="InputAddress">Адрес</label>
-                                        <input type="text" class="form-control" id="InputAddress" placeholder="Введите улицу и дом"/>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="InputCity">Уведомление</label>
-                                    <select class="form-control" id="InputNotification">
-                                        <option>Выберите время уведомления</option>
-                                        <option>За 15 минут</option>
-                                        <option>За 30 минут</option>
-                                        <option>За час</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label>Телефон клиента</label>
-                                    <input type="tel" class="masked form-control" id="InputPhone" placeholder="X (XXX) XXX-XX-XX"
-                                           pattern="\d{1}\(\d{3}\) \d{3}\-\d{4}" title="10-digit number" />
-                                </div>
-                                <div class="form-group">
                                     <label for="InputDriver">Водитель</label>
                                     <input type="text" class="form-control" id="InputDriver" placeholder="Введите имя водителя"/>
-                                </div>
-                                <div class="form-group">
                                     <label for="InputCar">Машина</label>
                                     <input type="text" class="form-control" id="InputCar" placeholder="Введите марку и номер машины"/>
-                                </div>
-                                <div class="form-group">
                                     <label for="InputGofers">Грузчики</label>
                                     <select class="form-control" id="InputGofers">
                                         <option>Выберите количество грузчиков</option>
@@ -283,12 +237,47 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="InputClient">ФИО Клиента</label>
+                                    <input type="text" class="form-control" id="InputClient" placeholder="Введите ФИО клиента"/>
+                                    <label>Телефон клиента</label>
+                                    <input type="tel" class="masked form-control" id="InputPhone" placeholder="X (XXX) XXX-XX-XX"
+                                           pattern="\d{1}\(\d{3}\) \d{3}\-\d{4}" title="10-digit number" />
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <label for="InputCity">Город</label>
+                                            <select class="form-control" id="InputCity">
+                                                <option>Выберите город</option>
+                                                <option>Пермь</option>
+                                                <option>Краснокамск</option>
+                                                <option>Кунгур</option>
+                                                <option>Березники</option>
+                                                <option>Лысьва</option>
+                                                <option>Соликамск</option>
+                                                <option>Очёр</option>
+                                                <option>Нытва</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="InputAddress">Адрес</label>
+                                            <input type="text" class="form-control" id="InputAddress" placeholder="Введите улицу и дом"/>
+                                        </div>
+                                    </div>
+                                    <label for="InputNotification">Уведомление</label>
+                                    <select class="form-control" id="InputNotification">
+                                        <option>Выберите время уведомления</option>
+                                        <option>За 15 минут</option>
+                                        <option>За 30 минут</option>
+                                        <option>За час</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
                                 <div class="form-group">
                                     <label for ="description">Описание груза</label>
                                     <textarea class="form-control noresize" id="description" placeholder="Введите описание"></textarea>
                                 </div>
-                                <br/>
                             </div>
                         </form>
                     </div>
@@ -312,66 +301,20 @@
                     </div>
                     <div class="modal-body">
                         <form>
-                            <div class="col-md-4">
+                            <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="InputTime">Дата и время</label>
+                                    <label for="InputTimeamend">Дата и время</label>
                                     <div class="input-group" id="datetimepickeramend">
                                         <input type="text" class="form-control" placeholder="Выберите дату и время" id="InputTimeamend" />
                                         <span class="input-group-addon">
                                             <i class="glyphicon glyphicon-calendar"></i>
                                         </span>
                                     </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="InputClient">ФИО Клиента</label>
-                                    <input type="text" class="form-control" id="InputClientamend" placeholder="Введите ФИО клиента"/>
-                                </div>
-                                <div class="row">
-                                    <div class="form-group col-md-6">
-                                        <label for="InputCity">Город</label>
-                                        <select class="form-control" id="InputCityamend">
-                                            <option>Выберите город</option>
-                                            <option>Пермь</option>
-                                            <option>Краснокамск</option>
-                                            <option>Кунгур</option>
-                                            <option>Березники</option>
-                                            <option>Лысьва</option>
-                                            <option>Соликамск</option>
-                                            <option>Очёр</option>
-                                            <option>Нытва</option>
-                                        </select>
-                                    </div>
-                                    <div class="form-group col-md-6">
-                                        <label for="InputAddress">Адрес</label>
-                                        <input type="text" class="form-control" id="InputAddressamend" placeholder="Введите улицу и дом"/>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="InputCity">Уведомление</label>
-                                    <select class="form-control" id="InputNotificationamend">
-                                        <option>Выберите время уведомления</option>
-                                        <option>За 15 минут</option>
-                                        <option>За 30 минут</option>
-                                        <option>За час</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label>Телефон клиента</label>
-                                    <input type="tel" class="masked form-control" id="InputPhoneamend" placeholder="X (XXX) XXX-XX-XX"
-                                           pattern="\d{1}\(\d{3}\) \d{3}\-\d{4}" title="10-digit number" />
-                                </div>
-                                <div class="form-group">
-                                    <label for="InputDriver">Водитель</label>
+                                    <label for="InputDriveramend">Водитель</label>
                                     <input type="text" class="form-control" id="InputDriveramend" placeholder="Введите имя водителя"/>
-                                </div>
-                                <div class="form-group">
-                                    <label for="InputCar">Машина</label>
+                                    <label for="InputCaramend">Машина</label>
                                     <input type="text" class="form-control" id="InputCaramend" placeholder="Введите марку и номер машины"/>
-                                </div>
-                                <div class="form-group">
-                                    <label for="InputGofers">Грузчики</label>
+                                    <label for="InputGofersamend">Грузчики</label>
                                     <select class="form-control" id="InputGofersamend">
                                         <option>Выберите количество грузчиков</option>
                                         <option>1</option>
@@ -387,12 +330,47 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="InputClientamend">ФИО Клиента</label>
+                                    <input type="text" class="form-control" id="InputClientamend" placeholder="Введите ФИО клиента"/>
+                                    <label>Телефон клиента</label>
+                                    <input type="tel" class="masked form-control" id="InputPhoneamend" placeholder="X (XXX) XXX-XX-XX"
+                                           pattern="\d{1}\(\d{3}\) \d{3}\-\d{4}" title="10-digit number" />
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <label for="InputCityamend">Город</label>
+                                            <select class="form-control" id="InputCityamend">
+                                                <option>Выберите город</option>
+                                                <option>Пермь</option>
+                                                <option>Краснокамск</option>
+                                                <option>Кунгур</option>
+                                                <option>Березники</option>
+                                                <option>Лысьва</option>
+                                                <option>Соликамск</option>
+                                                <option>Очёр</option>
+                                                <option>Нытва</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="InputAddressamend">Адрес</label>
+                                            <input type="text" class="form-control" id="InputAddressamend" placeholder="Введите улицу и дом"/>
+                                        </div>
+                                    </div>
+                                    <label for="InputNotificationamend">Уведомление</label>
+                                    <select class="form-control" id="InputNotificationamend">
+                                        <option>Выберите время уведомления</option>
+                                        <option>За 15 минут</option>
+                                        <option>За 30 минут</option>
+                                        <option>За час</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
                                 <div class="form-group">
                                     <label for ="description">Описание груза</label>
                                     <textarea class="form-control noresize" id="descriptionamend" placeholder="Введите описание"></textarea>
                                 </div>
-                                <br/>
                             </div>
                         </form>
                     </div>

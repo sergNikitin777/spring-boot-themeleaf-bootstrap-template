@@ -77,8 +77,8 @@ nav {
 }
 
 .noresize {
-    resize: none;
-    height: 256px !important;
+    resize: vertical;
+    min-height: 100px;
 }
 
 tr.strikeout td:before {
