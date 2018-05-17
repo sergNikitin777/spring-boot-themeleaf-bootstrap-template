@@ -58,7 +58,7 @@ $(document).ready(function () {
         postJSON.eventDescription = description;
         postJSON.eventLocation = location;
 
-        xhrAddEvent.open('POST', '/calendar/addvevent', true);
+        xhrAddEvent.open('POST','calendar/addvevent', true);
         xhrAddEvent.setRequestHeader("Content-type", "application/json");
         xhrAddEvent.send(JSON.stringify(postJSON));
         xhrAddEvent.onreadystatechange = function () {
@@ -93,7 +93,7 @@ $(document).ready(function () {
         postJSON.eventDescription = description;
         postJSON.eventLocation = location;
 
-        xhrAddEvent.open('POST', '/calendar/addvevent', true);
+        xhrAddEvent.open('POST', 'calendar/addvevent', true);
         xhrAddEvent.setRequestHeader("Content-type", "application/json");
         xhrAddEvent.send(JSON.stringify(postJSON));
         xhrAddEvent.onreadystatechange = function () {
@@ -138,7 +138,7 @@ $(document).ready(function () {
                 postJSONtoAdd.eventName = summary;
                 postJSONtoAdd.eventDescription = description;
                 postJSONtoAdd.eventLocation = locationvalue;
-                xhrAddEvent.open('POST', '/calendar/addvevent', true);
+                xhrAddEvent.open('POST', 'calendar/addvevent', true);
                 xhrAddEvent.setRequestHeader("Content-type", "application/json");
                 xhrAddEvent.send(JSON.stringify(postJSONtoAdd));
                 xhrAddEvent.onreadystatechange = function () {
@@ -188,7 +188,7 @@ $(document).ready(function () {
                 postJSONtoAdd.eventName = summary;
                 postJSONtoAdd.eventDescription = description;
                 postJSONtoAdd.eventLocation = locationvalue;
-                xhrAddEvent.open('POST', '/calendar/addvevent', true);
+                xhrAddEvent.open('POST', 'calendar/addvevent', true);
                 xhrAddEvent.setRequestHeader("Content-type", "application/json");
                 xhrAddEvent.send(JSON.stringify(postJSONtoAdd));
                 xhrAddEvent.onreadystatechange = function () {
@@ -204,7 +204,7 @@ $(document).ready(function () {
     }
 
     function deleteEvent(postJSON) {
-        xhrDeleteEvent.open('POST', '/calendar/delvevent', true);
+        xhrDeleteEvent.open('POST', 'calendar/delvevent', true);
         xhrDeleteEvent.setRequestHeader("Content-type", "application/json");
         xhrDeleteEvent.send(JSON.stringify(postJSON));
         xhrDeleteEvent.onreadystatechange = function () {
