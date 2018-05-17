@@ -61,6 +61,6 @@ public class DeviceServiceImpl implements DeviceService {
         DeviceStatus status = statusRepository.findOne(devicePojo.getStatusId());
         DeviceGroup deviceGroup = deviceGroupRepository.findOne(devicePojo.getDeviceGroupId());
         Address address = addressRepository.findOne(devicePojo.getAddressId());
-        return deviceRepository.save(new Device(deviceGroup,address,devicePojo.getName(),status)).getId();
+        return deviceRepository.save(new Device(deviceGroup, address, devicePojo.getName(), devicePojo.getDescription(), devicePojo.getMark(), devicePojo.getModel(), devicePojo.getHeightAccess(), devicePojo.getElectricityAccess(), status)).getId();
     }
 }
