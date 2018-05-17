@@ -47,7 +47,7 @@ $(document).ready(function () {
         var dateandtimeLocal    = new Date(dateandtime.substr(6, 4), dateandtime.substr(3, 2) - 1, dateandtime.substr(0, 2),
             dateandtime.substr(11, 2), dateandtime.substr(14, 2));
         var summary             = $('#InputClientamend').val();
-        var location            = $('#InputAddressamend').val() + ', ' + $('#InputCityamend').val();
+        var location            = $('#InputAddressamend').val();
         var description         = 'Водитель ' + $('#InputDriveramend').val() + '; ' + $('#InputCaramend').val() + '; ' +
             $('#InputGofersamend').val() + ' грузчик(ов); ' + $('#descriptionamend').val();
 
@@ -82,7 +82,7 @@ $(document).ready(function () {
         var dateandtimeLocal    = new Date(dateandtime.substr(6, 4), dateandtime.substr(3, 2) - 1, dateandtime.substr(0, 2),
             dateandtime.substr(11, 2), dateandtime.substr(14, 2));
         var summary             = $('#InputClient').val();
-        var location            = $('#InputAddress').val() + ', ' + $('#InputCity').val();
+        var location            = $('#InputAddress').val();
         var description         = 'Водитель ' + $('#InputDriver').val() + '; ' + $('#InputCar').val() + '; ' +
             $('#InputGofers').val() + ' грузчик(ов); ' + $('#description').val();
 
@@ -242,7 +242,6 @@ $(document).ready(function () {
                 eventList = eventList.sort(function (a, b) {
                     return a.startDate.date < b.startDate.date;
                 });
-
                 for (var i = 0; i < eventList.length; i++) {
                     if ((eventList[i].description != null) && (new Date(eventList[i].startDate.date) < limitms) && (new Date(eventList[i].startDate.date) > currentDate)) {
                         var row = $('<tr class="normal" id="' + eventList[i].uid.value + '">');
@@ -253,11 +252,11 @@ $(document).ready(function () {
                         var description = ('' + eventList[i].description.value).split(';');
                         var locationvalue = '';
                         if (eventList[i].location == null) locationvalue = 'Не указан';
-                        else locationvalue = eventList[i].location.value;
+                        else locationvalue = eventList[i].location.value.split(',');
 
                         row.append('<td class = "datetime">' + dtLocalized + '</td>');
                         row.append('<td class = "name">' + eventList[i].summary.value + '</td>');
-                        row.append('<td class = "location">' + locationvalue + '</td>');
+                        row.append('<td class = "location">' + locationvalue[locationvalue.length - 3] + ',' +locationvalue[locationvalue.length - 2] + ',' + locationvalue[locationvalue.length - 1] + '</td>');
                         row.append('<td class = "driver">' + description[0].split(' ')[1] + '</td>');
                         row.append('<td class = "car">' + description[1] + '</td>');
                         row.append('<td class = "gofers">' + description[2].split(' ')[1] + '</td>');
@@ -287,11 +286,11 @@ $(document).ready(function () {
                                 var description = ('' + eventListR[i].description.value).split(';');
                                 var locationvalue = '';
                                 if (eventListR[i].location == null) locationvalue = 'Не указан';
-                                else locationvalue = eventListR[i].location.value;
+                                else locationvalue = eventListR[i].location.value.split(',');
 
                                 row.append('<td class = "datetime">' + dtLocalized + '</td>');
                                 row.append('<td class = "name">' + eventListR[i].summary.value + '</td>');
-                                row.append('<td class = "location">' + locationvalue + '</td>');
+                                row.append('<td class = "location">' + locationvalue[locationvalue.length - 3] + ',' +locationvalue[locationvalue.length - 2] + ',' + locationvalue[locationvalue.length - 1] + '</td>');
                                 row.append('<td class = "driver">' + description[0].split(' ')[1] + '</td>');
                                 row.append('<td class = "car">' + description[1] + '</td>');
                                 row.append('<td class = "gofers">' + description[2].split(' ')[1] + '</td>');
@@ -329,25 +328,21 @@ $(document).ready(function () {
         }));
     }
 
+    // плагины ввода
     $(function () {
-        var $address = $('#InputAddress');
-        var $addressamend = $('#InputAddressamend');
-        $address.kladr({
+        $('#InputAddress').kladr({
             oneString: true
         });
-        $addressamend.kladr({
+        $('#InputAddressamend').kladr({
             oneString: true
         });
-    });
-
-    $(function () {
+        $('#InputRegion').kladr({
+            type: $.kladr.type.region
+        });
         $('#datetimepicker').datetimepicker({
             locale: 'ru',
             sideBySide: true
         });
-    });
-
-    $(function () {
         $('#datetimepickeramend').datetimepicker({
             locale: 'ru',
             sideBySide: true
@@ -404,7 +399,7 @@ $(document).ready(function () {
 
     $(document).on('click', '.edit', function() {
         idToAmend = $(this).parent().parent()[0].id;
-        $('#panel4').modal("open");
+        $('#modal_edit').modal("open");
         for (var i = 0; i < eventList.length; i++) {
             if (eventList[i].uid.value == idToAmend) {
                 var description = ('' + eventList[i].description.value).split(';');
@@ -415,8 +410,7 @@ $(document).ready(function () {
                 $('#InputTimeamend').val(dateString[0]+dateString[1]);
                 $('#InputClientamend').val(eventList[i].summary.value);
                 if (eventList[i].location != null) {
-                    $('#InputCityamend').val(eventList[i].location.value.split(',')[2]);
-                    $('#InputAddressamend').val(eventList[i].location.value.split(',')[0] + ', ' + eventList[i].location.value.split(',')[1]);
+                    $('#InputAddressamend').val(eventList[i].location.value);
                 }
                 $('#InputDriveramend').val(description[0].split(' ')[1]);
                 $('#InputCaramend').val(description[1]);
@@ -455,7 +449,7 @@ $(document).ready(function () {
     });
 
     $('#Amend').on('click', function(){
-        $('#panel4').modal('close');
+        $('#modal_edit').modal('close');
         amendEventById(idToAmend);
     });
 

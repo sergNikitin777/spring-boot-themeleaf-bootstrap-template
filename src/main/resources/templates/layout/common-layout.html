@@ -82,20 +82,20 @@
                     <ul class="nav navbar-nav">
                         <li>
                             <p class="navbar-btn">
-                                <a data-toggle="modal" id="add" href="#panel3" class="btn btn-default addbtn"><img height="32px" width="32px"
-                                                                                                                   th:src="@{/icons/menu/add_blue.png}"></img><b> Добавить заявку</b></a>
+                                <a data-toggle="modal" id="add" href="#modal_add" class="btn btn-default addbtn"><img height="32px" width="32px"
+                                                                                                                      th:src="@{/icons/menu/add_blue.png}"></img><b> Добавить заявку</b></a>
                             </p>
                         </li>
                         <li>
                             <p class="navbar-btn">
-                                <a data-toggle="tab" id="viewcalendar" href="#panel2" class="btn btn-default viewclndrbtn"><img height="32px" width="32px"
-                                                                                                                                th:src="@{/icons/menu/calendar_blue.png}"></img><b> Календарь</b></a>
+                                <a data-toggle="tab" id="viewcalendar" href="#panel_calendar" class="btn btn-default viewclndrbtn"><img height="32px" width="32px"
+                                                                                                                                        th:src="@{/icons/menu/calendar_blue.png}"></img><b> Календарь</b></a>
                             </p>
                         </li>
                         <li>
                             <p class="navbar-btn">
-                                <a data-toggle="tab" id="view" href="#panel1" class="btn btn-default viewbtn"><img height="32px" width="32px"
-                                                                                                                   th:src="@{/icons/menu/expand_blue.png}"></img><b> Список Заявок</b></a>
+                                <a data-toggle="tab" id="view" href="#panel_list" class="btn btn-default viewbtn"><img height="32px" width="32px"
+                                                                                                                       th:src="@{/icons/menu/expand_blue.png}"></img><b> Список Заявок</b></a>
                             </p>
                         </li>
                     </ul>
@@ -117,8 +117,8 @@
                         </li>
                         <li>
                             <p class="navbar-btn">
-                                <a data-toggle="tab" id="settings" class="btn btn-default"><b>Настройки </b><img height="32px" width="32px"
-                                                                                                                 th:src="@{/icons/menu/settings_blue.png}"></img></a>
+                                <a data-toggle="tab" id="settings" href="#panel_settings" class="btn btn-default"><b>Настройки </b><img height="32px" width="32px"
+                                                                                                                                        th:src="@{/icons/menu/settings_blue.png}"></img></a>
                             </p>
                         </li>
                     </ul>
@@ -139,17 +139,17 @@
                     <ul class="nav navbar-nav">
                         <li>
                             <p class="navbar-btn btn-block">
-                                <a data-toggle="modal" id="add_block" href="#panel3" class="btn btn-block navbtn viewbtn"><b>Добавить заявку</b></a>
+                                <a data-toggle="modal" id="add_block" href="#modal_add" class="btn btn-block navbtn viewbtn"><b>Добавить заявку</b></a>
                             </p>
                         </li>
                         <li>
                             <p class="navbar-btn btn-block">
-                                <a data-toggle="tab" id="viewcalendar_block" href="#panel2" class="btn btn-block navbtn addbtn"><b>Календарь</b></a>
+                                <a data-toggle="tab" id="viewcalendar_block" href="#panel_calendar" class="btn btn-block navbtn addbtn"><b>Календарь</b></a>
                             </p>
                         </li>
                         <li>
                             <p class="navbar-btn btn-block">
-                                <a data-toggle="tab" id="view_block" href="#panel1" class="btn btn-block navbtn"><b>Список заявок</b></a>
+                                <a data-toggle="tab" id="view_block" href="#panel_list" class="btn btn-block navbtn"><b>Список заявок</b></a>
                             </p>
                         </li>
                         <li>
@@ -169,7 +169,7 @@
                         </li>
                         <li>
                             <p class="navbar-btn btn-block">
-                                <a data-toggle="tab" id="settings_block" class="btn btn-block navbtn"><b>Настройки</b></a>
+                                <a data-toggle="tab" id="settings_block" href="#panel_settings" class="btn btn-block navbtn"><b>Настройки</b></a>
                             </p>
                         </li>
                     </ul>
@@ -180,7 +180,7 @@
         <div class="container-fluid height-full">
             <div class="row content">
                 <div class="tab-content">
-                    <div id="panel1" class="tab-pane fade">
+                    <div id="panel_list" class="tab-pane fade">
                         <table id="tableId" class="table table-hover fullscreen">
                             <thead class="thead-inverse">
                                 <tr>
@@ -198,13 +198,31 @@
                             </tbody>
                         </table>
                     </div>
-                    <div id="panel2" class="tab-pane fade in active">
+                    <div id="panel_calendar" class="tab-pane fade in active">
                         <iframe id="calendar" src=""></iframe>
+                    </div>
+                    <div id="panel_settings" class="tab-pane fade">
+                        <form>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="InputRegion">Регион</label>
+                                        <input type="text" class="form-control" id="InputRegion" placeholder="Выберите основной регион обслуживания"/>
+                                        <label>Номер телефона для рассылки</label>
+                                        <input type="tel" class="masked form-control" id="InputSpam" placeholder="X (XXX) XXX-XX-XX"
+                                               pattern="\d{1}\(\d{3}\) \d{3}\-\d{4}" title="10-digit number" />
+                                    </div>
+                                    <button type="button" class="btn btn-block submit" id="Save" data-dismiss="modal">
+                                        <i class="fa fa-save" aria-hidden="true"></i>&nbsp;Сохранить настройки
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
         </div>
-        <div id="panel3" class="modal fade">
+        <div id="modal_add" class="modal fade">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -279,7 +297,7 @@
                 </div>
             </div>
         </div>
-        <div id="panel4" class="modal fade">
+        <div id="modal_edit" class="modal fade">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content modal-amend">
                     <div class="modal-header">
