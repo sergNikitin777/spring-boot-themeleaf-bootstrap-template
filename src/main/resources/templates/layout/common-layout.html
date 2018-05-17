@@ -34,6 +34,8 @@
               th:href="@{/jstree/dist/themes/default/style.css}"/>
         <link rel="stylesheet" href="../../static/css/jquery.faloading.css"
               th:href="@{/css/jquery.faloading.css}"/>
+        <link rel="stylesheet" href="../../static/css/jquery.kladr.min.css"
+              th:href="@{/css/jquery.kladr.min.css}"/>
         <!--Import Google Icon Font-->
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
         <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css"/>
@@ -59,6 +61,9 @@
         <script type="text/javascript"
                 src="../../static/js/journal.js"
                 th:src="@{/js/journal.js}"></script>
+        <script type="text/javascript"
+                src="../../static/js/jquery.kladr.min.js"
+                th:src="@{/js/jquery.kladr.min.js}"></script>
 
     </head>
 
@@ -244,26 +249,8 @@
                                     <label>Телефон клиента</label>
                                     <input type="tel" class="masked form-control" id="InputPhone" placeholder="X (XXX) XXX-XX-XX"
                                            pattern="\d{1}\(\d{3}\) \d{3}\-\d{4}" title="10-digit number" />
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <label for="InputCity">Город</label>
-                                            <select class="form-control" id="InputCity">
-                                                <option>Выберите город</option>
-                                                <option>Пермь</option>
-                                                <option>Краснокамск</option>
-                                                <option>Кунгур</option>
-                                                <option>Березники</option>
-                                                <option>Лысьва</option>
-                                                <option>Соликамск</option>
-                                                <option>Очёр</option>
-                                                <option>Нытва</option>
-                                            </select>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <label for="InputAddress">Адрес</label>
-                                            <input type="text" class="form-control" id="InputAddress" placeholder="Введите улицу и дом"/>
-                                        </div>
-                                    </div>
+                                    <label for="InputAddress">Адрес</label>
+                                    <input type="text" class="form-control" id="InputAddress" placeholder="Введите адрес"/>
                                     <label for="InputNotification">Уведомление</label>
                                     <select class="form-control" id="InputNotification">
                                         <option>Выберите время уведомления</option>
@@ -337,26 +324,8 @@
                                     <label>Телефон клиента</label>
                                     <input type="tel" class="masked form-control" id="InputPhoneamend" placeholder="X (XXX) XXX-XX-XX"
                                            pattern="\d{1}\(\d{3}\) \d{3}\-\d{4}" title="10-digit number" />
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <label for="InputCityamend">Город</label>
-                                            <select class="form-control" id="InputCityamend">
-                                                <option>Выберите город</option>
-                                                <option>Пермь</option>
-                                                <option>Краснокамск</option>
-                                                <option>Кунгур</option>
-                                                <option>Березники</option>
-                                                <option>Лысьва</option>
-                                                <option>Соликамск</option>
-                                                <option>Очёр</option>
-                                                <option>Нытва</option>
-                                            </select>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <label for="InputAddressamend">Адрес</label>
-                                            <input type="text" class="form-control" id="InputAddressamend" placeholder="Введите улицу и дом"/>
-                                        </div>
-                                    </div>
+                                    <label for="InputAddressamend">Адрес</label>
+                                    <input type="text" class="form-control" id="InputAddressamend" placeholder="Введите адрес"/>
                                     <label for="InputNotificationamend">Уведомление</label>
                                     <select class="form-control" id="InputNotificationamend">
                                         <option>Выберите время уведомления</option>

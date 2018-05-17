@@ -330,6 +330,17 @@ $(document).ready(function () {
     }
 
     $(function () {
+        var $address = $('#InputAddress');
+        var $addressamend = $('#InputAddressamend');
+        $address.kladr({
+            oneString: true
+        });
+        $addressamend.kladr({
+            oneString: true
+        });
+    });
+
+    $(function () {
         $('#datetimepicker').datetimepicker({
             locale: 'ru',
             sideBySide: true
