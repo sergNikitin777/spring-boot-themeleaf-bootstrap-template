@@ -181,7 +181,7 @@
             <div class="row content">
                 <div class="tab-content">
                     <div id="panel_list" class="tab-pane fade">
-                        <table id="tableId" class="table table-hover fullscreen">
+                        <table id="tablefull" class="table table-hover fullscreen">
                             <thead class="thead-inverse">
                                 <tr>
                                     <th scope="col">Дата и время</th>
@@ -194,9 +194,19 @@
                                     <th scope="col"></th>
                                 </tr>
                             </thead>
-                            <tbody id="tablebody">
+                            <tbody id="tablefullbody">
                             </tbody>
                         </table>
+                        <table id="tablemobile" class="table table-hover fullscreen">
+                        <thead class="thead-inverse">
+                            <tr>
+                                <th scope="col">Дата и время</th>
+                                <th scope="col">Адрес</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tablemobilebody">
+                        </tbody>
+                    </table>
                     </div>
                     <div id="panel_calendar" class="tab-pane fade in active">
                         <iframe id="calendar" src=""></iframe>

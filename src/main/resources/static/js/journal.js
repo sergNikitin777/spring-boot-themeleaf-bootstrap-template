@@ -14,8 +14,19 @@ $(document).ready(function () {
     $('#calendar').attr("src", "https://calendar.yandex.ru/day?uid=641146316&show_date="+year+"-"+month+"-"+day+"&embed=&private_token=cf54ec9c0ec6b90948d04f8d9ddc71462918b926&tz_id=Asia%2FYekaterinburg");
 
     toggleCalendarHeight();
+    toggleTables();
     updateTable("month");
 
+    function toggleTables() {
+        if($(window).width() < 991) {
+            $('#tablefull').hide();
+            $('#tablemobile').show();
+        }
+        else {
+            $('#tablefull').show();
+            $('#tablemobile').hide();
+        };
+    }
     function toggleCalendarHeight() {
         var screenHeight = document.documentElement.clientHeight
             - 60 +  "px";
@@ -215,8 +226,10 @@ $(document).ready(function () {
     }
 
     function updateTable (viewpoint) {
-        $("#tablebody").html("");
-        $("#tableId").faLoading({icon: "fa-refresh", spin: true});
+        $("#tablefullbody").html("");
+        $("#tablefull").faLoading({icon: "fa-refresh", spin: true});
+        $("#tablemobilebody").html("");
+        $("#tablemobile").faLoading({icon: "fa-refresh", spin: true});
         var limitms = new Date();
         switch (viewpoint) {
             case "day":   {
@@ -244,7 +257,10 @@ $(document).ready(function () {
                 });
                 for (var i = 0; i < eventList.length; i++) {
                     if ((eventList[i].description != null) && (new Date(eventList[i].startDate.date) < limitms) && (new Date(eventList[i].startDate.date) > currentDate)) {
-                        var row = $('<tr class="normal" id="' + eventList[i].uid.value + '">');
+                        var rowfull = $('<tr class="normal" id="' + eventList[i].uid.value + '">');
+                        var rowmobile = $('<tr class="normal row-header expand" id="' + eventList[i].uid.value + '">');
+                        var mobileinfo = $('<tr class="normal">');
+                        
                         var dtLocalized = new Date(eventList[i].startDate.date).toLocaleString('ru-RU', {
                             year: 'numeric', month: 'long', day: 'numeric',
                             hour: 'numeric', minute: 'numeric'
@@ -254,17 +270,27 @@ $(document).ready(function () {
                         if (eventList[i].location == null) locationvalue = 'Не указан';
                         else locationvalue = eventList[i].location.value.split(',');
 
-                        row.append('<td class = "datetime">' + dtLocalized + '</td>');
-                        row.append('<td class = "name">' + eventList[i].summary.value + '</td>');
-                        row.append('<td class = "location">' + locationvalue[locationvalue.length - 3] + ',' +locationvalue[locationvalue.length - 2] + ',' + locationvalue[locationvalue.length - 1] + '</td>');
-                        row.append('<td class = "driver">' + description[0].split(' ')[1] + '</td>');
-                        row.append('<td class = "car">' + description[1] + '</td>');
-                        row.append('<td class = "gofers">' + description[2].split(' ')[1] + '</td>');
-                        row.append('<td class = "description">' + description[3] + '</td>');
-                        row.append('<td class = "buttons"><a class="btn btn-sm edit"><i class="fa fa-edit"></i></a>&nbsp;' +
+                        rowfull.append('<td class = "datetime">' + dtLocalized + '</td>');
+                        rowfull.append('<td class = "name">' + eventList[i].summary.value + '</td>');
+                        rowfull.append('<td class = "location">' + locationvalue[locationvalue.length - 3] + ',' +locationvalue[locationvalue.length - 2] + ',' + locationvalue[locationvalue.length - 1] + '</td>');
+                        rowfull.append('<td class = "driver">' + description[0].split(' ')[1] + '</td>');
+                        rowfull.append('<td class = "car">' + description[1] + '</td>');
+                        rowfull.append('<td class = "gofers">' + description[2].split(' ')[1] + '</td>');
+                        rowfull.append('<td class = "description">' + description[3] + '</td>');
+                        rowfull.append('<td class = "buttons"><a class="btn btn-sm edit"><i class="fa fa-edit"></i></a>&nbsp;' +
                             '<a class="btn btn-sm remove"><i class="fa fa-trash-o"></i></a></td>');
+                        $("#tablefullbody").append(rowfull);
 
-                        $("#tablebody").append(row);
+                        rowmobile.append('<td class="datetime">' + dtLocalized + '</td>');
+                        rowmobile.append('<td class="location">' + locationvalue[locationvalue.length - 3] + ',' +locationvalue[locationvalue.length - 2] + ',' + locationvalue[locationvalue.length - 1] +  '</td>');
+                        $("#tablemobilebody").append(rowmobile);
+
+                        mobileinfo.append('<td colspan="2"><div>Клиент: '+ eventList[i].summary.value +'</div>' +
+                            '<div>Водитель: ' + description[0].split(' ')[1] + '</div>' +
+                            '<div>Машина: ' + description[1] + '</div>' +
+                            '<div>Грузчики: ' + description[2].split(' ')[1] + '</div>' +
+                            '<div>Описание: ' + description[3] + '</div></td>');
+                        $("#tablemobilebody").append(mobileinfo);
                     }
                 }
                 xhrCalendarRemovedEvents.open('POST', 'calendar/eventsbyparam', true);
@@ -278,7 +304,10 @@ $(document).ready(function () {
 
                         for (var i = 0; i < eventListR.length; i++) {
                             if ((eventListR[i].description != null) && (new Date(eventListR[i].startDate.date) < limitms) && (new Date(eventListR[i].startDate.date) > currentDate)) {
-                                var row = $('<tr class="strikeout" id="' + eventListR[i].uid.value + '">');
+                                var rowfull = $('<tr class="strikeout" id="' + eventListR[i].uid.value + '">');
+                                var rowmobile = $('<tr class="strikeout row-header expand" id="' + eventList[i].uid.value + '">');
+                                var mobileinfo = $('<tr class="normal">');
+
                                 var dtLocalized = new Date(eventListR[i].startDate.date).toLocaleString('ru-RU', {
                                     year: 'numeric', month: 'long', day: 'numeric',
                                     hour: 'numeric', minute: 'numeric'
@@ -288,20 +317,32 @@ $(document).ready(function () {
                                 if (eventListR[i].location == null) locationvalue = 'Не указан';
                                 else locationvalue = eventListR[i].location.value.split(',');
 
-                                row.append('<td class = "datetime">' + dtLocalized + '</td>');
-                                row.append('<td class = "name">' + eventListR[i].summary.value + '</td>');
-                                row.append('<td class = "location">' + locationvalue[locationvalue.length - 3] + ',' +locationvalue[locationvalue.length - 2] + ',' + locationvalue[locationvalue.length - 1] + '</td>');
-                                row.append('<td class = "driver">' + description[0].split(' ')[1] + '</td>');
-                                row.append('<td class = "car">' + description[1] + '</td>');
-                                row.append('<td class = "gofers">' + description[2].split(' ')[1] + '</td>');
-                                row.append('<td class = "description">' + description[3] + '</td>');
-                                row.append('<td class = "buttons"><a class="btn btn-sm rebuild"><i class="fa fa-undo"></i></a>&nbsp;' +
+                                rowfull.append('<td class = "datetime">' + dtLocalized + '</td>');
+                                rowfull.append('<td class = "name">' + eventListR[i].summary.value + '</td>');
+                                rowfull.append('<td class = "location">' + locationvalue[locationvalue.length - 3] + ',' +locationvalue[locationvalue.length - 2] + ',' + locationvalue[locationvalue.length - 1] + '</td>');
+                                rowfull.append('<td class = "driver">' + description[0].split(' ')[1] + '</td>');
+                                rowfull.append('<td class = "car">' + description[1] + '</td>');
+                                rowfull.append('<td class = "gofers">' + description[2].split(' ')[1] + '</td>');
+                                rowfull.append('<td class = "description">' + description[3] + '</td>');
+                                rowfull.append('<td class = "buttons"><a class="btn btn-sm rebuild"><i class="fa fa-undo"></i></a>&nbsp;' +
                                     '<a class="btn btn-sm btn-danger delete" style="background-color: red"><i class="fa fa-trash-o"></i></a></td>');
+                                $("#tablefullbody").append(rowfull);
 
-                                $("#tablebody").append(row);
+                                rowmobile.append('<td class="datetime">' + dtLocalized + '</td>');
+                                rowmobile.append('<td class="location">' + locationvalue[locationvalue.length - 3] + ',' +locationvalue[locationvalue.length - 2] + ',' + locationvalue[locationvalue.length - 1] +  '</td>');
+                                $("#tablemobilebody").append(rowmobile);
+
+                                mobileinfo.append('<td colspan="2"><div>Клиент: '+ eventListR[i].summary.value +'</div>' +
+                                    '<div>Водитель: ' + description[0].split(' ')[1] + '</div>' +
+                                    '<div>Машина: ' + description[1] + '</div>' +
+                                    '<div>Грузчики: ' + description[2].split(' ')[1] + '</div>' +
+                                    '<div>Описание: ' + description[3] + '</div></td>');
+                                $("#tablemobilebody").append(mobileinfo);
                             }
                         }
-                        $('#tableId').faLoading(false);
+                        $('.row-header').toggleClass('expand').nextUntil('tr.row-header').slideToggle(100);
+                        $('#tablefull').faLoading(false);
+                        $('#tablemobile').faLoading(false);
                     }
                 };
 
@@ -350,6 +391,10 @@ $(document).ready(function () {
     });
 
     // Пользовательские события
+    $(document).on('click', '.row-header' , function(){
+        $(this).toggleClass('expand').nextUntil('tr.row-header').slideToggle(100);
+    });
+
     $('.navbtn').on('click', function () {
         $('.navbar-toggle').click();
     });
@@ -466,6 +511,7 @@ $(document).ready(function () {
     });
 
     $(window).resize(function () {
+        toggleTables();
         toggleCalendarHeight(); // потом при каждом растяжении окна
         setTimeout(function () {
             toggleCalendarHeight();
