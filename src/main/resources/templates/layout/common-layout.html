@@ -61,6 +61,12 @@
 
     <script th:src="@{/js/map.js}"></script>
 
+    <script type="text/ecmascript" th:src="@{/jqGrid/js/trirand/i18n/grid.locale-ru.js}"></script>
+    <!-- This is the Javascript file of jqGrid -->
+    <script type="text/ecmascript" th:src="@{/jqGrid/js/trirand/jquery.jqGrid.min.js}"></script>
+    <link rel="stylesheet" type="text/css" media="screen" th:href="@{/jqGrid/css/trirand/ui.jqgrid.css}"/>
+    <link rel="stylesheet" type="text/css" media="screen" th:href="@{/jqGrid/css/trirand/ui.jqgrid-bootstrap.css}"/>
+
 
 </head>
 
@@ -304,8 +310,12 @@
             <div id="panel3" class="tab-pane fade">
             </div>
             <div id="panel4" class="tab-pane fade">
-                <h3>Панель 4</h3>
-                <p>Содержимое 4 панели...</p>
+                <table id="jqGrid"></table>
+                <div id="pager"></div>
+                <label for="search_cells">
+                    Универсальный поиск:
+                </label>
+                <input id="search_cells" type="search"/>
             </div>
             <div id="panel5" class="tab-pane fade">
                 <h3>Панель 5</h3>
