@@ -258,8 +258,8 @@ $(document).ready(function () {
                 for (var i = 0; i < eventList.length; i++) {
                     if ((eventList[i].description != null) && (new Date(eventList[i].startDate.date) < limitms) && (new Date(eventList[i].startDate.date) > currentDate)) {
                         var rowfull = $('<tr class="normal" id="' + eventList[i].uid.value + '">');
-                        var rowmobile = $('<tr class="normal row-header expand" id="' + eventList[i].uid.value + '">');
-                        var mobileinfo = $('<tr class="normal">');
+                        var rowmobile = $('<tr class="normal row-header expand">');
+                        var mobileinfo = $('<tr class="normal" id="' + eventList[i].uid.value + '">');
                         
                         var dtLocalized = new Date(eventList[i].startDate.date).toLocaleString('ru-RU', {
                             year: 'numeric', month: 'long', day: 'numeric',
@@ -285,11 +285,13 @@ $(document).ready(function () {
                         rowmobile.append('<td class="location">' + locationvalue[locationvalue.length - 3] + ',' +locationvalue[locationvalue.length - 2] + ',' + locationvalue[locationvalue.length - 1] +  '</td>');
                         $("#tablemobilebody").append(rowmobile);
 
-                        mobileinfo.append('<td colspan="2"><div>Клиент: '+ eventList[i].summary.value +'</div>' +
+                        mobileinfo.append('<td><div>Клиент: '+ eventList[i].summary.value +'</div>' +
                             '<div>Водитель: ' + description[0].split(' ')[1] + '</div>' +
                             '<div>Машина: ' + description[1] + '</div>' +
                             '<div>Грузчики: ' + description[2].split(' ')[1] + '</div>' +
                             '<div>Описание: ' + description[3] + '</div></td>');
+                        mobileinfo.append('<td class = "buttons"><a class="btn edit"><i class="fa fa-edit"></i>&nbsp;Изменить</a>&nbsp;' +
+                            '<a class="btn remove"><i class="fa fa-trash-o"></i>&nbsp;Удалить</a></td>');
                         $("#tablemobilebody").append(mobileinfo);
                     }
                 }
@@ -305,8 +307,8 @@ $(document).ready(function () {
                         for (var i = 0; i < eventListR.length; i++) {
                             if ((eventListR[i].description != null) && (new Date(eventListR[i].startDate.date) < limitms) && (new Date(eventListR[i].startDate.date) > currentDate)) {
                                 var rowfull = $('<tr class="strikeout" id="' + eventListR[i].uid.value + '">');
-                                var rowmobile = $('<tr class="strikeout row-header expand" id="' + eventList[i].uid.value + '">');
-                                var mobileinfo = $('<tr class="normal">');
+                                var rowmobile = $('<tr class="strikeout row-header expand" >');
+                                var mobileinfo = $('<tr class="normal" id="' + eventList[i].uid.value + '">');
 
                                 var dtLocalized = new Date(eventListR[i].startDate.date).toLocaleString('ru-RU', {
                                     year: 'numeric', month: 'long', day: 'numeric',
@@ -332,11 +334,13 @@ $(document).ready(function () {
                                 rowmobile.append('<td class="location">' + locationvalue[locationvalue.length - 3] + ',' +locationvalue[locationvalue.length - 2] + ',' + locationvalue[locationvalue.length - 1] +  '</td>');
                                 $("#tablemobilebody").append(rowmobile);
 
-                                mobileinfo.append('<td colspan="2"><div>Клиент: '+ eventListR[i].summary.value +'</div>' +
+                                mobileinfo.append('<td><div>Клиент: '+ eventListR[i].summary.value +'</div>' +
                                     '<div>Водитель: ' + description[0].split(' ')[1] + '</div>' +
                                     '<div>Машина: ' + description[1] + '</div>' +
                                     '<div>Грузчики: ' + description[2].split(' ')[1] + '</div>' +
                                     '<div>Описание: ' + description[3] + '</div></td>');
+                                mobileinfo.append('<td class = "buttons"><a class="btn rebuild"><i class="fa fa-undo"></i>&nbsp;Восстановить</a>&nbsp;' +
+                                    '<a class="btn btn-danger delete" style="background-color: red"><i class="fa fa-trash-o"></i>&nbsp;Удалить</a></td>');
                                 $("#tablemobilebody").append(mobileinfo);
                             }
                         }

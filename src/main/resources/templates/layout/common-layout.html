@@ -198,36 +198,50 @@
                             </tbody>
                         </table>
                         <table id="tablemobile" class="table table-hover fullscreen">
-                        <thead class="thead-inverse">
-                            <tr>
-                                <th scope="col">Дата и время</th>
-                                <th scope="col">Адрес</th>
-                            </tr>
-                        </thead>
-                        <tbody id="tablemobilebody">
-                        </tbody>
-                    </table>
+                            <thead class="thead-inverse">
+                                <tr>
+                                    <th scope="col">Дата и время</th>
+                                    <th scope="col">Адрес</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tablemobilebody">
+                            </tbody>
+                        </table>
                     </div>
                     <div id="panel_calendar" class="tab-pane fade in active">
                         <iframe id="calendar" src=""></iframe>
                     </div>
                     <div id="panel_settings" class="tab-pane fade">
-                        <form>
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label for="InputRegion">Регион</label>
-                                        <input type="text" class="form-control" id="InputRegion" placeholder="Выберите основной регион обслуживания"/>
-                                        <label>Номер телефона для рассылки</label>
-                                        <input type="tel" class="masked form-control" id="InputSpam" placeholder="X (XXX) XXX-XX-XX"
-                                               pattern="\d{1}\(\d{3}\) \d{3}\-\d{4}" title="10-digit number" />
-                                    </div>
-                                    <button type="button" class="btn btn-block submit" id="Save" data-dismiss="modal">
-                                        <i class="fa fa-save" aria-hidden="true"></i>&nbsp;Сохранить настройки
-                                    </button>
+                        <div class="row content">
+                            <div class="col-md-2 col-lg-2 col-xs-2 col-sm-2">
+                                <div class="sidenav">
+                                    <br/><br/><br/>
+                                    <a data-toggle="tab" href="#panel_settings_profile" class="btn btn-block">Профиль</a>
+                                    <a data-toggle="tab" href="#panel_settings_drivers" class="btn btn-block">Водители</a>
+                                    <a data-toggle="tab" href="#panel_settings_cars" class="btn btn-block">Машины</a>
                                 </div>
                             </div>
-                        </form>
+                            <div class="col-md-10 col-lg-10 col-xs-10 col-sm-10">
+                                <div id="panel_settings_profile" class="tab-pane fade in active">
+                                    <form>
+                                        <div class="form-group">
+                                            <label for="InputRegion">Регион</label>
+                                            <input type="text" class="form-control" id="InputRegion" placeholder="Выберите основной регион обслуживания"/>
+                                            <label>Номер телефона для рассылки</label>
+                                            <input type="tel" class="masked form-control" id="InputSpam" placeholder="X (XXX) XXX-XX-XX"
+                                                   pattern="\d{1}\(\d{3}\) \d{3}\-\d{4}" title="10-digit number" />
+                                        </div>
+                                        <button type="button" class="btn btn-block submit" id="Save" data-dismiss="modal">
+                                            <i class="fa fa-save" aria-hidden="true"></i>&nbsp;Сохранить настройки
+                                        </button>
+                                    </form>
+                                </div>
+                                <div id="panel_settings_drivers" class="tab-pane fade">
+                                </div>
+                                <div id="panel_settings_cars" class="tab-pane fade">
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
