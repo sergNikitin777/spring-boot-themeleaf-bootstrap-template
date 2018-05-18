@@ -2,6 +2,7 @@ package com.example.web.service;
 
 import com.example.persistance.entity.Auto;
 import com.example.persistance.repository.AutoRepository;
+import com.example.web.pojo.AutoPojo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,8 +27,8 @@ public class AutoServiceImpl implements AutoService{
     }
 
     @Override
-    public Integer addAuto(Auto auto) {
-        return autoRepository.save(auto).getId();
+    public Integer addAuto(AutoPojo auto) {
+        return autoRepository.save(new Auto(auto.getMark(),auto.getModel(),auto.getLicensePlate(),auto.getType())).getId();
     }
 
     @Override

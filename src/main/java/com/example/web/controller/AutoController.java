@@ -1,6 +1,7 @@
 package com.example.web.controller;
 
 import com.example.persistance.entity.Auto;
+import com.example.web.pojo.AutoPojo;
 import com.example.web.service.AutoService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -31,7 +32,7 @@ public class AutoController {
     }
 
     @RequestMapping(value = "/admin/auto/add", method = RequestMethod.POST)
-    public ResponseEntity<Integer> addAuto(Auto auto) {
+    public ResponseEntity<Integer> addAuto(AutoPojo auto) {
         log.debug("addAuto");
         try {
             return new ResponseEntity<>(autoService.addAuto(auto), HttpStatus.OK);

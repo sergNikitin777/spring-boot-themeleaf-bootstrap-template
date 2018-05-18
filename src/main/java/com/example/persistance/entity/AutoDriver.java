@@ -16,6 +16,10 @@ import java.util.List;
 @EqualsAndHashCode
 public class AutoDriver {
 
+    public AutoDriver(){
+
+    }
+
     public AutoDriver(List<Auto> autoList, String firstName, String surname, String patronymic, String phoneNumber) {
         this.autoList = autoList;
         this.firstName = firstName;

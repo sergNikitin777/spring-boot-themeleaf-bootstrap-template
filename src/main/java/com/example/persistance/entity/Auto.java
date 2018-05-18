@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Data
@@ -13,6 +15,10 @@ import javax.persistence.*;
 @Setter
 @EqualsAndHashCode
 public class Auto {
+
+    public Auto(){
+
+    }
 
     public Auto(String mark, String model, String licensePlate, String type) {
         this.mark = mark;
@@ -27,6 +33,9 @@ public class Auto {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @ManyToMany
+    private List<AutoDriver> autoDrivers = new ArrayList<>();
+
     @Column
     private String mark;
 
@@ -38,6 +47,5 @@ public class Auto {
 
     @Column
     private String type;
-
 
 }
