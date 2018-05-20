@@ -1,6 +1,7 @@
 package com.example.web.controller;
 
 import com.example.persistance.entity.AutoDriver;
+import com.example.web.pojo.AutoDriverPojo;
 import com.example.web.service.AutoDriverService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -31,10 +32,21 @@ public class AutoDriverController {
     }
 
     @RequestMapping(value = "/admin/auto/driver/add", method = RequestMethod.POST)
-    public ResponseEntity<Integer> addAutoDriver(AutoDriver autoDriver) {
+    public ResponseEntity<Integer> addAutoDriver(AutoDriverPojo autoDriver) {
         log.debug("autoDriver");
         try {
             return new ResponseEntity<>(autoDriverService.addAutoDriver(autoDriver), HttpStatus.OK);
+        } catch (Exception e) {
+            log.error(e.getMessage(), e);
+        }
+        return new ResponseEntity<>((Integer)null, HttpStatus.UNPROCESSABLE_ENTITY);
+    }
+
+    @RequestMapping(value = "/admin/auto/driver/addauto", method = RequestMethod.POST)
+    public ResponseEntity<Integer> addAutoDriver(Integer driverId,Integer autoId) {
+        log.debug("addAuto");
+        try {
+            return new ResponseEntity<>(autoDriverService.addAuto(driverId,autoId), HttpStatus.OK);
         } catch (Exception e) {
             log.error(e.getMessage(), e);
         }

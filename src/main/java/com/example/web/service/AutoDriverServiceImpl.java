@@ -1,7 +1,10 @@
 package com.example.web.service;
 
+import com.example.persistance.entity.Auto;
 import com.example.persistance.entity.AutoDriver;
 import com.example.persistance.repository.AutoDriverRepository;
+import com.example.persistance.repository.AutoRepository;
+import com.example.web.pojo.AutoDriverPojo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -12,30 +15,54 @@ import java.util.List;
 @Service
 @Transactional
 @RequiredArgsConstructor
-public class AutoDriverServiceImpl implements AutoDriverService{
-    private final AutoDriverRepository autoRepository;
+public class AutoDriverServiceImpl implements AutoDriverService {
+    private final AutoDriverRepository autoDriverRepository;
+
+    private final AutoRepository autoRepository;
 
     @Override
     public List<AutoDriver> findAll() {
-        return autoRepository.findAll();
+        return autoDriverRepository.findAll();
     }
 
     @Override
     public AutoDriver findById(Integer id) {
-        return autoRepository.findOne(id);
+        return autoDriverRepository.findOne(id);
     }
 
     @Override
-    public Integer addAutoDriver(AutoDriver autoDriver) {
-        return autoRepository.save(autoDriver).getId();
+    public Integer addAutoDriver(AutoDriverPojo autoDriver) {
+
+        return autoDriverRepository.save(new AutoDriver(null, autoDriver.getFirstName(), autoDriver.getSurname(),
+                autoDriver.getPatronymic(), autoDriver.getPhoneNumber())).getId();
     }
 
     @Override
-    public void updateAutoDriver(AutoDriver autoDriver) { autoRepository.save(autoDriver); }
+    public Integer addAuto(Integer driverId, Integer autoId) {
+
+        AutoDriver autoDriver = autoDriverRepository.findOne(driverId);
+
+        Auto auto = autoRepository.findOne(autoId);
+
+        autoDriver.getAutoList().add(auto);
+
+        autoDriverRepository.save(autoDriver);
+
+        return autoDriver.getId();
+    }
 
     @Override
-    public void deleteAutoDriver(Integer id) { autoRepository.delete(id); }
+    public void updateAutoDriver(AutoDriver autoDriver) {
+        autoDriverRepository.save(autoDriver);
+    }
 
     @Override
-    public void deleteAllAutoDriver() { autoRepository.deleteAll(); }
+    public void deleteAutoDriver(Integer id) {
+        autoDriverRepository.delete(id);
+    }
+
+    @Override
+    public void deleteAllAutoDriver() {
+        autoDriverRepository.deleteAll();
+    }
 }

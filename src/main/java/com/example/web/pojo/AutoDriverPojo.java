@@ -8,9 +8,11 @@ import lombok.Setter;
 @Getter
 @Setter
 public class AutoDriverPojo {
-    private Integer AutoId;
-    private String mark;
-    private String model;
-    private String licensePlate;
-    private String type;
+
+
+    private String firstName;
+    private String surname;
+    private String patronymic;
+    private String phoneNumber;
+
 }

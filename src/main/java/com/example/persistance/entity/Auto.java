@@ -1,5 +1,6 @@
 package com.example.persistance.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -33,7 +34,8 @@ public class Auto {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @ManyToMany
+    @ManyToMany(mappedBy = "autoList")
+    @JsonBackReference
     private List<AutoDriver> autoDrivers = new ArrayList<>();
 
     @Column

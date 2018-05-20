@@ -1,5 +1,7 @@
 package com.example.persistance.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -35,6 +37,9 @@ public class AutoDriver {
     private Integer id;
 
     @ManyToMany
+    @JoinTable(name = "auto_driver_link" , joinColumns = @JoinColumn(name = "auto_driver_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "auto_id", referencedColumnName = "id"))
+    @JsonManagedReference
     private List<Auto> autoList = new ArrayList<>();
 
     @Column
