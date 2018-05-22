@@ -117,8 +117,8 @@
                         </li>
                         <li>
                             <p class="navbar-btn">
-                                <a data-toggle="tab" id="settings" href="#panel_settings" class="btn btn-default"><b>Настройки </b><img height="32px" width="32px"
-                                                                                                                                        th:src="@{/icons/menu/settings_blue.png}"></img></a>
+                                <a data-toggle="tab" id="settings" href="#panel_settings" class="btn btn-default settingsbtn"><b>Настройки </b><img height="32px" width="32px"
+                                                                                                                                                    th:src="@{/icons/menu/settings_blue.png}"></img></a>
                             </p>
                         </li>
                     </ul>
@@ -139,17 +139,17 @@
                     <ul class="nav navbar-nav">
                         <li>
                             <p class="navbar-btn btn-block">
-                                <a data-toggle="modal" id="add_block" href="#modal_add" class="btn btn-block navbtn viewbtn"><b>Добавить заявку</b></a>
+                                <a data-toggle="modal" id="add_block" href="#modal_add" class="btn btn-block navbtn addbtn"><b>Добавить заявку</b></a>
                             </p>
                         </li>
                         <li>
                             <p class="navbar-btn btn-block">
-                                <a data-toggle="tab" id="viewcalendar_block" href="#panel_calendar" class="btn btn-block navbtn addbtn"><b>Календарь</b></a>
+                                <a data-toggle="tab" id="viewcalendar_block" href="#panel_calendar" class="btn btn-block navbtn viewclndrbtn"><b>Календарь</b></a>
                             </p>
                         </li>
                         <li>
                             <p class="navbar-btn btn-block">
-                                <a data-toggle="tab" id="view_block" href="#panel_list" class="btn btn-block navbtn"><b>Список заявок</b></a>
+                                <a data-toggle="tab" id="view_block" href="#panel_list" class="btn btn-block navbtn viewbtn"><b>Список заявок</b></a>
                             </p>
                         </li>
                         <li>
@@ -169,7 +169,7 @@
                         </li>
                         <li>
                             <p class="navbar-btn btn-block">
-                                <a data-toggle="tab" id="settings_block" href="#panel_settings" class="btn btn-block navbtn"><b>Настройки</b></a>
+                                <a data-toggle="tab" id="settings_block" href="#panel_settings" class="btn btn-block navbtn settingsbtn"><b>Настройки</b></a>
                             </p>
                         </li>
                     </ul>
@@ -198,7 +198,8 @@
                             </div>
                             <div class="row content">
                                 <div class="logo_btn">
-                                    <a id="login" href="https://oauth.yandex.ru/authorize?response_type=token&amp;client_id=7c9d596cc7b74cd19d9c312138823b61" class="btn btn-default btn-login navbtn"><b>Войти</b></a>
+                                    <!--https://oauth.yandex.ru/authorize?response_type=token&amp;client_id=7c9d596cc7b74cd19d9c312138823b61-->
+                                    <a data-toggle="tab" id="login" href="#panel_calendar" class="btn btn-default btn-login navbtn"><b>Начать работу</b></a>
                                 </div>
                             </div>
                             <div class="row content">
@@ -253,9 +254,9 @@
                             <div class="col-md-2 col-lg-2 col-xs-2 col-sm-2">
                                 <div class="sidenav">
                                     <br/><br/><br/>
-                                    <a data-toggle="tab" href="#panel_settings_profile" class="btn btn-block">Профиль</a>
-                                    <a data-toggle="tab" href="#panel_settings_drivers" class="btn btn-block">Водители</a>
-                                    <a data-toggle="tab" href="#panel_settings_cars" class="btn btn-block">Машины</a>
+                                    <a data-toggle="tab" id="buttonprofile" href="#panel_settings_profile" class="btn btn-block">Профиль</a>
+                                    <a data-toggle="tab" id="buttondrivers" href="#panel_settings_drivers" class="btn btn-block">Водители</a>
+                                    <a data-toggle="tab" id="buttoncars" href="#panel_settings_cars" class="btn btn-block">Машины</a>
                                 </div>
                             </div>
                             <div class="col-md-10 col-lg-10 col-xs-10 col-sm-10">
@@ -268,14 +269,61 @@
                                             <input type="tel" class="masked form-control" id="InputSpam" placeholder="X (XXX) XXX-XX-XX"
                                                    pattern="\d{1}\(\d{3}\) \d{3}\-\d{4}" title="10-digit number" />
                                         </div>
-                                        <button type="button" class="btn btn-block submit" id="Save" data-dismiss="modal">
+                                        <button type="button" class="btn btn-block submit" id="Save">
                                             <i class="fa fa-save" aria-hidden="true"></i>&nbsp;Сохранить настройки
                                         </button>
                                     </form>
                                 </div>
                                 <div id="panel_settings_drivers" class="tab-pane fade">
+                                    <table id="tabledriversfull" class="table table-hover fullscreen">
+                                        <thead class="thead-inverse">
+                                            <tr>
+                                                <th scope="col">Имя</th>
+                                                <th scope="col">Фамилия</th>
+                                                <th scope="col">Отчество</th>
+                                                <th scope="col">Номер телефона</th>
+                                                <th scope="col">Автомобиль</th>
+                                                <th scope="col"></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="tabledriversfullbody">
+                                        </tbody>
+                                    </table>
+                                    <table id="tabledriversmobile" class="table table-hover fullscreen">
+                                        <thead class="thead-inverse">
+                                            <tr>
+                                                <th scope="col">Дата и время</th>
+                                                <th scope="col">Адрес</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="tabledriversmobilebody">
+                                        </tbody>
+                                    </table>
                                 </div>
                                 <div id="panel_settings_cars" class="tab-pane fade">
+                                    <table id="tablecarsfull" class="table table-hover fullscreen">
+                                        <thead class="thead-inverse">
+                                            <tr>
+                                                <th scope="col">Марка</th>
+                                                <th scope="col">Модель</th>
+                                                <th scope="col">Госномер</th>
+                                                <th scope="col">Класс</th>
+                                                <th scope="col"></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="tablecarsfullbody">
+                                        </tbody>
+                                    </table>
+                                    <table id="tablecarsmobile" class="table table-hover fullscreen">
+                                        <thead class="thead-inverse">
+                                            <tr>
+                                                <th scope="col">Дата и время</th>
+                                                <th scope="col">Адрес</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="tablecarsmobilebody">
+                                        </tbody>
+                                    </table>
                                 </div>
                             </div>
                         </div>
@@ -330,6 +378,13 @@
                                            pattern="\d{1}\(\d{3}\) \d{3}\-\d{4}" title="10-digit number" />
                                     <label for="InputAddress">Адрес</label>
                                     <input type="text" class="form-control" id="InputAddress" placeholder="Введите адрес"/>
+                                    <label for="InputSum">Сумма</label>
+                                    <input type="text" class="form-control" id="InputSum" placeholder="Введите сумму заказа"/>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="line-separator"></div>
+                                <div class="form-group">
                                     <label for="InputNotification">Уведомление</label>
                                     <select class="form-control" id="InputNotification">
                                         <option>Выберите время уведомления</option>
@@ -337,9 +392,18 @@
                                         <option>За 30 минут</option>
                                         <option>За час</option>
                                     </select>
+                                    <div class="col-md-6">
+                                        <input id="notifyDriver" type="checkbox"/>
+                                        <label for="notifyDriver">Уведомить водителя</label>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <input id="notifyClient" type="checkbox"/>
+                                        <label for="notifyClient">Уведомить клиента</label>
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-md-12">
+                                <div class="line-separator"></div>
                                 <div class="form-group">
                                     <label for ="description">Описание груза</label>
                                     <textarea class="form-control noresize" id="description" placeholder="Введите описание"></textarea>
@@ -405,6 +469,13 @@
                                            pattern="\d{1}\(\d{3}\) \d{3}\-\d{4}" title="10-digit number" />
                                     <label for="InputAddressamend">Адрес</label>
                                     <input type="text" class="form-control" id="InputAddressamend" placeholder="Введите адрес"/>
+                                    <label for="InputSumamend">Сумма</label>
+                                    <input type="text" class="form-control" id="InputSumamend" placeholder="Введите сумму заказа"/>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="line-separator"></div>
+                                <div class="form-group">
                                     <label for="InputNotificationamend">Уведомление</label>
                                     <select class="form-control" id="InputNotificationamend">
                                         <option>Выберите время уведомления</option>
@@ -412,9 +483,18 @@
                                         <option>За 30 минут</option>
                                         <option>За час</option>
                                     </select>
+                                    <div class="col-md-6">
+                                        <input id="notifyDriveramend" type="checkbox"/>
+                                        <label for="notifyDriveramend">Уведомить водителя</label>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <input id="notifyClientamend" type="checkbox"/>
+                                        <label for="notifyClientamend">Уведомить клиента</label>
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-md-12">
+                                <div class="line-separator"></div>
                                 <div class="form-group">
                                     <label for ="description">Описание груза</label>
                                     <textarea class="form-control noresize" id="descriptionamend" placeholder="Введите описание"></textarea>

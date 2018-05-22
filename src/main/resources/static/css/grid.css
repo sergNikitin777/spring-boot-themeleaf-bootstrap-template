@@ -74,7 +74,9 @@ nav {
 }
 
 .modal-amend {
-    margin-top: 150px;
+    max-height: calc(100vh - 210px);
+    overflow-y: auto;
+    margin-top: 169px;
 }
 
 .noresize {
@@ -133,10 +135,11 @@ tr.strikeout td:before {
 
 .logo_btn {
     margin: 50px auto;
+    text-align: center;
 }
 
 #login {
-    width: 200px;
+    width: 450px;
     height: 80px;
     font-size: 45px;
 }
@@ -146,6 +149,7 @@ tr.strikeout td:before {
     overflow: hidden;
     margin: 20px auto 0 auto;
     border-radius: 4px;
+    width: 1200px;
 }
 
 #slider ul {
@@ -161,7 +165,7 @@ tr.strikeout td:before {
     position: relative;
     display: block;
     float: left;
-    margin: 0 0 0 -75%;
+    margin: 0 0 0 -600px;
     padding: 0;
     width: 100%;
     height: 450px;
@@ -178,12 +182,12 @@ a.control_prev, a.control_next {
     padding: 4% 3%;
     width: auto;
     height: auto;
-    background: #2a2a2a;
+    background: #162C9A;
     color: #fff;
     text-decoration: none;
     font-weight: 600;
     font-size: 18px;
-    opacity: 0.8;
+    opacity: 0.5;
     cursor: pointer;
 }
 
@@ -206,4 +210,10 @@ a.control_next {
     margin: 10px auto;
     width: 160px;
     font-size: 18px;
+}
+
+.line-separator{
+    height:1px;
+    background:#e5e5e5;
+    border-bottom:1px solid #e5e5e5;
 }

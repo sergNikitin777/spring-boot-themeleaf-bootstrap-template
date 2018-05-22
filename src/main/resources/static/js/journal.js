@@ -20,11 +20,19 @@ $(document).ready(function () {
     function toggleTables() {
         if($(window).width() < 991) {
             $('#tablefull').hide();
+            $('#tabledriversfull').hide();
+            $('#tablecarsfull').hide();
             $('#tablemobile').show();
+            $('#tabledriversmobile').show();
+            $('#tablecarsmobile').show();
         }
         else {
             $('#tablefull').show();
+            $('#tabledriversfull').show();
+            $('#tablecarsfull').show();
             $('#tablemobile').hide();
+            $('#tabledriversmobile').hide();
+            $('#tablecarsmobile').hide();
         };
     }
     function toggleCalendarHeight() {
@@ -506,6 +514,20 @@ $(document).ready(function () {
         }
     });
 
+    if ($('#panel_login').hasClass('active')) {
+        $('.addbtn').attr('style', 'visibility: hidden');
+        $('.viewbtn').attr('style', 'visibility: hidden');
+        $('.viewclndrbtn').attr('style', 'visibility: hidden');
+        $('.settingsbtn').attr('style', 'visibility: hidden');
+    }
+
+    $('#login').on('click', function() {
+        $('.addbtn').attr('style', 'visibility: visible');
+        $('.viewbtn').attr('style', 'visibility: visible');
+        $('.viewclndrbtn').attr('style', 'visibility: visible');
+        $('.settingsbtn').attr('style', 'visibility: visible');
+    });
+
     $('#dayviewpoint').on('click', function() {
         updateTable('day');
     });
@@ -543,6 +565,25 @@ $(document).ready(function () {
         event.preventDefault();
     });
 
+    //костыль tab-pane
+    $('#buttonprofile').on('click', function() {
+        $('#panel_settings_drivers').attr('style', 'display: none');
+        $('#panel_settings_cars').attr('style', 'display: none');
+        $('#panel_settings_profile').attr('style', 'display: block');
+    });
+
+    $('#buttondrivers').on('click', function() {
+        $('#panel_settings_drivers').attr('style', 'display: block');
+        $('#panel_settings_cars').attr('style', 'display: none');
+        $('#panel_settings_profile').attr('style', 'display: none');
+    });
+
+    $('#buttoncars').on('click', function() {
+        $('#panel_settings_drivers').attr('style', 'display: none');
+        $('#panel_settings_cars').attr('style', 'display: block');
+        $('#panel_settings_profile').attr('style', 'display: none');
+    });
+
     $('#viewcalendar,#viewcalendar_block,#settings,#settings_block').on('click', function() {
         $('.hidebtn').attr('style', 'visibility: hidden');
     });
@@ -553,9 +594,9 @@ $(document).ready(function () {
 
     $(window).resize(function () {
         toggleTables();
-        toggleCalendarHeight(); // потом при каждом растяжении окна
+        toggleCalendarHeight();
         setTimeout(function () {
             toggleCalendarHeight();
-        }, 100); //для медлительных дёргаем дважды
+        }, 100);
     });
 });
