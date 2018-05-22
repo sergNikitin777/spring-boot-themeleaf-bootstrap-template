@@ -67,6 +67,11 @@
     <link rel="stylesheet" type="text/css" media="screen" th:href="@{/jqGrid/css/trirand/ui.jqgrid.css}"/>
     <link rel="stylesheet" type="text/css" media="screen" th:href="@{/jqGrid/css/trirand/ui.jqgrid-bootstrap.css}"/>
 
+    <script>
+        $.jgrid.defaults.responsive = true;
+        $.jgrid.defaults.styleUI = 'Bootstrap';
+    </script>
+
 
 </head>
 
@@ -312,10 +317,7 @@
             <div id="panel4" class="tab-pane fade">
                 <table id="jqGrid"></table>
                 <div id="pager"></div>
-                <label for="search_cells">
-                    Универсальный поиск:
-                </label>
-                <input id="search_cells" type="search"/>
+
             </div>
             <div id="panel5" class="tab-pane fade">
                 <h3>Панель 5</h3>

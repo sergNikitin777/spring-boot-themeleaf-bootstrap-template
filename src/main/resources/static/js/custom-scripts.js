@@ -46,26 +46,58 @@ $(document).ready(function () {
         datatype: 'local',
         data: dataArray,
         colModel: [
-            {name: 'number', label : '№', align: 'center'},
-            {name: 'ready', label : 'Готовность', align: 'center'},
-            {name: 'description', label : 'Описание', align: 'center'},
-            {name: 'status', label : 'Статус', align: 'center'},
-            {name: 'start', label : 'Начало', align: 'center'},
-            {name: 'deadline', label : 'Крайний срок', align: 'center'},
-            {name: 'equipment', label : 'Оборудование', align: 'center'},
-            {name: 'address', label : 'Адрес', align: 'center'},
-            {name: 'customer', label : 'Заказчик', align: 'center'},
-            {name: 'performer', label : 'Исполнитель', align: 'center'}
+            {name: 'number', label : '№', align: 'center', editable: true},
+            {name: 'ready', label : 'Готовность', align: 'center', editable: true},
+            {name: 'description', label : 'Описание', align: 'center', editable: true},
+            {name: 'status', label : 'Статус', align: 'center', editable: true},
+            {name: 'start', label : 'Начало', align: 'center', editable: true},
+            {name: 'deadline', label : 'Крайний срок', align: 'center', editable: true},
+            {name: 'equipment', label : 'Оборудование', align: 'center', editable: true},
+            {name: 'address', label : 'Адрес', align: 'center', editable: true},
+            {name: 'customer', label : 'Заказчик', align: 'center', editable: true},
+            {name: 'performer', label : 'Исполнитель', align: 'center', editable: true}
         ],
         caption: 'Список задач',
         height: 'auto',
         rowNum: 5,
-        // styleUI : 'Bootstrap',
         pager: '#pager',
         align: 'center',
         autowidth: true
 
     });
+
+    $('#jqGrid').navGrid("#pager", {
+            search: true, // show search button on the toolbar
+            add: true,
+            edit: true,
+            del: false,
+            refresh: true
+        },
+        {
+            html5Check :  true,
+            editCaption: "Изменить задачу",
+            recreateForm: true,
+            //checkOnUpdate : true,
+            //checkOnSubmit : true,
+            closeAfterEdit: true,
+            errorTextFormat: function (data) {
+                return 'Error: ' + data.responseText
+            }
+        }, // edit options
+        {
+            closeAfterAdd: true,
+            html5Check : true,
+            recreateForm: true,
+            errorTextFormat: function (data) {
+                return 'Error: ' + data.responseText
+            }
+        }, // add options
+        {}, // delete options
+        {
+            multipleSearch: true,
+            multipleGroup : true
+        }
+    );
 
 
 });
