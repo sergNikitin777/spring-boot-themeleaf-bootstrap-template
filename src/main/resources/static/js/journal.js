@@ -68,7 +68,7 @@ $(document).ready(function () {
         var summary             = $('#InputClientamend').val();
         var location            = $('#InputAddressamend').val();
         var description         = 'Водитель ' + $('#InputDriveramend').val() + '; ' + $('#InputCaramend').val() + '; ' +
-            $('#InputGofersamend').val() + ' грузчик(ов); ' + $('#descriptionamend').val();
+            $('#InputGofersamend').val() + ' грузчик(ов); ' + $('#InputSumamend').val() + ' рублей; ' + $('#descriptionamend').val();
 
         postJSON.startDate = dateandtimeLocal;
         postJSON.durationHours = 1;
@@ -103,7 +103,7 @@ $(document).ready(function () {
         var summary             = $('#InputClient').val();
         var location            = $('#InputAddress').val();
         var description         = 'Водитель ' + $('#InputDriver').val() + '; ' + $('#InputCar').val() + '; ' +
-            $('#InputGofers').val() + ' грузчик(ов); ' + $('#description').val();
+            $('#InputGofers').val() + ' грузчик(ов); ' + $('#InputSum').val() + ' рублей; ' + $('#description').val();
 
         postJSON.startDate = dateandtimeLocal;
         postJSON.durationHours = 1;
@@ -117,6 +117,7 @@ $(document).ready(function () {
         xhrAddEvent.send(JSON.stringify(postJSON));
         xhrAddEvent.onreadystatechange = function () {
             if (xhrAddEvent.readyState == XMLHttpRequest.DONE && xhrAddEvent.status == 200) {
+                $('#view').tab('show');
                 updateTable('month');
             }
         };
@@ -260,9 +261,13 @@ $(document).ready(function () {
         xhrCalendarActualEvents.onreadystatechange = function () {
             if (xhrCalendarActualEvents.readyState == XMLHttpRequest.DONE && xhrCalendarActualEvents.status == 200) {
                 eventList = JSON.parse(xhrCalendarActualEvents.responseText);
+                console.log(eventList);
                 eventList = eventList.sort(function (a, b) {
-                    return a.startDate.date < b.startDate.date;
+                    if (a.startDate.date < b.startDate.date) return -1;
+                    if (a.startDate.date > b.startDate.date) return 1;
+                    if (a.startDate.date == b.startDate.date) return 0;
                 });
+                console.log(eventList);
                 for (var i = 0; i < eventList.length; i++) {
                     if ((eventList[i].description != null) && (new Date(eventList[i].startDate.date) < limitms) && (new Date(eventList[i].startDate.date) > currentDate)) {
                         var rowfull = $('<tr class="normal" id="' + eventList[i].uid.value + '">');
@@ -284,7 +289,8 @@ $(document).ready(function () {
                         rowfull.append('<td class = "driver">' + description[0].split(' ')[1] + '</td>');
                         rowfull.append('<td class = "car">' + description[1] + '</td>');
                         rowfull.append('<td class = "gofers">' + description[2].split(' ')[1] + '</td>');
-                        rowfull.append('<td class = "description">' + description[3] + '</td>');
+                        rowfull.append('<td class = "sum">' + description[3].split(' ')[1] + '</td>');
+                        rowfull.append('<td class = "description">' + description[4] + '</td>');
                         rowfull.append('<td class = "buttons"><a class="btn btn-sm edit"><i class="fa fa-edit"></i></a>&nbsp;' +
                             '<a class="btn btn-sm remove"><i class="fa fa-trash-o"></i></a></td>');
                         $("#tablefullbody").append(rowfull);
@@ -297,7 +303,8 @@ $(document).ready(function () {
                             '<div>Водитель: ' + description[0].split(' ')[1] + '</div>' +
                             '<div>Машина: ' + description[1] + '</div>' +
                             '<div>Грузчики: ' + description[2].split(' ')[1] + '</div>' +
-                            '<div>Описание: ' + description[3] + '</div></td>');
+                            '<div>Сумма заказа: ' + description[3].split(' ')[1] + '</div>' +
+                            '<div>Описание: ' + description[4] + '</div></td>');
                         mobileinfo.append('<td class = "buttons"><a class="btn edit"><i class="fa fa-edit"></i>&nbsp;Изменить</a>&nbsp;' +
                             '<a class="btn remove"><i class="fa fa-trash-o"></i>&nbsp;Удалить</a></td>');
                         $("#tablemobilebody").append(mobileinfo);
@@ -309,7 +316,9 @@ $(document).ready(function () {
                     if (xhrCalendarRemovedEvents.readyState == XMLHttpRequest.DONE && xhrCalendarRemovedEvents.status == 200) {
                         eventListR = JSON.parse(xhrCalendarRemovedEvents.responseText);
                         eventListR = eventListR.sort(function (a, b) {
-                            return a.startDate.date < b.startDate.date;
+                            if (a.startDate.date < b.startDate.date) return -1;
+                            if (a.startDate.date > b.startDate.date) return 1;
+                            if (a.startDate.date == b.startDate.date) return 0;
                         });
 
                         for (var i = 0; i < eventListR.length; i++) {
@@ -333,7 +342,8 @@ $(document).ready(function () {
                                 rowfull.append('<td class = "driver">' + description[0].split(' ')[1] + '</td>');
                                 rowfull.append('<td class = "car">' + description[1] + '</td>');
                                 rowfull.append('<td class = "gofers">' + description[2].split(' ')[1] + '</td>');
-                                rowfull.append('<td class = "description">' + description[3] + '</td>');
+                                rowfull.append('<td class = "sum">' + description[3].split(' ')[1] + '</td>');
+                                rowfull.append('<td class = "description">' + description[4] + '</td>');
                                 rowfull.append('<td class = "buttons"><a class="btn btn-sm rebuild"><i class="fa fa-undo"></i></a>&nbsp;' +
                                     '<a class="btn btn-sm btn-danger delete" style="background-color: red"><i class="fa fa-trash-o"></i></a></td>');
                                 $("#tablefullbody").append(rowfull);
@@ -346,7 +356,8 @@ $(document).ready(function () {
                                     '<div>Водитель: ' + description[0].split(' ')[1] + '</div>' +
                                     '<div>Машина: ' + description[1] + '</div>' +
                                     '<div>Грузчики: ' + description[2].split(' ')[1] + '</div>' +
-                                    '<div>Описание: ' + description[3] + '</div></td>');
+                                    '<div>Сумма заказа: ' + description[3].split(' ')[1] + '</div>' +
+                                    '<div>Описание: ' + description[4] + '</div></td>');
                                 mobileinfo.append('<td class = "buttons"><a class="btn rebuild"><i class="fa fa-undo"></i>&nbsp;Восстановить</a>&nbsp;' +
                                     '<a class="btn btn-danger delete" style="background-color: red"><i class="fa fa-trash-o"></i>&nbsp;Удалить</a></td>');
                                 $("#tablemobilebody").append(mobileinfo);
@@ -509,9 +520,28 @@ $(document).ready(function () {
                 $('#InputDriveramend').val(description[0].split(' ')[1]);
                 $('#InputCaramend').val(description[1]);
                 $('#InputGofersamend').val(description[2].split(' ')[1]);
-                $('#descriptionamend').val(description[3]);
+                $('#InputSumamend').val(description[3].split(' ')[1]);
+                $('#descriptionamend').val(description[4]);
             }
         }
+
+        $('#Amend').prop('disabled', true);
+    });
+
+    $(document).on('click', '.addbtn', function() {
+        $('#InputNotification :first').prop('selected', true);
+        $('#notifyDriver').prop('checked', false);
+        $('#notifyClient').prop('checked', false);
+        $('#InputTime').val('');
+        $('#InputClient').val('');
+        $('#InputAddres').val('');
+        $('#InputDriver').val('');
+        $('#InputCar').val('');
+        $('#InputGofers').val('');
+        $('#InputSum').val('');
+        $('#description').val('');
+
+        $('#Send').prop('disabled', true);
     });
 
     if ($('#panel_login').hasClass('active')) {
@@ -559,6 +589,45 @@ $(document).ready(function () {
     $('#Amend').on('click', function(){
         $('#modal_edit').modal('close');
         amendEventById(idToAmend);
+    });
+
+    $('.validate').keyup(function() {
+        var emptyAdd = false;
+        var emptyAmend = false;
+
+        $('.amend-input input').each(function() {
+            if ($(this).val().length == 0) {
+                emptyAmend = true;
+            }
+        });
+        $('.amend-input textarea').each(function() {
+            if ($(this).val().length == 0) {
+                emptyAmend = true;
+            }
+        });
+
+        $('.add-input input').each(function() {
+            if ($(this).val().length == 0) {
+                emptyAdd = true;
+            }
+        });
+        $('.add-input textarea').each(function() {
+            if ($(this).val().length == 0) {
+                emptyAdd = true;
+            }
+        });
+
+        if (emptyAmend) {
+            $('#Amend').prop('disabled', true);
+        } else {
+            $('#Amend').prop('disabled', false);
+        }
+
+        if (emptyAdd) {
+            $('#Send').prop('disabled', true);
+        } else {
+            $('#Send').prop('disabled', false);
+        }
     });
 
     $('#InputTime').keypress(function( event ) {

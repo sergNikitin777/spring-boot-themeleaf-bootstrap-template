@@ -64,6 +64,9 @@
         <script type="text/javascript"
                 src="../../static/js/jquery.kladr.min.js"
                 th:src="@{/js/jquery.kladr.min.js}"></script>
+        <script type="text/javascript"
+                src="../../static/js/jquery-ui.js"
+                th:src="@{/js/jquery-ui.js}"></script>
 
     </head>
 
@@ -228,6 +231,7 @@
                                     <th scope="col">Водитель</th>
                                     <th scope="col">Машина</th>
                                     <th scope="col">Грузчики</th>
+                                    <th scope="col">Сумма</th>
                                     <th scope="col">Описание</th>
                                     <th scope="col"></th>
                                 </tr>
@@ -341,18 +345,18 @@
                     <div class="modal-body">
                         <form>
                             <div class="col-md-6">
-                                <div class="form-group">
+                                <div class="form-group add-input">
                                     <label for="InputTime">Дата и время</label>
                                     <div class="input-group" id="datetimepicker">
-                                        <input type="text" class="form-control" placeholder="Выберите дату и время" id="InputTime" />
+                                        <input type="text" class="form-control validate" placeholder="Выберите дату и время" id="InputTime" />
                                         <span class="input-group-addon">
                                             <i class="glyphicon glyphicon-calendar"></i>
                                         </span>
                                     </div>
                                     <label for="InputDriver">Водитель</label>
-                                    <input type="text" class="form-control" id="InputDriver" placeholder="Введите имя водителя"/>
+                                    <input type="text" class="form-control validate" id="InputDriver" placeholder="Введите имя водителя"/>
                                     <label for="InputCar">Машина</label>
-                                    <input type="text" class="form-control" id="InputCar" placeholder="Введите марку и номер машины"/>
+                                    <input type="text" class="form-control validate" id="InputCar" placeholder="Введите марку и номер машины"/>
                                     <label for="InputGofers">Грузчики</label>
                                     <select class="form-control" id="InputGofers">
                                         <option>Выберите количество грузчиков</option>
@@ -370,21 +374,21 @@
                                 </div>
                             </div>
                             <div class="col-md-6">
-                                <div class="form-group">
+                                <div class="form-group add-input">
                                     <label for="InputClient">ФИО Клиента</label>
-                                    <input type="text" class="form-control" id="InputClient" placeholder="Введите ФИО клиента"/>
+                                    <input type="text" class="form-control validate" id="InputClient" placeholder="Введите ФИО клиента"/>
                                     <label>Телефон клиента</label>
-                                    <input type="tel" class="masked form-control" id="InputPhone" placeholder="X (XXX) XXX-XX-XX"
+                                    <input type="tel" class="masked form-control validate" id="InputPhone" placeholder="X (XXX) XXX-XX-XX"
                                            pattern="\d{1}\(\d{3}\) \d{3}\-\d{4}" title="10-digit number" />
                                     <label for="InputAddress">Адрес</label>
-                                    <input type="text" class="form-control" id="InputAddress" placeholder="Введите адрес"/>
+                                    <input type="text" class="form-control validate" id="InputAddress" placeholder="Введите адрес"/>
                                     <label for="InputSum">Сумма</label>
-                                    <input type="text" class="form-control" id="InputSum" placeholder="Введите сумму заказа"/>
+                                    <input type="text" class="form-control validate" id="InputSum" placeholder="Введите сумму заказа"/>
                                 </div>
                             </div>
                             <div class="col-md-12">
                                 <div class="line-separator"></div>
-                                <div class="form-group">
+                                <div class="form-group add-input">
                                     <label for="InputNotification">Уведомление</label>
                                     <select class="form-control" id="InputNotification">
                                         <option>Выберите время уведомления</option>
@@ -404,14 +408,14 @@
                             </div>
                             <div class="col-md-12">
                                 <div class="line-separator"></div>
-                                <div class="form-group">
+                                <div class="form-group add-input">
                                     <label for ="description">Описание груза</label>
-                                    <textarea class="form-control noresize" id="description" placeholder="Введите описание"></textarea>
+                                    <textarea class="form-control noresize validate" id="description" placeholder="Введите описание"></textarea>
                                 </div>
                             </div>
                         </form>
                     </div>
-                    <div class="modal-fixed-footer">
+                    <div class="modal-fixed-footer actions">
                         <button type="button" class="btn btn-block submit" id="Send" data-dismiss="modal">
                             <i class="fa fa-paper-plane" aria-hidden="true"></i>&nbsp;Отправить
                         </button>
@@ -432,7 +436,7 @@
                     <div class="modal-body">
                         <form>
                             <div class="col-md-6">
-                                <div class="form-group">
+                                <div class="form-group amend-input">
                                     <label for="InputTimeamend">Дата и время</label>
                                     <div class="input-group" id="datetimepickeramend">
                                         <input type="text" class="form-control" placeholder="Выберите дату и время" id="InputTimeamend" />
@@ -461,7 +465,7 @@
                                 </div>
                             </div>
                             <div class="col-md-6">
-                                <div class="form-group">
+                                <div class="form-group amend-input">
                                     <label for="InputClientamend">ФИО Клиента</label>
                                     <input type="text" class="form-control" id="InputClientamend" placeholder="Введите ФИО клиента"/>
                                     <label>Телефон клиента</label>
@@ -475,7 +479,7 @@
                             </div>
                             <div class="col-md-12">
                                 <div class="line-separator"></div>
-                                <div class="form-group">
+                                <div class="form-group amend-input">
                                     <label for="InputNotificationamend">Уведомление</label>
                                     <select class="form-control" id="InputNotificationamend">
                                         <option>Выберите время уведомления</option>
@@ -495,14 +499,14 @@
                             </div>
                             <div class="col-md-12">
                                 <div class="line-separator"></div>
-                                <div class="form-group">
+                                <div class="form-group amend-input">
                                     <label for ="description">Описание груза</label>
                                     <textarea class="form-control noresize" id="descriptionamend" placeholder="Введите описание"></textarea>
                                 </div>
                             </div>
                         </form>
                     </div>
-                    <div class="modal-fixed-footer">
+                    <div class="modal-fixed-footer actions">
                         <button type="button" class="btn btn-block submit modal-close" id="Amend">
                             <i class="fa fa-paper-plane" aria-hidden="true"></i>&nbsp;Отправить
                         </button>
