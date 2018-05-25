@@ -73,6 +73,26 @@ nav {
     color: #222222;
 }
 
+#panel_login {
+    position: relative;
+    overflow: hidden;
+}
+
+#panel_login::before {
+    position: absolute;
+    margin-left: -4000px;
+    width: 400%;
+    height: 400%;
+    background: url("../../icons/menu/texture_vans.png");
+    background-repeat: repeat repeat;
+    background-size:300px auto;
+    -webkit-transform: rotate(-45deg);
+    transform: rotate(-45deg);
+    opacity: .4;
+    content: "";
+    z-index: -1;
+}
+
 .modal-amend {
     max-height: calc(100vh - 210px);
     overflow-y: auto;
