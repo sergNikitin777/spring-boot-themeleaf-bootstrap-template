@@ -1,9 +1,14 @@
+// !!! РАЗБИТЬ НА МОДУЛИ !!!
 $(document).ready(function () {
     var options                     = { year: 'numeric', month: 'long', day: 'numeric', timeZone: '' };
     var xhrCalendarActualEvents     = new XMLHttpRequest();
     var xhrCalendarRemovedEvents    = new XMLHttpRequest();
     var xhrAddEvent                 = new XMLHttpRequest();
     var xhrDeleteEvent              = new XMLHttpRequest();
+    var xhrShowDrivers              = new XMLHttpRequest();
+    var xhrShowCars                 = new XMLHttpRequest();
+    var carsList                    = new Map();
+    var driversList                 = new Map();
     var eventList                   = new Map();
     var eventListR                  = new Map();
     var currentDate                 = new Date();
@@ -16,6 +21,7 @@ $(document).ready(function () {
     toggleCalendarHeight();
     toggleTables();
     updateTable("month");
+    updateSettings();
 
     function toggleTables() {
         if($(window).width() < 991) {
@@ -234,6 +240,60 @@ $(document).ready(function () {
         };
     }
 
+    function updateSettings() {
+        $("#tablecarsfullbody").html("");
+        $("#tablecarsfull").faLoading({icon: "fa-refresh", spin: true});
+        $("#tablecarsmobilebody").html("");
+        $("#tablecarsmobile").faLoading({icon: "fa-refresh", spin: true});
+        $("#tabledriversfullbody").html("");
+        $("#tabledriversfull").faLoading({icon: "fa-refresh", spin: true});
+        $("#tabledriversmobilebody").html("");
+        $("#tabledriverssmobile").faLoading({icon: "fa-refresh", spin: true});
+        xhrShowCars.open('GET', 'admin/autos', true);
+        xhrShowCars.send();
+        xhrShowCars.onreadystatechange = function() {
+            if (xhrShowCars.readyState == XMLHttpRequest.DONE && xhrShowCars.status == 200) {
+                carsList = JSON.parse(xhrShowCars.responseText);
+                console.log(carsList);
+                for (var i = 0; i < carsList.length; i++) {
+                    var rowfull = $('<tr class="normal" id="' + carsList[i].id + '">');
+                    var rowmobile = $('<tr class="normal row-header expand">');
+                    var mobileinfo = $('<tr class="normal" id="' + carsList[i].id + '">');
+
+                    rowfull.append('<td class = "marc">' + carsList[i].mark + '</td>'); // FYI: класс mark в LESS уже занят
+                    rowfull.append('<td class = "model">' + carsList[i].model + '</td>');
+                    rowfull.append('<td class = "lisenceplate">' + carsList[i].licensePlate + '</td>');
+                    rowfull.append('<td class = "type">' + carsList[i].type + '</td>');
+                    rowfull.append('<td class = "buttons"><a class="btn btn-sm editcar"><i class="fa fa-edit"></i></a>&nbsp;' +
+                        '<a class="btn btn-sm removecar"><i class="fa fa-trash-o"></i></a></td>');
+                    $("#tablecarsfullbody").append(rowfull);
+
+                    rowmobile.append('<td class="lisenceplate" colspan="2">' + carsList[i].licensePlate + '</td>');
+                    $("#tablecarsmobilebody").append(rowmobile);
+
+                    mobileinfo.append('<td><div>Марка: '+ carsList[i].mark +'</div>' +
+                        '<div>Модель: ' + carsList[i].model + '</div>' +
+                        '<div>Класс: ' + carsList[i].type + '</div></td>');
+                    mobileinfo.append('<td class = "buttons"><a class="btn editcar"><i class="fa fa-edit"></i>&nbsp;Изменить</a>&nbsp;' +
+                        '<a class="btn removecar"><i class="fa fa-trash-o"></i>&nbsp;Удалить</a></td>');
+                    $("#tablecarsmobilebody").append(mobileinfo);
+                }
+                $('#tablecarsfull').faLoading(false);
+                $('#tablecarsmobile').faLoading(false);
+            }
+        }
+        xhrShowDrivers.open('GET', 'admin/auto/drivers', true);
+        xhrShowDrivers.send();
+        xhrShowDrivers.onreadystatechange = function() {
+            if (xhrShowDrivers.readyState == XMLHttpRequest.DONE && xhrShowDrivers.status == 200) {
+                driversList = JSON.parse(xhrShowDrivers.responseText);
+                console.log(driversList);
+                $('#tabledriversfull').faLoading(false);
+                $('#tabledriverssmobile').faLoading(false);
+            }
+        }
+    }
+
     function updateTable (viewpoint) {
         $("#tablefullbody").html("");
         $("#tablefull").faLoading({icon: "fa-refresh", spin: true});
@@ -261,19 +321,17 @@ $(document).ready(function () {
         xhrCalendarActualEvents.onreadystatechange = function () {
             if (xhrCalendarActualEvents.readyState == XMLHttpRequest.DONE && xhrCalendarActualEvents.status == 200) {
                 eventList = JSON.parse(xhrCalendarActualEvents.responseText);
-                console.log(eventList);
                 eventList = eventList.sort(function (a, b) {
                     if (a.startDate.date < b.startDate.date) return -1;
                     if (a.startDate.date > b.startDate.date) return 1;
                     if (a.startDate.date == b.startDate.date) return 0;
                 });
-                console.log(eventList);
                 for (var i = 0; i < eventList.length; i++) {
                     if ((eventList[i].description != null) && (new Date(eventList[i].startDate.date) < limitms) && (new Date(eventList[i].startDate.date) > currentDate)) {
                         var rowfull = $('<tr class="normal" id="' + eventList[i].uid.value + '">');
                         var rowmobile = $('<tr class="normal row-header expand">');
                         var mobileinfo = $('<tr class="normal" id="' + eventList[i].uid.value + '">');
-                        
+
                         var dtLocalized = new Date(eventList[i].startDate.date).toLocaleString('ru-RU', {
                             year: 'numeric', month: 'long', day: 'numeric',
                             hour: 'numeric', minute: 'numeric'
@@ -544,18 +602,56 @@ $(document).ready(function () {
         $('#Send').prop('disabled', true);
     });
 
+    function buttonInvisible(button) {
+        button.parent().parent().attr('style', 'visibility: hidden; display: none');
+    }
+
+    function buttonVisible(button) {
+        button.parent().parent().attr('style', 'visibility: visible; display: block');
+    }
+
+    buttonInvisible($('#addCar'));
+    buttonInvisible($('#addDriver'));
+    buttonInvisible($('.addbtn'));
+    buttonInvisible($('.viewbtn'));
+    buttonInvisible($('.viewclndrbtn'));
+    buttonInvisible($('.settingsbtn'));
+
+    $('#viewcalendar,#viewcalendar_block,#settings,#settings_block,#view,#view_block').on('click', function() {
+        buttonInvisible($('#addCar'));
+        buttonInvisible($('#addDriver'));
+    });
+
+    $('#buttonprofile').on('click', function() {
+        $('#panel_settings').tab('show');
+        buttonInvisible($('#addCar'));
+        buttonInvisible($('#addDriver'));
+    });
+
+    $('#buttondrivers').on('click', function() {
+        $('#panel_settings').tab('show');
+        buttonInvisible($('#addCar'));
+        buttonVisible($('#addDriver'));
+    });
+
+    $('#buttoncars').on('click', function() {
+        $('#panel_settings').tab('show');
+        buttonVisible($('#addCar'));
+        buttonInvisible($('#addDriver'));
+    });
+
     if ($('#panel_login').hasClass('active')) {
-        $('.addbtn').attr('style', 'visibility: hidden');
-        $('.viewbtn').attr('style', 'visibility: hidden');
-        $('.viewclndrbtn').attr('style', 'visibility: hidden');
-        $('.settingsbtn').attr('style', 'visibility: hidden');
+        buttonInvisible($('.addbtn'));
+        buttonInvisible($('.viewbtn'));
+        buttonInvisible($('.viewclndrbtn'));
+        buttonInvisible($('.settingsbtn'));
     }
 
     $('#login').on('click', function() {
-        $('.addbtn').attr('style', 'visibility: visible');
-        $('.viewbtn').attr('style', 'visibility: visible');
-        $('.viewclndrbtn').attr('style', 'visibility: visible');
-        $('.settingsbtn').attr('style', 'visibility: visible');
+        buttonVisible($('.addbtn'));
+        buttonVisible($('.viewbtn'));
+        buttonVisible($('.viewclndrbtn'));
+        buttonVisible($('.settingsbtn'));
     });
 
     $('#dayviewpoint').on('click', function() {
