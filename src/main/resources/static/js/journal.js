@@ -254,7 +254,6 @@ $(document).ready(function () {
         xhrShowCars.onreadystatechange = function() {
             if (xhrShowCars.readyState == XMLHttpRequest.DONE && xhrShowCars.status == 200) {
                 carsList = JSON.parse(xhrShowCars.responseText);
-                console.log(carsList);
                 for (var i = 0; i < carsList.length; i++) {
                     var rowfull = $('<tr class="normal" id="' + carsList[i].id + '">');
                     var rowmobile = $('<tr class="normal row-header expand">');
@@ -287,7 +286,6 @@ $(document).ready(function () {
         xhrShowDrivers.onreadystatechange = function() {
             if (xhrShowDrivers.readyState == XMLHttpRequest.DONE && xhrShowDrivers.status == 200) {
                 driversList = JSON.parse(xhrShowDrivers.responseText);
-                console.log(driversList);
                 $('#tabledriversfull').faLoading(false);
                 $('#tabledriverssmobile').faLoading(false);
             }

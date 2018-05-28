@@ -106,22 +106,22 @@ nav {
     color: #222222;
 }
 
-#panel_login {
+body {
     position: relative;
     overflow: hidden;
 }
 
-#panel_login::before {
+body::before {
     position: absolute;
-    margin-left: -4000px;
-    width: 400%;
-    height: 400%;
-    background: url("../../icons/menu/texture_vans.png");
+    margin-left: -40000px;
+    width: 4000%;
+    height: 4000%;
+    background: url("../icons/menu/texture_vans.png");
     background-repeat: repeat repeat;
     background-size:300px auto;
     -webkit-transform: rotate(-45deg);
     transform: rotate(-45deg);
-    opacity: .4;
+    opacity: .03;
     content: "";
     z-index: -1;
 }
