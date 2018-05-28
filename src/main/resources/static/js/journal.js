@@ -294,9 +294,8 @@ $(document).ready(function () {
 
     function updateTable (viewpoint) {
         $("#tablefullbody").html("");
-        $("#tablefull").faLoading({icon: "fa-refresh", spin: true});
         $("#tablemobilebody").html("");
-        $("#tablemobile").faLoading({icon: "fa-refresh", spin: true});
+        $("body").faLoading({icon: "fa-refresh", spin: true});
         var limitms = new Date();
         switch (viewpoint) {
             case "day":   {
@@ -420,8 +419,7 @@ $(document).ready(function () {
                             }
                         }
                         $('.row-header').toggleClass('expand').nextUntil('tr.row-header').slideToggle(100);
-                        $('#tablefull').faLoading(false);
-                        $('#tablemobile').faLoading(false);
+                        $('body').faLoading(false);
                     }
                 };
 
