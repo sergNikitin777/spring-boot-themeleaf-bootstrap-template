@@ -119,6 +119,11 @@ nav {
     padding-bottom: 0;
 }
 
+.btn-fullwidth {
+    margin-bottom: 5px;
+    width:100%!important;
+}
+
 .btn:hover {
     background-color: #ffffff;
     color: #222222;

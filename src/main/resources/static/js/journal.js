@@ -429,9 +429,9 @@ $(document).ready(function () {
                             '<div>Адрес погрузки: ' + locationvalue[locationvalue.length - 3] + ',' +locationvalue[locationvalue.length - 2] + ',' + locationvalue[locationvalue.length - 1] + '</div>' +
                             '<div>Адрес доставки: ' + description[4].split(',')[description[4].split(',').length - 3] + ',' +description[4].split(',')[description[4].split(',').length - 2] + ',' + description[4].split(',')[description[4].split(',').length - 1] + '</div>' +
                             '<div>Описание: ' + description[5] + '</div></td>');
-                        mobileinfo.append('<td class = "buttons"><a class="btn edit"><i class="fa fa-edit"></i>&nbsp;Изменить</a>&nbsp;' +
-                            '<a class="btn remove"><i class="fa fa-trash-o"></i>&nbsp;Удалить</a>&nbsp' +
-                            '<a class="btn archive"><i class="fa fa-archive"></i>&nbsp;В архив</a></td>');
+                        mobileinfo.append('<td class = "buttons"><a class="btn btn-fullwidth edit"><i class="fa fa-edit"></i>&nbsp;Изменить</a><br/>' +
+                            '<a class="btn btn-fullwidth remove"><i class="fa fa-trash-o"></i>&nbsp;Удалить</a><br/>' +
+                            '<a class="btn btn-fullwidth archive"><i class="fa fa-archive"></i>&nbsp;В архив</a></td>');
                         $("#tablemobilebody").append(mobileinfo);
                     }
                 }
@@ -494,8 +494,8 @@ $(document).ready(function () {
                                     '<div>Адрес погрузки: ' + locationvalue[locationvalue.length - 3] + ',' +locationvalue[locationvalue.length - 2] + ',' + locationvalue[locationvalue.length - 1] + '</div>' +
                                     '<div>Адрес доставки: ' + description[4].split(',')[description[4].split(',').length - 3] + ',' +description[4].split(',')[description[4].split(',').length - 2] + ',' + description[4].split(',')[description[4].split(',').length - 1] + '</div>' +
                                     '<div>Описание: ' + description[5] + '</div></td>');
-                                mobileinfo.append('<td class = "buttons"><a class="btn rebuild"><i class="fa fa-undo"></i>&nbsp;Восстановить</a>&nbsp;' +
-                                    '<a class="btn btn-danger delete" style="background-color: red"><i class="fa fa-trash-o"></i>&nbsp;Удалить</a></td>');
+                                mobileinfo.append('<td class = "buttons"><a class="btn btn-fullwidth rebuild"><i class="fa fa-undo"></i>&nbsp;Восстановить</a><br/>' +
+                                    '<a class="btn btn-fullwidth btn-danger delete" style="background-color: red"><i class="fa fa-trash-o"></i>&nbsp;Удалить</a></td>');
                                 $("#tablemobilebody").append(mobileinfo);
                             }
                         }
@@ -907,11 +907,13 @@ $(document).ready(function () {
 
     $('#viewcalendar,#viewcalendar_block,#settings,#settings_block').on('click', function() {
         $('.hidebtn').attr('style', 'visibility: hidden');
+        buttonInvisible($('.hidebtn'));
     });
 
     $('#view,#view_block,#viewarchive,#viewarchive_block').on('click', function(){
         updateTable("month");
         $('.hidebtn').attr('style', 'visibility: visible');
+        buttonVisible($('.hidebtn'));
     });
 
     $(window).resize(function () {
