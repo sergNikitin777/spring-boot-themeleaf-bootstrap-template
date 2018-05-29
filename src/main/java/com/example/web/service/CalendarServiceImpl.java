@@ -1,7 +1,5 @@
 package com.example.web.service;
 
-import com.example.persistance.entity.Address;
-import com.example.persistance.repository.AddressRepository;
 import lombok.RequiredArgsConstructor;
 import net.fortuna.ical4j.model.Calendar;
 import net.fortuna.ical4j.model.Component;

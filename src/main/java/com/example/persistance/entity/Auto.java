@@ -38,6 +38,10 @@ public class Auto {
     @JsonBackReference
     private List<AutoDriver> autoDrivers = new ArrayList<>();
 
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+
     @Column
     private String mark;
 

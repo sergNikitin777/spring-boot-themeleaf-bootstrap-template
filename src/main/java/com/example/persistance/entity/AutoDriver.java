@@ -1,6 +1,5 @@
 package com.example.persistance.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -53,6 +52,4 @@ public class AutoDriver {
 
     @Column
     private  String phoneNumber;
-
-
 }

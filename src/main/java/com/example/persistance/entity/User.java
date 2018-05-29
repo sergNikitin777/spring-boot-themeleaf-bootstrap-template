@@ -2,15 +2,14 @@ package com.example.persistance.entity;
 
 import static java.util.stream.Collectors.toSet;
 
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
-
-
+import java.util.Date;
 import javax.persistence.*;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -22,11 +21,12 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 @Entity
+@Getter
+@Setter
 @EqualsAndHashCode(callSuper = true)
 @Data
 @Table(name = "ADM_USER", uniqueConstraints = { @UniqueConstraint(columnNames = "EMAIL"),
         @UniqueConstraint(columnNames = "USERNAME") })
-
 public class User extends Persistent implements UserDetails
 {
 
@@ -51,14 +51,23 @@ public class User extends Persistent implements UserDetails
     @Column(name = "isLOCKED", nullable = false)
     private boolean locked = false;
 
+    @Column
+    private String yandexToken;
+
+    @Column
+    private Date dateYandexToken;
+
+    @Column
+    private Boolean smsToDriver;
+
+    @Column
+    private Boolean smsToClient;
+
     @NotEmpty
     @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
     @CollectionTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"))
     @Column(name = "role", nullable = false)
     private Collection<Role> roles;
-
-    @OneToMany
-    private List<Task> taskList = new ArrayList<>();
 
     public User()
     {
