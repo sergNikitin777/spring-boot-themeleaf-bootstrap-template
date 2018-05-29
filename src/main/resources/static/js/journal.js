@@ -77,9 +77,9 @@ $(document).ready(function () {
         var dateandtimeLocal    = new Date(dateandtime.substr(6, 4), dateandtime.substr(3, 2) - 1, dateandtime.substr(0, 2),
             dateandtime.substr(11, 2), dateandtime.substr(14, 2));
         var summary             = $('#InputClientamend').val();
-        var location            = $('#InputAddressamend').val();
+        var location            = $('#InputAddressFirstamend').val();
         var description         = 'Водитель ' + $('#InputDriveramend').val() + '; ' + $('#InputCaramend').val() + '; ' +
-            $('#InputGofersamend').val() + ' грузчик(ов); ' + $('#InputSumamend').val() + ' рублей; ' + $('#descriptionamend').val();
+            $('#InputGofersamend').val() + ' грузчик(ов); ' + $('#InputSumamend').val() + ' рублей; ' + $('#InputAddressSecondamend').val() + ' ;' + $('#descriptionamend').val();
 
         postJSON.startDate = dateandtimeLocal;
         postJSON.durationHours = 1;
