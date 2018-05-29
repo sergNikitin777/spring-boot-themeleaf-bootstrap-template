@@ -112,9 +112,9 @@ $(document).ready(function () {
         var dateandtimeLocal    = new Date(dateandtime.substr(6, 4), dateandtime.substr(3, 2) - 1, dateandtime.substr(0, 2),
             dateandtime.substr(11, 2), dateandtime.substr(14, 2));
         var summary             = $('#InputClient').val();
-        var location            = $('#InputAddress').val();
+        var location            = $('#InputAddressFirst').val();
         var description         = 'Водитель ' + $('#InputDriver').val() + '; ' + $('#InputCar').val() + '; ' +
-            $('#InputGofers').val() + ' грузчик(ов); ' + $('#InputSum').val() + ' рублей; ' + $('#description').val();
+            $('#InputGofers').val() + ' грузчик(ов); ' + $('#InputSum').val() + ' рублей; ' + $('#InputAddressSecond').val() + ' ;' + $('#description').val();
 
         postJSON.startDate = dateandtimeLocal;
         postJSON.durationHours = 1;
@@ -318,8 +318,8 @@ $(document).ready(function () {
                     rowfull.append('<td class = "model">' + carsList[i].model + '</td>');
                     rowfull.append('<td class = "lisenceplate">' + carsList[i].licensePlate + '</td>');
                     rowfull.append('<td class = "type">' + carsList[i].type + '</td>');
-                    rowfull.append('<td class = "buttons"><a class="btn btn-sm editcar"><i class="fa fa-edit"></i></a>&nbsp;' +
-                        '<a class="btn btn-sm removecar"><i class="fa fa-trash-o"></i></a></td>');
+                    rowfull.append('<td class = "buttons"><a class="btn btn-sm editcar" data-toggle="tooltip" title="Изменить машину"><i class="fa fa-edit"></i></a>&nbsp;' +
+                        '<a class="btn btn-sm removecar" data-toggle="tooltip" title="Удалить машину"><i class="fa fa-trash-o"></i></a></td>');
                     $("#tablecarsfullbody").append(rowfull);
 
                     rowmobile.append('<td class="lisenceplate" colspan="2">' + carsList[i].licensePlate + '</td>');
@@ -382,7 +382,8 @@ $(document).ready(function () {
                 });
                 for (var i = 0; i < eventList.length; i++) {
                     if ((eventList[i].description != null) && (new Date(eventList[i].startDate.date) < limitms) && (new Date(eventList[i].startDate.date) > currentDate)) {
-                        var rowfull = $('<tr class="normal" id="' + eventList[i].uid.value + '">');
+                        var rowfull = $('<tr class="normal row-header expand">');
+                        var fullinfo = $('<tr class="normal" id="' + eventList[i].uid.value + '">');
                         var rowmobile = $('<tr class="normal row-header expand">');
                         var mobileinfo = $('<tr class="normal" id="' + eventList[i].uid.value + '">');
 
@@ -396,31 +397,41 @@ $(document).ready(function () {
                         else locationvalue = eventList[i].location.value.split(',');
 
                         rowfull.append('<td class = "datetime">' + dtLocalized + '</td>');
-                        rowfull.append('<td class = "name">' + eventList[i].summary.value + '</td>');
                         rowfull.append('<td class = "location">' + locationvalue[locationvalue.length - 3] + ',' +locationvalue[locationvalue.length - 2] + ',' + locationvalue[locationvalue.length - 1] + '</td>');
-                        rowfull.append('<td class = "driver">' + description[0].split(' ')[1] + '</td>');
-                        rowfull.append('<td class = "car">' + description[1] + '</td>');
-                        rowfull.append('<td class = "gofers">' + description[2].split(' ')[1] + '</td>');
-                        rowfull.append('<td class = "sum">' + description[3].split(' ')[1] + '</td>');
-                        rowfull.append('<td class = "description">' + description[4] + '</td>');
-                        rowfull.append('<td class = "buttons"><a class="btn btn-sm edit"><i class="fa fa-edit"></i></a>&nbsp;' +
-                            '<a class="btn btn-sm remove"><i class="fa fa-trash-o"></i></a>&nbsp;' +
-                            '<a class="btn btn-sm archive"><i class="fa fa-archive"></i></a></td>');
+                        rowfull.append('<td></td>');
+                        rowfull.append('<td class = "destination">' + description[4].split(',')[description[4].split(',').length - 3] + ',' +description[4].split(',')[description[4].split(',').length - 2] + ',' + description[4].split(',')[description[4].split(',').length - 1] + '</td>');
+                        rowfull.append('<td></td>');
+
+                        fullinfo.append('<td>' +
+                            '<div>Водитель: ' + description[0].split(' ')[1] + '</div>' +
+                            '<div>Машина: ' + description[1] + '</div>' +
+                            '<div>Грузчики: ' + description[2].split(' ')[1] + '</div>' +
+                            '<div>Сумма заказа: ' + description[3].split(' ')[1] + '</div></td>');
+                        fullinfo.append('<td colspan="3">' +
+                            '<div>Клиент:\n' + eventList[i].summary.value + '</div>' +
+                            '<div>Описание:\n' + description[5] + '</div></td>');
+                        fullinfo.append('<td class = "buttons"><a class="btn btn-sm edit" data-toggle="tooltip" title="Изменить заявку"><i class="fa fa-edit"></i></a>&nbsp;' +
+                            '<a class="btn btn-sm remove" data-toggle="tooltip" title="Удалить заявку"><i class="fa fa-trash-o"></i></a>&nbsp;' +
+                            '<a class="btn btn-sm archive" data-toggle="tooltip" title="Перенести заявку в архив"><i class="fa fa-archive"></i></a></td>');
+
                         $("#tablefullbody").append(rowfull);
+                        $("#tablefullbody").append(fullinfo);
 
                         rowmobile.append('<td class="datetime">' + dtLocalized + '</td>');
-                        rowmobile.append('<td class="location">' + locationvalue[locationvalue.length - 3] + ',' +locationvalue[locationvalue.length - 2] + ',' + locationvalue[locationvalue.length - 1] +  '</td>');
+                        rowmobile.append('<td class="name">' + eventList[i].summary.value + '</td>');
                         $("#tablemobilebody").append(rowmobile);
 
-                        mobileinfo.append('<td><div>Клиент: '+ eventList[i].summary.value +'</div>' +
+                        mobileinfo.append('<td>' +
                             '<div>Водитель: ' + description[0].split(' ')[1] + '</div>' +
                             '<div>Машина: ' + description[1] + '</div>' +
                             '<div>Грузчики: ' + description[2].split(' ')[1] + '</div>' +
                             '<div>Сумма заказа: ' + description[3].split(' ')[1] + '</div>' +
-                            '<div>Описание: ' + description[4] + '</div></td>');
+                            '<div>Адрес погрузки: ' + locationvalue[locationvalue.length - 3] + ',' +locationvalue[locationvalue.length - 2] + ',' + locationvalue[locationvalue.length - 1] + '</div>' +
+                            '<div>Адрес доставки: ' + description[4].split(',')[description[4].split(',').length - 3] + ',' +description[4].split(',')[description[4].split(',').length - 2] + ',' + description[4].split(',')[description[4].split(',').length - 1] + '</div>' +
+                            '<div>Описание: ' + description[5] + '</div></td>');
                         mobileinfo.append('<td class = "buttons"><a class="btn edit"><i class="fa fa-edit"></i>&nbsp;Изменить</a>&nbsp;' +
                             '<a class="btn remove"><i class="fa fa-trash-o"></i>&nbsp;Удалить</a>&nbsp' +
-                            '<a class="btn btn-sm archive"><i class="fa fa-archive"></i>&nbsp;В архив</a></td>');
+                            '<a class="btn archive"><i class="fa fa-archive"></i>&nbsp;В архив</a></td>');
                         $("#tablemobilebody").append(mobileinfo);
                     }
                 }
@@ -437,8 +448,9 @@ $(document).ready(function () {
 
                         for (var i = 0; i < eventListR.length; i++) {
                             if ((eventListR[i].description != null) && (new Date(eventListR[i].startDate.date) < limitms) && (new Date(eventListR[i].startDate.date) > currentDate)) {
-                                var rowfull = $('<tr class="strikeout" id="' + eventListR[i].uid.value + '">');
-                                var rowmobile = $('<tr class="strikeout row-header expand" >');
+                                var rowfull = $('<tr class="row-header expand strikeout">');
+                                var fullinfo = $('<tr class="normal" id="' + eventListR[i].uid.value + '">');
+                                var rowmobile = $('<tr class="row-header expand strikeout">');
                                 var mobileinfo = $('<tr class="normal" id="' + eventListR[i].uid.value + '">');
 
                                 var dtLocalized = new Date(eventListR[i].startDate.date).toLocaleString('ru-RU', {
@@ -451,27 +463,37 @@ $(document).ready(function () {
                                 else locationvalue = eventListR[i].location.value.split(',');
 
                                 rowfull.append('<td class = "datetime">' + dtLocalized + '</td>');
-                                rowfull.append('<td class = "name">' + eventListR[i].summary.value + '</td>');
                                 rowfull.append('<td class = "location">' + locationvalue[locationvalue.length - 3] + ',' +locationvalue[locationvalue.length - 2] + ',' + locationvalue[locationvalue.length - 1] + '</td>');
-                                rowfull.append('<td class = "driver">' + description[0].split(' ')[1] + '</td>');
-                                rowfull.append('<td class = "car">' + description[1] + '</td>');
-                                rowfull.append('<td class = "gofers">' + description[2].split(' ')[1] + '</td>');
-                                rowfull.append('<td class = "sum">' + description[3].split(' ')[1] + '</td>');
-                                rowfull.append('<td class = "description">' + description[4] + '</td>');
-                                rowfull.append('<td class = "buttons"><a class="btn btn-sm rebuild"><i class="fa fa-undo"></i></a>&nbsp;' +
-                                    '<a class="btn btn-sm btn-danger delete" style="background-color: red"><i class="fa fa-trash-o"></i></a></td>');
+                                rowfull.append('<td></td>');
+                                rowfull.append('<td class = "destination">' + description[4].split(',')[description[4].split(',').length - 3] + ',' +description[4].split(',')[description[4].split(',').length - 2] + ',' + description[4].split(',')[description[4].split(',').length - 1] + '</td>');
+                                rowfull.append('<td></td>');
+
+                                fullinfo.append('<td>' +
+                                    '<div>Водитель: ' + description[0].split(' ')[1] + '</div>' +
+                                    '<div>Машина: ' + description[1] + '</div>' +
+                                    '<div>Грузчики: ' + description[2].split(' ')[1] + '</div>' +
+                                    '<div>Сумма заказа: ' + description[3].split(' ')[1] + '</div></td>');
+                                fullinfo.append('<td colspan="3">' +
+                                    '<div>Клиент:\n' + eventListR[i].summary.value + '</div>' +
+                                    '<div>Описание:\n' + description[5] + '</div></td>');
+                                fullinfo.append('<td class = "buttons"><a class="btn btn-sm rebuild" data-toggle="tooltip" title="Восстановить заявку"><i class="fa fa-undo"></i></a>&nbsp;' +
+                                    '<a class="btn btn-sm btn-danger delete" style="background-color: red" data-toggle="tooltip" title="Удалить заявку"><i class="fa fa-trash-o"></i></a></td>');
+
                                 $("#tablefullbody").append(rowfull);
+                                $("#tablefullbody").append(fullinfo);
 
                                 rowmobile.append('<td class="datetime">' + dtLocalized + '</td>');
-                                rowmobile.append('<td class="location">' + locationvalue[locationvalue.length - 3] + ',' +locationvalue[locationvalue.length - 2] + ',' + locationvalue[locationvalue.length - 1] +  '</td>');
+                                rowmobile.append('<td class="name">' + eventListR[i].summary.value + '</td>');
                                 $("#tablemobilebody").append(rowmobile);
 
-                                mobileinfo.append('<td><div>Клиент: '+ eventListR[i].summary.value +'</div>' +
+                                mobileinfo.append('<td>' +
                                     '<div>Водитель: ' + description[0].split(' ')[1] + '</div>' +
                                     '<div>Машина: ' + description[1] + '</div>' +
                                     '<div>Грузчики: ' + description[2].split(' ')[1] + '</div>' +
                                     '<div>Сумма заказа: ' + description[3].split(' ')[1] + '</div>' +
-                                    '<div>Описание: ' + description[4] + '</div></td>');
+                                    '<div>Адрес погрузки: ' + locationvalue[locationvalue.length - 3] + ',' +locationvalue[locationvalue.length - 2] + ',' + locationvalue[locationvalue.length - 1] + '</div>' +
+                                    '<div>Адрес доставки: ' + description[4].split(',')[description[4].split(',').length - 3] + ',' +description[4].split(',')[description[4].split(',').length - 2] + ',' + description[4].split(',')[description[4].split(',').length - 1] + '</div>' +
+                                    '<div>Описание: ' + description[5] + '</div></td>');
                                 mobileinfo.append('<td class = "buttons"><a class="btn rebuild"><i class="fa fa-undo"></i>&nbsp;Восстановить</a>&nbsp;' +
                                     '<a class="btn btn-danger delete" style="background-color: red"><i class="fa fa-trash-o"></i>&nbsp;Удалить</a></td>');
                                 $("#tablemobilebody").append(mobileinfo);
@@ -510,16 +532,16 @@ $(document).ready(function () {
             if (xhrCalendarArchivedEvents.readyState == XMLHttpRequest.DONE && xhrCalendarArchivedEvents.status == 200) {
                 eventListA = JSON.parse(xhrCalendarArchivedEvents.responseText);
                 eventListA = eventListA.sort(function (a, b) {
-                    if (a.startDate.date < b.startDate.date) return -1;
-                    if (a.startDate.date > b.startDate.date) return 1;
+                    if (a.startDate.date < b.startDate.date) return 1;
+                    if (a.startDate.date > b.startDate.date) return -1;
                     if (a.startDate.date == b.startDate.date) return 0;
                 });
 
                 for (var i = 0; i < eventListA.length; i++) {
                     if (eventListA[i].description != null) {
-                        console.log(eventListA[i]);
-                        var rowfull = $('<tr class="normal" id="' + eventListA[i].uid.value + '">');
-                        var rowmobile = $('<tr class="normal row-header expand" >');
+                        var rowfull = $('<tr class="normal row-header expand">');
+                        var fullinfo = $('<tr class="normal" id="' + eventListA[i].uid.value + '">');
+                        var rowmobile = $('<tr class="normal row-header expand">');
                         var mobileinfo = $('<tr class="normal" id="' + eventListA[i].uid.value + '">');
 
                         var dtLocalized = new Date(eventListA[i].startDate.date).toLocaleString('ru-RU', {
@@ -532,30 +554,37 @@ $(document).ready(function () {
                         else locationvalue = eventListA[i].location.value.split(',');
 
                         rowfull.append('<td class = "datetime">' + dtLocalized + '</td>');
-                        rowfull.append('<td class = "name">' + eventListA[i].summary.value + '</td>');
                         rowfull.append('<td class = "location">' + locationvalue[locationvalue.length - 3] + ',' +locationvalue[locationvalue.length - 2] + ',' + locationvalue[locationvalue.length - 1] + '</td>');
-                        rowfull.append('<td class = "driver">' + description[0].split(' ')[1] + '</td>');
-                        rowfull.append('<td class = "car">' + description[1] + '</td>');
-                        rowfull.append('<td class = "gofers">' + description[2].split(' ')[1] + '</td>');
-                        rowfull.append('<td class = "sum">' + description[3].split(' ')[1] + '</td>');
-                        rowfull.append('<td class = "description">' + description[4] + '</td>');
+                        rowfull.append('<td></td>');
+                        rowfull.append('<td class = "destination">' + description[4].split(',')[description[4].split(',').length - 3] + ',' +description[4].split(',')[description[4].split(',').length - 2] + ',' + description[4].split(',')[description[4].split(',').length - 1] + '</td>');
+
+                        fullinfo.append('<td>' +
+                            '<div>Водитель: ' + description[0].split(' ')[1] + '</div>' +
+                            '<div>Машина: ' + description[1] + '</div>' +
+                            '<div>Грузчики: ' + description[2].split(' ')[1] + '</div>' +
+                            '<div>Сумма заказа: ' + description[3].split(' ')[1] + '</div></td>');
+                        fullinfo.append('<td colspan="3">' +
+                            '<div>Клиент: ' + eventListA[i].summary.value + '</div>' +
+                            '<div>Описание: ' + description[5] + '</div></td>');
+
                         $("#tablearchivefullbody").append(rowfull);
+                        $("#tablearchivefullbody").append(fullinfo);
 
                         rowmobile.append('<td class="datetime">' + dtLocalized + '</td>');
-                        rowmobile.append('<td class="location">' + locationvalue[locationvalue.length - 3] + ',' +locationvalue[locationvalue.length - 2] + ',' + locationvalue[locationvalue.length - 1] +  '</td>');
+                        rowmobile.append('<td class="name">' + eventListA[i].summary.value + '</td>');
                         $("#tablearchivemobilebody").append(rowmobile);
 
-                        mobileinfo.append('<td colspan="2"><div>Клиент: '+ eventListA[i].summary.value +'</div>' +
+                        mobileinfo.append('<td colspan="2">' +
                             '<div>Водитель: ' + description[0].split(' ')[1] + '</div>' +
                             '<div>Машина: ' + description[1] + '</div>' +
                             '<div>Грузчики: ' + description[2].split(' ')[1] + '</div>' +
                             '<div>Сумма заказа: ' + description[3].split(' ')[1] + '</div>' +
-                            '<div>Описание: ' + description[4] + '</div></td>');
+                            '<div>Адрес погрузки: ' + locationvalue[locationvalue.length - 3] + ',' +locationvalue[locationvalue.length - 2] + ',' + locationvalue[locationvalue.length - 1] + '</div>' +
+                            '<div>Адрес доставки: ' + description[4].split(',')[description[4].split(',').length - 3] + ',' +description[4].split(',')[description[4].split(',').length - 2] + ',' + description[4].split(',')[description[4].split(',').length - 1] + '</div>' +
+                            '<div>Описание: ' + description[5] + '</div></td>');
                         $("#tablearchivemobilebody").append(mobileinfo);
                     }
                 }
-                $('.row-header').toggleClass('expand').nextUntil('tr.row-header').slideToggle(100);
-                $('body').faLoading(false);
             }
         };
 
@@ -573,10 +602,7 @@ $(document).ready(function () {
 
     // плагины ввода
     $(function () {
-        $('#InputAddress').kladr({
-            oneString: true
-        });
-        $('#InputAddressamend').kladr({
+        $('.address').kladr({
             oneString: true
         });
         $('#InputRegion').kladr({
@@ -590,6 +616,7 @@ $(document).ready(function () {
             locale: 'ru',
             sideBySide: true
         });
+        $('.phonemask').mask('+7 (000) 000-00-00');
     });
 
     var slideCount = $('#slider ul li').length;
@@ -653,7 +680,7 @@ $(document).ready(function () {
     $(document).on('click', '.archive', function() {
         var button = $(this).parent();
         if ((button.parent()[0].id != '') && (button.parent()[0].id != null)) {
-            if (confirm("Удалить заявку?")) {
+            if (confirm("Перенести заявку в архив?")) {
                 archiveEvent('' + button.parent()[0].id);
             }
         }
@@ -713,23 +740,20 @@ $(document).ready(function () {
             }
         }
 
-        $('#Amend').prop('disabled', true);
     });
 
     $(document).on('click', '.addbtn', function() {
-        $('#InputNotification :first').prop('selected', true);
-        $('#notifyDriver').prop('checked', false);
         $('#notifyClient').prop('checked', false);
+        $('#InputPhone').val('');
         $('#InputTime').val('');
         $('#InputClient').val('');
-        $('#InputAddres').val('');
+        $('#InputAddresFirst').val('');
+        $('#InputAddresSecond').val('');
         $('#InputDriver').val('');
         $('#InputCar').val('');
         $('#InputGofers').val('');
         $('#InputSum').val('');
         $('#description').val('');
-
-        $('#Send').prop('disabled', true);
     });
 
     function buttonInvisible(button) {
@@ -819,44 +843,44 @@ $(document).ready(function () {
         amendEventById(idToAmend);
     });
 
-    $('.validate').keyup(function() {
-        var emptyAdd = false;
-        var emptyAmend = false;
-
-        $('.amend-input input').each(function() {
-            if ($(this).val().length == 0) {
-                emptyAmend = true;
-            }
-        });
-        $('.amend-input textarea').each(function() {
-            if ($(this).val().length == 0) {
-                emptyAmend = true;
-            }
-        });
-
-        $('.add-input input').each(function() {
-            if ($(this).val().length == 0) {
-                emptyAdd = true;
-            }
-        });
-        $('.add-input textarea').each(function() {
-            if ($(this).val().length == 0) {
-                emptyAdd = true;
-            }
-        });
-
-        if (emptyAmend) {
-            $('#Amend').prop('disabled', true);
-        } else {
-            $('#Amend').prop('disabled', false);
-        }
-
-        if (emptyAdd) {
-            $('#Send').prop('disabled', true);
-        } else {
-            $('#Send').prop('disabled', false);
-        }
-    });
+    // $('.validate').keyup(function() {
+    //     var emptyAdd = false;
+    //     var emptyAmend = false;
+    //
+    //     $('.amend-input input').each(function() {
+    //         if ($(this).val().length == 0) {
+    //             emptyAmend = true;
+    //         }
+    //     });
+    //     $('.amend-input textarea').each(function() {
+    //         if ($(this).val().length == 0) {
+    //             emptyAmend = true;
+    //         }
+    //     });
+    //
+    //     $('.add-input input').each(function() {
+    //         if ($(this).val().length == 0) {
+    //             emptyAdd = true;
+    //         }
+    //     });
+    //     $('.add-input textarea').each(function() {
+    //         if ($(this).val().length == 0) {
+    //             emptyAdd = true;
+    //         }
+    //     });
+    //
+    //     if (emptyAmend) {
+    //         $('#Amend').prop('disabled', true);
+    //     } else {
+    //         $('#Amend').prop('disabled', false);
+    //     }
+    //
+    //     if (emptyAdd) {
+    //         $('#Send').prop('disabled', true);
+    //     } else {
+    //         $('#Send').prop('disabled', false);
+    //     }
+    // });
 
     $('#InputTime').keypress(function( event ) {
         event.preventDefault();

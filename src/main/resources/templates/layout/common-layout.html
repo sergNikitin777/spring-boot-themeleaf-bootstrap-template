@@ -67,6 +67,9 @@
         <script type="text/javascript"
                 src="../../static/js/jquery-ui.js"
                 th:src="@{/js/jquery-ui.js}"></script>
+        <script type="text/javascript"
+                src="../../static/js/jquery.mask.js"
+                th:src="@{/js/jquery.mask.js}"></script>
 
     </head>
 
@@ -256,14 +259,10 @@
                             <thead class="thead-inverse">
                                 <tr>
                                     <th scope="col">Дата и время</th>
-                                    <th scope="col">Клиент</th>
-                                    <th scope="col">Адрес</th>
-                                    <th scope="col">Водитель</th>
-                                    <th scope="col">Машина</th>
-                                    <th scope="col">Грузчики</th>
-                                    <th scope="col">Сумма</th>
-                                    <th scope="col">Описание</th>
-                                    <th scope="col"></th>
+                                    <th scope="col">Адрес погрузки</th>
+                                    <th></th>
+                                    <th scope="col">Адрес доставки</th>
+                                    <th></th>
                                 </tr>
                             </thead>
                             <tbody id="tablefullbody">
@@ -273,7 +272,7 @@
                             <thead class="thead-inverse">
                                 <tr>
                                     <th scope="col">Дата и время</th>
-                                    <th scope="col">Адрес</th>
+                                    <th scope="col">Клиент</th>
                                 </tr>
                             </thead>
                             <tbody id="tablemobilebody">
@@ -285,13 +284,10 @@
                             <thead class="thead-inverse">
                                 <tr>
                                     <th scope="col">Дата и время</th>
-                                    <th scope="col">Клиент</th>
-                                    <th scope="col">Адрес</th>
-                                    <th scope="col">Водитель</th>
-                                    <th scope="col">Машина</th>
-                                    <th scope="col">Грузчики</th>
-                                    <th scope="col">Сумма</th>
-                                    <th scope="col">Описание</th>
+                                    <th scope="col">Адрес погрузки</th>
+                                    <th></th>
+                                    <th scope="col">Адрес доставки</th>
+                                    <th></th>
                                 </tr>
                             </thead>
                             <tbody id="tablearchivefullbody">
@@ -301,7 +297,7 @@
                             <thead class="thead-inverse">
                                 <tr>
                                     <th scope="col">Дата и время</th>
-                                    <th scope="col">Адрес</th>
+                                    <th scope="col">Клиент</th>
                                 </tr>
                             </thead>
                             <tbody id="tablearchivemobilebody">
@@ -320,8 +316,16 @@
                                             <label for="InputRegion">Регион</label>
                                             <input type="text" class="form-control" id="InputRegion" placeholder="Выберите основной регион обслуживания"/>
                                             <label>Номер телефона для рассылки</label>
-                                            <input type="tel" class="masked form-control" id="InputSpam" placeholder="X (XXX) XXX-XX-XX"
-                                                   pattern="\d{1}\(\d{3}\) \d{3}\-\d{4}" title="10-digit number" />
+                                            <input type="text" class="phonemask form-control" id="InputSpam"/>
+                                            <label for="InputNotification">Уведомление</label>
+                                            <select class="form-control" id="InputNotification">
+                                                <option>Выберите время уведомления</option>
+                                                <option>За 15 минут</option>
+                                                <option>За 30 минут</option>
+                                                <option>За час</option>
+                                            </select>
+                                            <input id="notifyDriverDefault" type="checkbox"/>
+                                            <label for="notifyDriverDefault">Уведомлять водителя</label>
                                         </div>
                                         <button type="button" class="btn btn-block submit" id="Save">
                                             <i class="fa fa-save" aria-hidden="true"></i>&nbsp;Сохранить настройки
@@ -394,73 +398,63 @@
                     </div>
                     <div class="modal-body">
                         <form>
-                            <div class="col-md-6">
-                                <div class="form-group add-input">
-                                    <label for="InputTime">Дата и время</label>
-                                    <div class="input-group" id="datetimepicker">
-                                        <input type="text" class="form-control validate" placeholder="Выберите дату и время" id="InputTime" />
-                                        <span class="input-group-addon">
-                                            <i class="glyphicon glyphicon-calendar"></i>
-                                        </span>
-                                    </div>
-                                    <label for="InputDriver">Водитель</label>
-                                    <input type="text" class="form-control validate" id="InputDriver" placeholder="Введите имя водителя"/>
-                                    <label for="InputCar">Машина</label>
-                                    <input type="text" class="form-control validate" id="InputCar" placeholder="Введите марку и номер машины"/>
-                                    <label for="InputGofers">Грузчики</label>
-                                    <select class="form-control" id="InputGofers">
-                                        <option>Выберите количество грузчиков</option>
-                                        <option>1</option>
-                                        <option>2</option>
-                                        <option>3</option>
-                                        <option>4</option>
-                                        <option>5</option>
-                                        <option>6</option>
-                                        <option>7</option>
-                                        <option>8</option>
-                                        <option>9</option>
-                                        <option>10</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group add-input">
-                                    <label for="InputClient">ФИО Клиента</label>
-                                    <input type="text" class="form-control validate" id="InputClient" placeholder="Введите ФИО клиента"/>
-                                    <label>Телефон клиента</label>
-                                    <input type="tel" class="masked form-control validate" id="InputPhone" placeholder="X (XXX) XXX-XX-XX"
-                                           pattern="\d{1}\(\d{3}\) \d{3}\-\d{4}" title="10-digit number" />
-                                    <label for="InputAddress">Адрес</label>
-                                    <input type="text" class="form-control validate" id="InputAddress" placeholder="Введите адрес"/>
-                                    <label for="InputSum">Сумма</label>
-                                    <input type="text" class="form-control validate" id="InputSum" placeholder="Введите сумму заказа"/>
-                                </div>
-                            </div>
-                            <div class="col-md-12">
-                                <div class="line-separator"></div>
-                                <div class="form-group add-input">
-                                    <label for="InputNotification">Уведомление</label>
-                                    <select class="form-control" id="InputNotification">
-                                        <option>Выберите время уведомления</option>
-                                        <option>За 15 минут</option>
-                                        <option>За 30 минут</option>
-                                        <option>За час</option>
-                                    </select>
-                                    <div class="col-md-6">
-                                        <input id="notifyDriver" type="checkbox"/>
-                                        <label for="notifyDriver">Уведомить водителя</label>
-                                    </div>
-                                    <div class="col-md-6">
+                            <div class="row vdivide">
+                                <div class="col-md-6">
+                                    <div class="form-group add-input">
+                                        <label for="InputTime">Дата и время</label>
+                                        <div class="input-group" id="datetimepicker">
+                                            <input type="text" class="form-control validate" placeholder="Выберите дату и время" id="InputTime" />
+                                            <span class="input-group-addon">
+                                                <i class="glyphicon glyphicon-calendar"></i>
+                                            </span>
+                                        </div>
+                                        <label for="InputClient">ФИО Клиента</label>
+                                        <input type="text" class="form-control validate" id="InputClient" placeholder="Введите ФИО клиента"/>
+                                        <label>Телефон клиента</label>
+                                        <input type="text" class="phonemask form-control validate" id="InputPhone"/>
                                         <input id="notifyClient" type="checkbox"/>
-                                        <label for="notifyClient">Уведомить клиента</label>
+                                        <label for="notifyClient">Уведомить клиента</label><br/>
+                                    </div>
+                                    <div class="form-group add-input">
+                                        <label for="InputAddressFirst">Адрес погрузки</label>
+                                        <input type="text" class="form-control validate address" id="InputAddressFirst" placeholder="Введите адрес погрузки"/>
+                                        <label for="InputAddressSecond">Адрес доставки</label>
+                                        <input type="text" class="form-control validate address" id="InputAddressSecond" placeholder="Введите адрес доставки"/>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group add-input">
+                                        <label for="InputDriver">Водитель</label>
+                                        <input type="text" class="form-control validate" id="InputDriver" placeholder="Введите имя водителя"/>
+                                        <label for="InputCar">Машина</label>
+                                        <input type="text" class="form-control validate" id="InputCar" placeholder="Введите марку и номер машины"/>
+                                        <label for="InputSum">Сумма</label>
+                                        <input type="text" class="form-control validate" id="InputSum" placeholder="Введите сумму заказа"/>
+                                        <label for="InputGofers">Грузчики</label>
+                                        <select class="form-control" id="InputGofers">
+                                            <option value="" selected="selected" disabled="disabled" hidden="hidden">Выберите количество грузчиков</option>
+                                            <option>1</option>
+                                            <option>2</option>
+                                            <option>3</option>
+                                            <option>4</option>
+                                            <option>5</option>
+                                            <option>6</option>
+                                            <option>7</option>
+                                            <option>8</option>
+                                            <option>9</option>
+                                            <option>10</option>
+                                        </select>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-12">
-                                <div class="line-separator"></div>
-                                <div class="form-group add-input">
-                                    <label for ="description">Описание груза</label>
-                                    <textarea class="form-control noresize validate" id="description" placeholder="Введите описание"></textarea>
+                            <div class="row content">
+                                <div class="col-md-12">
+                                    <div class="line-separator"></div>
+                                    <br/>
+                                    <div class="form-group add-input">
+                                        <label for ="description">Описание груза</label>
+                                        <textarea class="form-control noresize validate" id="description" placeholder="Введите описание"></textarea>
+                                    </div>
                                 </div>
                             </div>
                         </form>
@@ -519,8 +513,7 @@
                                     <label for="InputClientamend">ФИО Клиента</label>
                                     <input type="text" class="form-control" id="InputClientamend" placeholder="Введите ФИО клиента"/>
                                     <label>Телефон клиента</label>
-                                    <input type="tel" class="masked form-control" id="InputPhoneamend" placeholder="X (XXX) XXX-XX-XX"
-                                           pattern="\d{1}\(\d{3}\) \d{3}\-\d{4}" title="10-digit number" />
+                                    <input type="text" class="phonemask masked form-control" id="InputPhoneamend"/>
                                     <label for="InputAddressamend">Адрес</label>
                                     <input type="text" class="form-control" id="InputAddressamend" placeholder="Введите адрес"/>
                                     <label for="InputSumamend">Сумма</label>

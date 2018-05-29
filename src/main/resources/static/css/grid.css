@@ -45,11 +45,24 @@
 .dropdown_content:hover {
     max-height: 300px;
 }
-
+.row {
+    margin:0 !important;
+}
 .row.content {
     padding:0;
     margin:0;
     height:100%;
+}
+.row.vdivide [class*='col-']:not(:last-child):after {
+    background: #e0e0e0;
+    width: 1px;
+    content: "";
+    display:block;
+    position: absolute;
+    top:0;
+    bottom: 0;
+    right: 0;
+    min-height: 70px;
 }
 
 .sidenav {
@@ -109,26 +122,6 @@ nav {
 .btn:hover {
     background-color: #ffffff;
     color: #222222;
-}
-
-body {
-    position: relative;
-    overflow: hidden;
-}
-
-body::before {
-    position: absolute;
-    margin-left: -40000px;
-    width: 4000%;
-    height: 4000%;
-    background: url("../icons/menu/texture_vans.png");
-    background-repeat: repeat repeat;
-    background-size:300px auto;
-    -webkit-transform: rotate(-45deg);
-    transform: rotate(-45deg);
-    opacity: .03;
-    content: "";
-    z-index: -1;
 }
 
 .modal-amend {
