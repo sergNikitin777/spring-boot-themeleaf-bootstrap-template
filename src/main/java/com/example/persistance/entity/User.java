@@ -27,7 +27,6 @@ import lombok.EqualsAndHashCode;
 @Data
 @Table(name = "ADM_USER", uniqueConstraints = { @UniqueConstraint(columnNames = "EMAIL"),
         @UniqueConstraint(columnNames = "USERNAME") })
-
 public class User extends Persistent implements UserDetails
 {
 
@@ -58,6 +57,11 @@ public class User extends Persistent implements UserDetails
     @Column
     private Date dateYandexToken;
 
+    @Column
+    private Boolean smsToDriver;
+
+    @Column
+    private Boolean smsToClient;
 
     @NotEmpty
     @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
