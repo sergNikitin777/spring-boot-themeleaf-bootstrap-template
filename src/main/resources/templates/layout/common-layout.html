@@ -479,72 +479,63 @@
                     </div>
                     <div class="modal-body">
                         <form>
-                            <div class="col-md-6">
-                                <div class="form-group amend-input">
-                                    <label for="InputTimeamend">Дата и время</label>
-                                    <div class="input-group" id="datetimepickeramend">
-                                        <input type="text" class="form-control" placeholder="Выберите дату и время" id="InputTimeamend" />
-                                        <span class="input-group-addon">
-                                            <i class="glyphicon glyphicon-calendar"></i>
-                                        </span>
-                                    </div>
-                                    <label for="InputDriveramend">Водитель</label>
-                                    <input type="text" class="form-control" id="InputDriveramend" placeholder="Введите имя водителя"/>
-                                    <label for="InputCaramend">Машина</label>
-                                    <input type="text" class="form-control" id="InputCaramend" placeholder="Введите марку и номер машины"/>
-                                    <label for="InputGofersamend">Грузчики</label>
-                                    <select class="form-control" id="InputGofersamend">
-                                        <option>Выберите количество грузчиков</option>
-                                        <option>1</option>
-                                        <option>2</option>
-                                        <option>3</option>
-                                        <option>4</option>
-                                        <option>5</option>
-                                        <option>6</option>
-                                        <option>7</option>
-                                        <option>8</option>
-                                        <option>9</option>
-                                        <option>10</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group amend-input">
-                                    <label for="InputClientamend">ФИО Клиента</label>
-                                    <input type="text" class="form-control" id="InputClientamend" placeholder="Введите ФИО клиента"/>
-                                    <label>Телефон клиента</label>
-                                    <input type="text" class="phonemask masked form-control" id="InputPhoneamend"/>
-                                    <label for="InputAddressamend">Адрес</label>
-                                    <input type="text" class="form-control" id="InputAddressamend" placeholder="Введите адрес"/>
-                                    <label for="InputSumamend">Сумма</label>
-                                    <input type="text" class="form-control" id="InputSumamend" placeholder="Введите сумму заказа"/>
-                                </div>
-                            </div>
-                            <div class="col-md-12">
-                                <div class="line-separator"></div>
-                                <div class="form-group amend-input">
-                                    <label for="InputNotificationamend">Уведомление</label>
-                                    <select class="form-control" id="InputNotificationamend">
-                                        <option>Выберите время уведомления</option>
-                                        <option>За 15 минут</option>
-                                        <option>За 30 минут</option>
-                                        <option>За час</option>
-                                    </select>
-                                    <div class="col-md-6">
-                                        <input id="notifyDriveramend" type="checkbox"/>
-                                        <label for="notifyDriveramend">Уведомить водителя</label>
-                                    </div>
-                                    <div class="col-md-6">
+                            <div class="row vdivide">
+                                <div class="col-md-6">
+                                    <div class="form-group amend-input">
+                                        <label for="InputTimeamend">Дата и время</label>
+                                        <div class="input-group" id="datetimepickeramend">
+                                            <input type="text" class="form-control validate" placeholder="Выберите дату и время" id="InputTimeamend" />
+                                            <span class="input-group-addon">
+                                                <i class="glyphicon glyphicon-calendar"></i>
+                                            </span>
+                                        </div>
+                                        <label for="InputClientamend">ФИО Клиента</label>
+                                        <input type="text" class="form-control validate" id="InputClientamend" placeholder="Введите ФИО клиента"/>
+                                        <label>Телефон клиента</label>
+                                        <input type="text" class="phonemask form-control validate" id="InputPhoneamend"/>
                                         <input id="notifyClientamend" type="checkbox"/>
-                                        <label for="notifyClientamend">Уведомить клиента</label>
+                                        <label for="notifyClientamend">Уведомить клиента</label><br/>
+                                    </div>
+                                    <div class="form-group amend-input">
+                                        <label for="InputAddressFirstamend">Адрес погрузки</label>
+                                        <input type="text" class="form-control validate address" id="InputAddressFirstamend" placeholder="Введите адрес погрузки"/>
+                                        <label for="InputAddressSecondamend">Адрес доставки</label>
+                                        <input type="text" class="form-control validate address" id="InputAddressSecondamend" placeholder="Введите адрес доставки"/>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group amend-input">
+                                        <label for="InputDriveramend">Водитель</label>
+                                        <input type="text" class="form-control validate" id="InputDriveramend" placeholder="Введите имя водителя"/>
+                                        <label for="InputCaramend">Машина</label>
+                                        <input type="text" class="form-control validate" id="InputCaramend" placeholder="Введите марку и номер машины"/>
+                                        <label for="InputSumamend">Сумма</label>
+                                        <input type="text" class="form-control validate" id="InputSumamend" placeholder="Введите сумму заказа"/>
+                                        <label for="InputGofersamend">Грузчики</label>
+                                        <select class="form-control" id="InputGofersamend">
+                                            <option value="" selected="selected" disabled="disabled" hidden="hidden">Выберите количество грузчиков</option>
+                                            <option>1</option>
+                                            <option>2</option>
+                                            <option>3</option>
+                                            <option>4</option>
+                                            <option>5</option>
+                                            <option>6</option>
+                                            <option>7</option>
+                                            <option>8</option>
+                                            <option>9</option>
+                                            <option>10</option>
+                                        </select>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-12">
-                                <div class="line-separator"></div>
-                                <div class="form-group amend-input">
-                                    <label for ="description">Описание груза</label>
-                                    <textarea class="form-control noresize" id="descriptionamend" placeholder="Введите описание"></textarea>
+                            <div class="row content">
+                                <div class="col-md-12">
+                                    <div class="line-separator"></div>
+                                    <br/>
+                                    <div class="form-group amend-input">
+                                        <label for ="descriptionamend">Описание груза</label>
+                                        <textarea class="form-control noresize validate" id="descriptionamend" placeholder="Введите описание"></textarea>
+                                    </div>
                                 </div>
                             </div>
                         </form>

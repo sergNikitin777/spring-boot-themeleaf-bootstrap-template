@@ -722,21 +722,26 @@ $(document).ready(function () {
         $('#modal_edit').modal("open");
         for (var i = 0; i < eventList.length; i++) {
             if (eventList[i].uid.value == idToAmend) {
+                $('#notifyClientamend').prop('checked', false);
+                $('#InputPhoneamend').val('');
+
                 var description = ('' + eventList[i].description.value).split(';');
                 var dateString = new Date(eventList[i].startDate.date).toLocaleString('ru-RU', {
                     year: 'numeric', month: 'numeric', day: 'numeric',
                     hour: 'numeric', minute: 'numeric'
                 }).split(',');
-                $('#InputTimeamend').val(dateString[0]+dateString[1]);
+
+                $('#InputTimeamend').val(dateString[0]+''+dateString[1]);
                 $('#InputClientamend').val(eventList[i].summary.value);
                 if (eventList[i].location != null) {
-                    $('#InputAddressamend').val(eventList[i].location.value);
+                    $('#InputAddressFirstamend').val(eventList[i].location.value);
                 }
+                $('#InputAddressSecondamend').val(description[4]);
                 $('#InputDriveramend').val(description[0].split(' ')[1]);
                 $('#InputCaramend').val(description[1]);
                 $('#InputGofersamend').val(description[2].split(' ')[1]);
                 $('#InputSumamend').val(description[3].split(' ')[1]);
-                $('#descriptionamend').val(description[4]);
+                $('#descriptionamend').val(description[5]);
             }
         }
 
