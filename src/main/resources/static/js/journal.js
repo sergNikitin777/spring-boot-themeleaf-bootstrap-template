@@ -3,6 +3,7 @@ $(document).ready(function () {
     var options                     = { year: 'numeric', month: 'long', day: 'numeric', timeZone: '' };
     var xhrCalendarActualEvents     = new XMLHttpRequest();
     var xhrCalendarRemovedEvents    = new XMLHttpRequest();
+    var xhrCalendarArchivedEvents   = new XMLHttpRequest();
     var xhrAddEvent                 = new XMLHttpRequest();
     var xhrDeleteEvent              = new XMLHttpRequest();
     var xhrShowDrivers              = new XMLHttpRequest();
@@ -11,6 +12,7 @@ $(document).ready(function () {
     var driversList                 = new Map();
     var eventList                   = new Map();
     var eventListR                  = new Map();
+    var eventListA                  = new Map();
     var currentDate                 = new Date();
     var idToAmend;
     var year                        = currentDate.getFullYear();
@@ -20,7 +22,6 @@ $(document).ready(function () {
 
     toggleCalendarHeight();
     toggleTables();
-    updateTable("month");
     updateSettings();
 
     function toggleTables() {
@@ -28,17 +29,21 @@ $(document).ready(function () {
             $('#tablefull').hide();
             $('#tabledriversfull').hide();
             $('#tablecarsfull').hide();
+            $('#tablearchivefull').hide();
             $('#tablemobile').show();
             $('#tabledriversmobile').show();
             $('#tablecarsmobile').show();
+            $('#tablearchivemobile').show();
         }
         else {
             $('#tablefull').show();
             $('#tabledriversfull').show();
             $('#tablecarsfull').show();
+            $('#tablearchivefull').show();
             $('#tablemobile').hide();
             $('#tabledriversmobile').hide();
             $('#tablecarsmobile').hide();
+            $('#tablearchivemobile').hide();
         };
     }
     function toggleCalendarHeight() {
@@ -179,6 +184,56 @@ $(document).ready(function () {
         deleteEvent(postJSONtoRemove);
     }
 
+    function archiveEvent(id) {
+        var postJSONtoAdd = {
+            "calPostfix": "/events-5942551",
+            "calPrefix": "/calendars/",
+            "caldavHost": "caldav.yandex.ru",
+            "caldavPort": 443,
+            "password": "kjubcn123456",
+            "protocol": "https",
+            "userName": "logistikatest@yandex.ru"
+        };
+        var postJSONtoArchive = {
+            "calPostfix": "/events-5825759",
+            "calPrefix": "/calendars/",
+            "caldavHost": "caldav.yandex.ru",
+            "caldavPort": 443,
+            "password": "kjubcn123456",
+            "protocol": "https",
+            "userName": "logistikatest@yandex.ru",
+            "uid": id
+        };
+
+        for (var i = 0; i < eventList.length; i++) {
+            if (eventList[i].uid.value == id) {
+                var dt = new Date(eventList[i].startDate.date);
+                var summary = eventList[i].summary.value;
+                var description = eventList[i].description.value;
+                var locationvalue;
+                if (eventList[i].location == null) locationvalue = null;
+                else locationvalue = eventList[i].location.value;
+                postJSONtoAdd.startDate = dt;
+                postJSONtoAdd.durationHours = 1;
+                postJSONtoAdd.durationMinutes = 0;
+                postJSONtoAdd.eventName = summary;
+                postJSONtoAdd.eventDescription = description;
+                postJSONtoAdd.eventLocation = locationvalue;
+                xhrAddEvent.open('POST', 'calendar/addvevent', true);
+                xhrAddEvent.setRequestHeader("Content-type", "application/json");
+                xhrAddEvent.send(JSON.stringify(postJSONtoAdd));
+                xhrAddEvent.onreadystatechange = function () {
+                    if (xhrAddEvent.readyState == XMLHttpRequest.DONE && xhrAddEvent.status == 200) {
+                        updateTable('month');
+                    }
+                };
+                break;
+            }
+        }
+
+        deleteEvent(postJSONtoArchive);
+    }
+
     function rebuildEvent(id) {
         var postJSONtoAdd = {
             "calPostfix": "/events-5825759",
@@ -248,7 +303,7 @@ $(document).ready(function () {
         $("#tabledriversfullbody").html("");
         $("#tabledriversfull").faLoading({icon: "fa-refresh", spin: true});
         $("#tabledriversmobilebody").html("");
-        $("#tabledriverssmobile").faLoading({icon: "fa-refresh", spin: true});
+        $("#tabledriversmobile").faLoading({icon: "fa-refresh", spin: true});
         xhrShowCars.open('GET', 'admin/autos', true);
         xhrShowCars.send();
         xhrShowCars.onreadystatechange = function() {
@@ -295,6 +350,8 @@ $(document).ready(function () {
     function updateTable (viewpoint) {
         $("#tablefullbody").html("");
         $("#tablemobilebody").html("");
+        $("#tablearchivefullbody").html("");
+        $("#tablearchivemobilebody").html("");
         $("body").faLoading({icon: "fa-refresh", spin: true});
         var limitms = new Date();
         switch (viewpoint) {
@@ -347,7 +404,8 @@ $(document).ready(function () {
                         rowfull.append('<td class = "sum">' + description[3].split(' ')[1] + '</td>');
                         rowfull.append('<td class = "description">' + description[4] + '</td>');
                         rowfull.append('<td class = "buttons"><a class="btn btn-sm edit"><i class="fa fa-edit"></i></a>&nbsp;' +
-                            '<a class="btn btn-sm remove"><i class="fa fa-trash-o"></i></a></td>');
+                            '<a class="btn btn-sm remove"><i class="fa fa-trash-o"></i></a>&nbsp;' +
+                            '<a class="btn btn-sm archive"><i class="fa fa-archive"></i></a></td>');
                         $("#tablefullbody").append(rowfull);
 
                         rowmobile.append('<td class="datetime">' + dtLocalized + '</td>');
@@ -361,7 +419,8 @@ $(document).ready(function () {
                             '<div>Сумма заказа: ' + description[3].split(' ')[1] + '</div>' +
                             '<div>Описание: ' + description[4] + '</div></td>');
                         mobileinfo.append('<td class = "buttons"><a class="btn edit"><i class="fa fa-edit"></i>&nbsp;Изменить</a>&nbsp;' +
-                            '<a class="btn remove"><i class="fa fa-trash-o"></i>&nbsp;Удалить</a></td>');
+                            '<a class="btn remove"><i class="fa fa-trash-o"></i>&nbsp;Удалить</a>&nbsp' +
+                            '<a class="btn btn-sm archive"><i class="fa fa-archive"></i>&nbsp;В архив</a></td>');
                         $("#tablemobilebody").append(mobileinfo);
                     }
                 }
@@ -380,7 +439,7 @@ $(document).ready(function () {
                             if ((eventListR[i].description != null) && (new Date(eventListR[i].startDate.date) < limitms) && (new Date(eventListR[i].startDate.date) > currentDate)) {
                                 var rowfull = $('<tr class="strikeout" id="' + eventListR[i].uid.value + '">');
                                 var rowmobile = $('<tr class="strikeout row-header expand" >');
-                                var mobileinfo = $('<tr class="normal" id="' + eventList[i].uid.value + '">');
+                                var mobileinfo = $('<tr class="normal" id="' + eventListR[i].uid.value + '">');
 
                                 var dtLocalized = new Date(eventListR[i].startDate.date).toLocaleString('ru-RU', {
                                     year: 'numeric', month: 'long', day: 'numeric',
@@ -444,6 +503,72 @@ $(document).ready(function () {
             "protocol": "https",
             "userName": "logistikatest@yandex.ru"
         }));
+
+        xhrCalendarArchivedEvents.open('POST', 'calendar/eventsbyparam', true);
+        xhrCalendarArchivedEvents.setRequestHeader("Content-type", "application/json");
+        xhrCalendarArchivedEvents.onreadystatechange = function () {
+            if (xhrCalendarArchivedEvents.readyState == XMLHttpRequest.DONE && xhrCalendarArchivedEvents.status == 200) {
+                eventListA = JSON.parse(xhrCalendarArchivedEvents.responseText);
+                eventListA = eventListA.sort(function (a, b) {
+                    if (a.startDate.date < b.startDate.date) return -1;
+                    if (a.startDate.date > b.startDate.date) return 1;
+                    if (a.startDate.date == b.startDate.date) return 0;
+                });
+
+                for (var i = 0; i < eventListA.length; i++) {
+                    if (eventListA[i].description != null) {
+                        console.log(eventListA[i]);
+                        var rowfull = $('<tr class="normal" id="' + eventListA[i].uid.value + '">');
+                        var rowmobile = $('<tr class="normal row-header expand" >');
+                        var mobileinfo = $('<tr class="normal" id="' + eventListA[i].uid.value + '">');
+
+                        var dtLocalized = new Date(eventListA[i].startDate.date).toLocaleString('ru-RU', {
+                            year: 'numeric', month: 'long', day: 'numeric',
+                            hour: 'numeric', minute: 'numeric'
+                        });
+                        var description = ('' + eventListA[i].description.value).split(';');
+                        var locationvalue = '';
+                        if (eventListA[i].location == null) locationvalue = 'Не указан';
+                        else locationvalue = eventListA[i].location.value.split(',');
+
+                        rowfull.append('<td class = "datetime">' + dtLocalized + '</td>');
+                        rowfull.append('<td class = "name">' + eventListA[i].summary.value + '</td>');
+                        rowfull.append('<td class = "location">' + locationvalue[locationvalue.length - 3] + ',' +locationvalue[locationvalue.length - 2] + ',' + locationvalue[locationvalue.length - 1] + '</td>');
+                        rowfull.append('<td class = "driver">' + description[0].split(' ')[1] + '</td>');
+                        rowfull.append('<td class = "car">' + description[1] + '</td>');
+                        rowfull.append('<td class = "gofers">' + description[2].split(' ')[1] + '</td>');
+                        rowfull.append('<td class = "sum">' + description[3].split(' ')[1] + '</td>');
+                        rowfull.append('<td class = "description">' + description[4] + '</td>');
+                        $("#tablearchivefullbody").append(rowfull);
+
+                        rowmobile.append('<td class="datetime">' + dtLocalized + '</td>');
+                        rowmobile.append('<td class="location">' + locationvalue[locationvalue.length - 3] + ',' +locationvalue[locationvalue.length - 2] + ',' + locationvalue[locationvalue.length - 1] +  '</td>');
+                        $("#tablearchivemobilebody").append(rowmobile);
+
+                        mobileinfo.append('<td colspan="2"><div>Клиент: '+ eventListA[i].summary.value +'</div>' +
+                            '<div>Водитель: ' + description[0].split(' ')[1] + '</div>' +
+                            '<div>Машина: ' + description[1] + '</div>' +
+                            '<div>Грузчики: ' + description[2].split(' ')[1] + '</div>' +
+                            '<div>Сумма заказа: ' + description[3].split(' ')[1] + '</div>' +
+                            '<div>Описание: ' + description[4] + '</div></td>');
+                        $("#tablearchivemobilebody").append(mobileinfo);
+                    }
+                }
+                $('.row-header').toggleClass('expand').nextUntil('tr.row-header').slideToggle(100);
+                $('body').faLoading(false);
+            }
+        };
+
+        xhrCalendarArchivedEvents.send(JSON.stringify({
+            "calPostfix": "/events-5942551",
+            "calPrefix": "/calendars/",
+            "caldavHost": "caldav.yandex.ru",
+            "caldavPort": 443,
+            "password": "kjubcn123456",
+            "protocol": "https",
+            "userName": "logistikatest@yandex.ru"
+        }));
+
     }
 
     // плагины ввода
@@ -521,6 +646,15 @@ $(document).ready(function () {
         if ((button.parent()[0].id != '') && (button.parent()[0].id != null)) {
             if (confirm("Удалить заявку?")) {
                 removeEvent('' + button.parent()[0].id);
+            }
+        }
+    });
+
+    $(document).on('click', '.archive', function() {
+        var button = $(this).parent();
+        if ((button.parent()[0].id != '') && (button.parent()[0].id != null)) {
+            if (confirm("Удалить заявку?")) {
+                archiveEvent('' + button.parent()[0].id);
             }
         }
     });
@@ -639,6 +773,7 @@ $(document).ready(function () {
     if ($('#panel_login').hasClass('active')) {
         buttonInvisible($('.addbtn'));
         buttonInvisible($('.viewbtn'));
+        buttonInvisible($('.viewarchivebtn'));
         buttonInvisible($('.viewclndrbtn'));
         buttonInvisible($('.settingsbtn'));
     }
@@ -646,6 +781,7 @@ $(document).ready(function () {
     $('#login').on('click', function() {
         buttonVisible($('.addbtn'));
         buttonVisible($('.viewbtn'));
+        buttonVisible($('.viewarchivebtn'));
         buttonVisible($('.viewclndrbtn'));
         buttonVisible($('.settingsbtn'));
     });
@@ -749,7 +885,8 @@ $(document).ready(function () {
         $('.hidebtn').attr('style', 'visibility: hidden');
     });
 
-    $('#view,#view_block').on('click', function(){
+    $('#view,#view_block,#viewarchive,#viewarchive_block').on('click', function(){
+        updateTable("month");
         $('.hidebtn').attr('style', 'visibility: visible');
     });
 

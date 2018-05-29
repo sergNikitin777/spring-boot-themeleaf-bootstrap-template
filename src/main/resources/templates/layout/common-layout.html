@@ -98,7 +98,13 @@
                         <li>
                             <p class="navbar-btn">
                                 <a data-toggle="tab" id="view" href="#panel_list" class="btn btn-default viewbtn"><img height="32px" width="32px"
-                                                                                                                       th:src="@{/icons/menu/expand_blue.png}"></img><b> Список Заявок</b></a>
+                                                                                                                       th:src="@{/icons/menu/expand_blue.png}"></img><b> Список заявок</b></a>
+                            </p>
+                        </li>
+                        <li>
+                            <p class="navbar-btn">
+                                <a data-toggle="tab" id="viewarchive" href="#panel_archive" class="btn btn-default viewarchivebtn"><img height="32px" width="32px"
+                                                                                                                                        th:src="@{/icons/menu/expand_green.png}"></img><b> Архив заявок</b></a>
                             </p>
                         </li>
                     </ul>
@@ -172,6 +178,11 @@
                         <li>
                             <p class="navbar-btn btn-block">
                                 <a data-toggle="tab" id="view_block" href="#panel_list" class="btn btn-block navbtn viewbtn"><b>Список заявок</b></a>
+                            </p>
+                        </li>
+                        <li>
+                            <p class="navbar-btn btn-block">
+                                <a data-toggle="tab" id="viewarchive_block" href="#panel_archive" class="btn btn-block navbtn viewarchivebtn"><b>Архив заявок</b></a>
                             </p>
                         </li>
                         <li>
@@ -266,6 +277,34 @@
                                 </tr>
                             </thead>
                             <tbody id="tablemobilebody">
+                            </tbody>
+                        </table>
+                    </div>
+                    <div id="panel_archive" class="tab-pane fade">
+                        <table id="tablearchivefull" class="table table-hover fullscreen">
+                            <thead class="thead-inverse">
+                                <tr>
+                                    <th scope="col">Дата и время</th>
+                                    <th scope="col">Клиент</th>
+                                    <th scope="col">Адрес</th>
+                                    <th scope="col">Водитель</th>
+                                    <th scope="col">Машина</th>
+                                    <th scope="col">Грузчики</th>
+                                    <th scope="col">Сумма</th>
+                                    <th scope="col">Описание</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tablearchivefullbody">
+                            </tbody>
+                        </table>
+                        <table id="tablearchivemobile" class="table table-hover fullscreen">
+                            <thead class="thead-inverse">
+                                <tr>
+                                    <th scope="col">Дата и время</th>
+                                    <th scope="col">Адрес</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tablearchivemobilebody">
                             </tbody>
                         </table>
                     </div>

@@ -20,6 +20,11 @@
     z-index: 10;
 }
 
+.navbar li {
+    visibility: hidden;
+    display: none;
+}
+
 .dropdown {
     display: inline-block;
 }
