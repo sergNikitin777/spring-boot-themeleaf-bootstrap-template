@@ -73,11 +73,9 @@ public class AutoDriverController {
     }
 
     @RequestMapping(value = "/admin/auto/driver/update/{id}", method = RequestMethod.POST)
-    public ResponseEntity updateAutoDriver(@PathVariable("id") Integer id) {
+    public ResponseEntity updateAutoDriver(AutoDriverPojo autoDriver,@PathVariable("id") Integer id) {
         log.debug("updateAutoDriver");
-
-        //
-
+        autoDriverService.updateAutoDriver(autoDriver,id);
         return new ResponseEntity<>(HttpStatus.I_AM_A_TEAPOT);
     }
 

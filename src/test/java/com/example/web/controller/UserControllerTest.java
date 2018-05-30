@@ -45,7 +45,7 @@ public class UserControllerTest
         user.setUsername("JUNITUSERNAME");
         user.setRoles(Arrays.asList(Role.ROLE_USER));
         List<User> userList = Arrays.asList(user);
-        when(userService.findAllUsers()).thenReturn(userList);
+        when(userService.findAll()).thenReturn(userList);
         this.mvc.perform(get("/admin/users").accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk()).andExpect(view().name("users"))
                 .andExpect(redirectedUrl(null));

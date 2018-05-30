@@ -11,7 +11,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-
 @Service
 @Transactional
 @RequiredArgsConstructor
@@ -52,8 +51,13 @@ public class AutoDriverServiceImpl implements AutoDriverService {
     }
 
     @Override
-    public void updateAutoDriver(AutoDriver autoDriver) {
-        autoDriverRepository.save(autoDriver);
+    public void updateAutoDriver(AutoDriverPojo autoDriver, Integer id) {
+        AutoDriver autoDriver1 =   autoDriverRepository.findOne(id);
+        autoDriver1.setFirstName(autoDriver.getFirstName());
+        autoDriver1.setPatronymic(autoDriver.getPatronymic());
+        autoDriver1.setPhoneNumber(autoDriver.getPhoneNumber());
+        autoDriver1.setSurname(autoDriver.getSurname());
+        autoDriverRepository.save(autoDriver1);
     }
 
     @Override

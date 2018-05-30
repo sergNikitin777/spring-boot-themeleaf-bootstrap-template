@@ -13,9 +13,9 @@ public interface AutoService {
 
     Integer addAuto(AutoPojo auto);
 
-    void updateAuto(Auto auto);
-
     void deleteAuto(Integer id);
 
     void deleteAllAuto();
+
+    void updateAuto(AutoPojo auto, Integer id);
 }

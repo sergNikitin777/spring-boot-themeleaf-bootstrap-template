@@ -32,11 +32,18 @@ public class AutoServiceImpl implements AutoService{
     }
 
     @Override
-    public void updateAuto(Auto auto) { autoRepository.save(auto); }
-
-    @Override
     public void deleteAuto(Integer id) { autoRepository.delete(id); }
 
     @Override
     public void deleteAllAuto() { autoRepository.deleteAll(); }
+
+    @Override
+    public void updateAuto(AutoPojo auto, Integer id) {
+      Auto auto1 = autoRepository.findOne(id);
+      auto1.setLicensePlate(auto.getLicensePlate());
+      auto1.setMark(auto.getLicensePlate());
+      auto1.setModel(auto.getLicensePlate());
+      auto1.setType(auto.getLicensePlate());
+      autoRepository.save(auto1);
+    }
 }

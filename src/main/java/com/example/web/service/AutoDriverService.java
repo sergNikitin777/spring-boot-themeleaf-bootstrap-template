@@ -1,7 +1,5 @@
 package com.example.web.service;
 
-
-import com.example.persistance.entity.Auto;
 import com.example.persistance.entity.AutoDriver;
 import com.example.web.pojo.AutoDriverPojo;
 
@@ -16,7 +14,7 @@ public interface AutoDriverService {
 
     Integer addAuto(Integer driverId,Integer autoId);
 
-    void updateAutoDriver(AutoDriver autoDriver);
+    void updateAutoDriver(AutoDriverPojo autoDriver, Integer id);
 
     void deleteAutoDriver(Integer id);
 

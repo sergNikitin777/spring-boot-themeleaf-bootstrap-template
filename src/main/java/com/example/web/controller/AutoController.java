@@ -62,11 +62,9 @@ public class AutoController {
     }
 
     @RequestMapping(value = "/admin/auto/update/{id}", method = RequestMethod.POST)
-    public ResponseEntity updateAuto(@PathVariable("id") Integer id) {
+    public ResponseEntity updateAuto(AutoPojo auto, @PathVariable Integer id) {
         log.debug("updateAuto");
-
-        //
-
+        autoService.updateAuto(auto,id);
         return new ResponseEntity<>(HttpStatus.I_AM_A_TEAPOT);
     }
 
