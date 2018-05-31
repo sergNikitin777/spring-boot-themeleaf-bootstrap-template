@@ -1,6 +1,7 @@
 package com.example.web.service;
 
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 import com.example.persistance.enums.Role;
@@ -17,19 +18,17 @@ import lombok.RequiredArgsConstructor;
 @Service
 @Transactional
 @RequiredArgsConstructor
-public class UserServiceImpl implements UserService{
+public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
 
     @Override
-    public List<User> findAll()
-    {
+    public List<User> findAll() {
         return userRepository.findAll();
     }
 
     @Override
-    public User saveUser(User user)
-    {
+    public User saveUser(User user) {
         return userRepository.save(user);
     }
 
@@ -53,44 +52,51 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public void deleteUser(Integer id) { userRepository.delete(id); }
-
-    @Override
-    public void deleteAllUser() { userRepository.deleteAll(); }
-
-    @Override
-    public void updateUser(UserPojo user, Integer id) {
-        User user1 = userRepository.findOne(id);
-        user1.setEmail(user.getEmail());
-        user1.setUsername(user.getUsername());
-        user1.setPassword(user.getPassword());
-        user1.setYandexToken(user.getYandexToken());
-        user1.setDateYandexToken(user.getDateYandexToken());
-        user1.setSmsToDriver(user.getSmsToDriver());
-        user1.setSmsToClient(user.getSmsToClient());
-        user1.setNotiftime(user.getNotiftime());
-        user1.setRegion(user.getRegion());
-        user1.setPhone(user.getPhone());
-        user1.setRequestTransferInterval(user.getRequestTransferInterval());
-        user1.setCompanyName(user.getCompanyName());
-        userRepository.save(user1);
+    public void deleteUser(Integer id) {
+        userRepository.delete(id);
     }
 
     @Override
-    public User findUserByUsernameAndPassword(String username, String givenPassword)
-    {
+    public void deleteAllUser() {
+        userRepository.deleteAll();
+    }
+
+    @Override
+    public void updateUser(UserPojo user, Integer id) {
+        if (user != null && id != null) {
+            User user1 = userRepository.findOne(id);
+            if (user.getEmail() != null) user1.setEmail(user.getEmail());
+            if (user.getUsername() != null) user1.setUsername(user.getUsername());
+            if (user.getPassword() != null) user1.setPassword(user.getPassword());
+            if (user.getYandexToken() != null) user1.setYandexToken(user.getYandexToken());
+            //if (user.getDateYandexToken() != null) {//преобразование строки в дату
+                //user1.setDateYandexToken(user.getDateYandexToken());
+                user1.setDateYandexToken(new Date());
+            //}
+            if (user.getSmsToDriver() != null) user1.setSmsToDriver(user.getSmsToDriver());
+            if (user.getSmsToClient() != null) user1.setSmsToClient(user.getSmsToClient());
+            if (user.getNotiftime() != null) user1.setNotiftime(user.getNotiftime());
+            if (user.getRegion() != null) user1.setRegion(user.getRegion());
+            if (user.getPhone() != null) user1.setPhone(user.getPhone());
+            if (user.getRequestTransferInterval() != null)
+                user1.setRequestTransferInterval(user.getRequestTransferInterval());
+            user1.setCompanyName(user.getCompanyName());
+            userRepository.save(user1);
+        }
+    }
+
+    @Override
+    public User findUserByUsernameAndPassword(String username, String givenPassword) {
         return userRepository.findUserByUsernameAndPassword(username, givenPassword);
     }
 
     @Override
-    public User findUserByUsername(String username)
-    {
+    public User findUserByUsername(String username) {
         return userRepository.findUserByUsername(username);
     }
 
     @Override
-    public User findUserByEmail(String email)
-    {
+    public User findUserByEmail(String email) {
         return userRepository.findUserByEmail(email);
     }
 }

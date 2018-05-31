@@ -52,12 +52,14 @@ public class AutoDriverServiceImpl implements AutoDriverService {
 
     @Override
     public void updateAutoDriver(AutoDriverPojo autoDriver, Integer id) {
-        AutoDriver autoDriver1 =   autoDriverRepository.findOne(id);
-        autoDriver1.setFirstName(autoDriver.getFirstName());
-        autoDriver1.setPatronymic(autoDriver.getPatronymic());
-        autoDriver1.setPhoneNumber(autoDriver.getPhoneNumber());
-        autoDriver1.setSurname(autoDriver.getSurname());
-        autoDriverRepository.save(autoDriver1);
+        if (autoDriver != null && id != null) {
+            AutoDriver autoDriver1 = autoDriverRepository.findOne(id);
+            if (autoDriver1.getFirstName() != null) autoDriver1.setFirstName(autoDriver.getFirstName());
+            if (autoDriver1.getPatronymic() != null) autoDriver1.setPatronymic(autoDriver.getPatronymic());
+            if (autoDriver1.getPhoneNumber() != null) autoDriver1.setPhoneNumber(autoDriver.getPhoneNumber());
+            if (autoDriver1.getSurname() != null) autoDriver1.setSurname(autoDriver.getSurname());
+            autoDriverRepository.save(autoDriver1);
+        }
     }
 
     @Override

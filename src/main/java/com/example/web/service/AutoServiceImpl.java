@@ -13,7 +13,7 @@ import java.util.List;
 @Service
 @Transactional
 @RequiredArgsConstructor
-public class AutoServiceImpl implements AutoService{
+public class AutoServiceImpl implements AutoService {
     private final AutoRepository autoRepository;
 
     @Override
@@ -28,22 +28,28 @@ public class AutoServiceImpl implements AutoService{
 
     @Override
     public Integer addAuto(AutoPojo auto) {
-        return autoRepository.save(new Auto(auto.getMark(),auto.getModel(),auto.getLicensePlate(),auto.getType())).getId();
+        return autoRepository.save(new Auto(auto.getMark(), auto.getModel(), auto.getLicensePlate(), auto.getType())).getId();
     }
 
     @Override
-    public void deleteAuto(Integer id) { autoRepository.delete(id); }
+    public void deleteAuto(Integer id) {
+        autoRepository.delete(id);
+    }
 
     @Override
-    public void deleteAllAuto() { autoRepository.deleteAll(); }
+    public void deleteAllAuto() {
+        autoRepository.deleteAll();
+    }
 
     @Override
     public void updateAuto(AutoPojo auto, Integer id) {
-      Auto auto1 = autoRepository.findOne(id);
-      auto1.setLicensePlate(auto.getLicensePlate());
-      auto1.setMark(auto.getLicensePlate());
-      auto1.setModel(auto.getLicensePlate());
-      auto1.setType(auto.getLicensePlate());
-      autoRepository.save(auto1);
+        if (auto != null && id != null) {
+            Auto auto1 = autoRepository.findOne(id);
+            if (auto.getLicensePlate() != null) auto1.setLicensePlate(auto.getLicensePlate());
+            if (auto.getMark() != null) auto1.setMark(auto.getMark());
+            if (auto.getModel() != null) auto1.setModel(auto.getModel());
+            if (auto.getType() != null) auto1.setType(auto.getType());
+            autoRepository.save(auto1);
+        }
     }
 }
