@@ -138,6 +138,6 @@ public class User extends Persistent implements UserDetails
         return true; // Not Implemented
     }
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "user")
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private Set<CalendarTable> calendars;
 }

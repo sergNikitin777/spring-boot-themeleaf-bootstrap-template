@@ -32,7 +32,7 @@ public class AutoDriverController {
     }
 
     @RequestMapping(value = "/admin/auto/driver/add", method = RequestMethod.POST)
-    public ResponseEntity<Integer> addAutoDriver(AutoDriverPojo autoDriver) {
+    public ResponseEntity<Integer> addNewAutoDriver(AutoDriverPojo autoDriver) {
         log.debug("autoDriver");
         try {
             return new ResponseEntity<>(autoDriverService.addAutoDriver(autoDriver), HttpStatus.OK);
@@ -43,7 +43,7 @@ public class AutoDriverController {
     }
 
     @RequestMapping(value = "/admin/auto/driver/addauto", method = RequestMethod.POST)
-    public ResponseEntity<Integer> addAutoDriver(Integer driverId,Integer autoId) {
+    public ResponseEntity<Integer> linkAutoAndAutoDriver(Integer driverId,Integer autoId) {
         log.debug("addAuto");
         try {
             return new ResponseEntity<>(autoDriverService.addAuto(driverId,autoId), HttpStatus.OK);

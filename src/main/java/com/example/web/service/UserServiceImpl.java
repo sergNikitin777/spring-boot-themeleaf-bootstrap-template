@@ -34,7 +34,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Integer addUser(UserPojo user) {
-        return userRepository.save(new User(
+        User newUser= new User(
                 user.getEmail(),
                 user.getUsername(),
                 user.getPassword(),
@@ -48,7 +48,8 @@ public class UserServiceImpl implements UserService {
                 user.getRequestTransferInterval(),
                 user.getCompanyName(),
                 Arrays.asList(Role.ROLE_USER)
-        )).getId();
+        );
+        return userRepository.save(newUser).getId();
     }
 
     @Override
@@ -80,7 +81,7 @@ public class UserServiceImpl implements UserService {
             if (user.getPhone() != null) user1.setPhone(user.getPhone());
             if (user.getRequestTransferInterval() != null)
                 user1.setRequestTransferInterval(user.getRequestTransferInterval());
-            user1.setCompanyName(user.getCompanyName());
+            if (user.getCompanyName()!=null) user1.setCompanyName(user.getCompanyName());
             userRepository.save(user1);
         }
     }
