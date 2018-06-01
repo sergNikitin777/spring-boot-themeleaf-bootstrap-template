@@ -137,7 +137,7 @@
                         <li>
                             <p class="navbar-btn">
                                 <a data-toggle="modal" id="addCar" href="#modal_add_car" class="btn btn-default"><img height="32px" width="32px"
-                                                                                                                      th:src="@{/icons/menu/add_blue.png}"></img><b> Добавить машину</b></a>
+                                                                                                                      th:src="@{/icons/menu/add_blue.png}"></img><b> Добавить автомобиль</b></a>
                             </p>
                         </li>
                         <li>
@@ -148,7 +148,7 @@
                             <div class="dropdown_content">
                                 <a data-toggle="tab" id="buttonprofile" href="#panel_settings_profile" class="btn btn-block"><b>Профиль</b></a>
                                 <a data-toggle="tab" id="buttondrivers" href="#panel_settings_drivers" class="btn btn-block"><b>Водители</b></a>
-                                <a data-toggle="tab" id="buttoncars" href="#panel_settings_cars" class="btn btn-block"><b>Машины</b></a>
+                                <a data-toggle="tab" id="buttoncars" href="#panel_settings_cars" class="btn btn-block"><b>Автомобили</b></a>
                             </div>
                             </p>
                         </li>
@@ -201,6 +201,21 @@
                         <li>
                             <p class="navbar-btn btn-block">
                                 <a id="dayviewpoint_block" class="btn btn-block navbtn hidebtn">День</a>
+                            </p>
+                        </li>
+                        <li>
+                            <p class="navbar-btn btn-block">
+                                <a data-toggle="tab" id="buttonprofile_block" href="#panel_settings_profile" class="btn btn-block">Профиль</a>
+                            </p>
+                        </li>
+                        <li>
+                            <p class="navbar-btn btn-block">
+                                <a data-toggle="tab" id="buttondrivers_block" href="#panel_settings_drivers" class="btn btn-block">Водители</a>
+                            </p>
+                        </li>
+                        <li>
+                            <p class="navbar-btn btn-block">
+                                <a data-toggle="tab" id="buttoncars_block" href="#panel_settings_cars" class="btn btn-block">Автомобили</a>
                             </p>
                         </li>
                         <li>
@@ -336,12 +351,9 @@
                                     <table id="tabledriversfull" class="table table-hover fullscreen">
                                         <thead class="thead-inverse">
                                             <tr>
-                                                <th scope="col">Имя</th>
                                                 <th scope="col">Фамилия</th>
+                                                <th scope="col">Имя</th>
                                                 <th scope="col">Отчество</th>
-                                                <th scope="col">Номер телефона</th>
-                                                <th scope="col">Автомобиль</th>
-                                                <th scope="col"></th>
                                             </tr>
                                         </thead>
                                         <tbody id="tabledriversfullbody">
@@ -350,8 +362,16 @@
                                     <table id="tabledriversmobile" class="table table-hover fullscreen">
                                         <thead class="thead-inverse">
                                             <tr>
-                                                <th scope="col">Дата и время</th>
-                                                <th scope="col">Адрес</th>
+                                                <th colspan="3">
+                                                    <a data-toggle="modal" id="addDriverMobile" href="#modal_add_driver" class="btn btn-block">
+                                                        <img height="32px" width="32px" th:src="@{/icons/menu/add_blue.png}"></img><b> Добавить водителя</b>
+                                                    </a>
+                                                </th>
+                                            </tr>
+                                            <tr>
+                                                <th scope="col">Фамилия</th>
+                                                <th scope="col">Имя</th>
+                                                <th scope="col">Отчество</th>
                                             </tr>
                                         </thead>
                                         <tbody id="tabledriversmobilebody">
@@ -365,7 +385,7 @@
                                                 <th scope="col">Марка</th>
                                                 <th scope="col">Модель</th>
                                                 <th scope="col">Госномер</th>
-                                                <th scope="col">Класс</th>
+                                                <th scope="col">Категория</th>
                                                 <th scope="col"></th>
                                             </tr>
                                         </thead>
@@ -374,6 +394,13 @@
                                     </table>
                                     <table id="tablecarsmobile" class="table table-hover fullscreen">
                                         <thead class="thead-inverse">
+                                            <tr>
+                                                <th colspan="2">
+                                                    <a data-toggle="modal" id="addCarMobile" href="#modal_add_car" class="btn btn-block">
+                                                        <img height="32px" width="32px" th:src="@{/icons/menu/add_blue.png}"></img><b> Добавить автомобиль</b>
+                                                    </a>
+                                                </th>
+                                            </tr>
                                             <tr>
                                                 <th scope="col">Госномер</th>
                                                 <th scope="col"></th>
@@ -474,7 +501,7 @@
             <div class="modal-dialog modal-lg">
                 <div class="modal-content modal-amend">
                     <div class="modal-header">
-                        <button type="button" class="close modal-close">&times;</button>
+                        <button type="button" class="close modal-close" data-dismiss="modal">&times;</button>
                         <h4 class="modal-title">Редактирование заявки</h4>
                     </div>
                     <div class="modal-body">
@@ -544,7 +571,7 @@
                         <button type="button" class="btn btn-block submit modal-close" id="Amend">
                             <i class="fa fa-paper-plane" aria-hidden="true"></i>&nbsp;Отправить
                         </button>
-                        <button type="button" class="btn btn-block modal-close">
+                        <button type="button" class="btn btn-block modal-close" data-dismiss="modal">
                             <i class="fa fa-times" aria-hidden="true"></i>&nbsp;Отмена
                         </button>
                     </div>
@@ -555,14 +582,13 @@
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <button type="button" class="close modal-close">&times;</button>
+                        <button type="button" class="close modal-close" data-dismiss="modal">&times;</button>
                         <h4 class="modal-title">Добавление водителя</h4>
                     </div>
                     <div class="modal-body">
                         <form>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="InputTimeamend">Дата и время</label>
                                     <label for="InputDriverName">Имя</label>
                                     <input type="text" class="form-control" id="InputDriverName" placeholder="Введите имя водителя"/>
                                     <label for="InputDriverSurname">Фамилия</label>
@@ -574,21 +600,24 @@
                             <div class="col-md-6">
                                 <div class="form-group amend-input">
                                     <label>Телефон водителя</label>
-                                    <input type="tel" class="masked form-control" id="InputDriverPhone" placeholder="X (XXX) XXX-XX-XX"
-                                           pattern="\d{1}\(\d{3}\) \d{3}\-\d{4}" title="10-digit number" />
+                                    <input type="text" class="phonemask form-control" id="InputDriverPhone"/>
+                                    <label for="InputLicenseType">Категория водительских прав</label>
+                                    <select class="form-control" id="InputLicenseType">
+                                        <option value="" selected="selected" disabled="disabled" hidden="hidden">Выберите категорию водительских прав</option>
+                                        <option>M</option>
+                                        <option>A</option>
+                                        <option>B</option>
+                                        <option>C</option>
+                                        <option>D</option>
+                                        <option>E</option>
+                                    </select>
                                     <label for="InputDriverCar">Автомобиль</label>
                                     <select class="form-control" id="InputDriverCar">
-                                        <option>Выберите автомобиль</option>
+                                        <option value="" selected="selected" disabled="disabled" hidden="hidden">Выберите автомобиль</option>
                                         <option>1</option>
                                         <option>2</option>
                                         <option>3</option>
                                         <option>4</option>
-                                        <option>5</option>
-                                        <option>6</option>
-                                        <option>7</option>
-                                        <option>8</option>
-                                        <option>9</option>
-                                        <option>10</option>
                                     </select>
                                 </div>
                             </div>
@@ -598,7 +627,143 @@
                         <button type="button" class="btn btn-block submit modal-close" id="SendDriver">
                             <i class="fa fa-paper-plane" aria-hidden="true"></i>&nbsp;Отправить
                         </button>
-                        <button type="button" class="btn btn-block modal-close">
+                        <button type="button" class="btn btn-block modal-close" data-dismiss="modal">
+                            <i class="fa fa-times" aria-hidden="true"></i>&nbsp;Отмена
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="modal_add_car" class="modal fade">
+            <div class="modal-dialog modal-md">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close modal-close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Добавление автомобиля</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="form-group">
+                                <label for="InputCarMark">Марка</label>
+                                <input type="text" class="form-control" id="InputCarMark" placeholder="Введите марку автомобиля"/>
+                                <label for="InputCarModel">Модель</label>
+                                <input type="text" class="form-control" id="InputCarModel" placeholder="Введите модель автомобиля"/>
+                                <label for="InputCarLicensePlate">Номер</label>
+                                <input type="text" class="form-control" id="InputCarLicensePlate" placeholder="Введите госномер"/>
+                                <label for="InputCarLicensePlate">Категория автомобиля</label>
+                                <select class="form-control" id="InputCarType">
+                                    <option value="" selected="selected" disabled="disabled" hidden="hidden">Выберите категорию автомобиля</option>
+                                    <option>M</option>
+                                    <option>A</option>
+                                    <option>B</option>
+                                    <option>C</option>
+                                    <option>D</option>
+                                    <option>E</option>
+                                </select>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-fixed-footer actions">
+                        <button type="button" class="btn btn-block submit modal-close" id="SendCar">
+                            <i class="fa fa-paper-plane" aria-hidden="true"></i>&nbsp;Отправить
+                        </button>
+                        <button type="button" class="btn btn-block modal-close" data-dismiss="modal">
+                            <i class="fa fa-times" aria-hidden="true"></i>&nbsp;Отмена
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="modal_amend_driver" class="modal fade">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content modal-amend">
+                    <div class="modal-header">
+                        <button type="button" class="close modal-close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Изменение водителя</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="InputDriverNameamend">Имя</label>
+                                    <input type="text" class="form-control" id="InputDriverNameamend" placeholder="Введите имя водителя"/>
+                                    <label for="InputDriverSurnameamend">Фамилия</label>
+                                    <input type="text" class="form-control" id="InputDriverSurnameamend" placeholder="Введите фамилию водителя"/>
+                                    <label for="InputDriverPatronimicamend">Отчество</label>
+                                    <input type="text" class="form-control" id="InputDriverPatronimicamend" placeholder="Введите отчество водителя"/>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group amend-input">
+                                    <label>Телефон водителя</label>
+                                    <input type="text" class="phonemask form-control" id="InputDriverPhoneamend"/>
+                                    <label for="InputLicenseTypeamend">Категория водительских прав</label>
+                                    <select class="form-control" id="InputLicenseTypeamend">
+                                        <option value="" selected="selected" disabled="disabled" hidden="hidden">Выберите категорию водительских прав</option>
+                                        <option>M</option>
+                                        <option>A</option>
+                                        <option>B</option>
+                                        <option>C</option>
+                                        <option>D</option>
+                                        <option>E</option>
+                                    </select>
+                                    <label for="InputDriverCaramend">Автомобиль</label>
+                                    <select class="form-control" id="InputDriverCaramend">
+                                        <option value="" selected="selected" disabled="disabled" hidden="hidden">Выберите автомобиль</option>
+                                        <option>1</option>
+                                        <option>2</option>
+                                        <option>3</option>
+                                        <option>4</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-fixed-footer actions">
+                        <button type="button" class="btn btn-block submit modal-close" id="AmendDriver" data-dismiss="modal">
+                            <i class="fa fa-paper-plane" aria-hidden="true"></i>&nbsp;Отправить
+                        </button>
+                        <button type="button" class="btn btn-block modal-close" data-dismiss="modal">
+                            <i class="fa fa-times" aria-hidden="true"></i>&nbsp;Отмена
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="modal_amend_car" class="modal fade">
+            <div class="modal-dialog modal-md">
+                <div class="modal-content modal-amend">
+                    <div class="modal-header">
+                        <button type="button" class="close modal-close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Изменение автомобиля</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="form-group">
+                                <label for="InputCarMarkamend">Марка</label>
+                                <input type="text" class="form-control" id="InputCarMarkamend" placeholder="Введите марку автомобиля"/>
+                                <label for="InputCarModelamend">Модель</label>
+                                <input type="text" class="form-control" id="InputCarModelamend" placeholder="Введите модель автомобиля"/>
+                                <label for="InputCarLicensePlateamend">Номер</label>
+                                <input type="text" class="form-control" id="InputCarLicensePlateamend" placeholder="Введите госномер"/>
+                                <label for="InputCarLicensePlateamend">Категория автомобиля</label>
+                                <select class="form-control" id="InputCarTypeamend">
+                                    <option value="" selected="selected" disabled="disabled" hidden="hidden">Выберите категорию автомобиля</option>
+                                    <option>M</option>
+                                    <option>A</option>
+                                    <option>B</option>
+                                    <option>C</option>
+                                    <option>D</option>
+                                    <option>E</option>
+                                </select>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-fixed-footer actions">
+                        <button type="button" class="btn btn-block submit modal-close" id="AmendCar" data-dismiss="modal">
+                            <i class="fa fa-paper-plane" aria-hidden="true"></i>&nbsp;Отправить
+                        </button>
+                        <button type="button" class="btn btn-block modal-close" data-dismiss="modal">
                             <i class="fa fa-times" aria-hidden="true"></i>&nbsp;Отмена
                         </button>
                     </div>

@@ -34,6 +34,8 @@ $(document).ready(function () {
             $('#tabledriversmobile').show();
             $('#tablecarsmobile').show();
             $('#tablearchivemobile').show();
+            $('#addDriverMobile').show();
+            $('#addCarMobile').show();
         }
         else {
             $('#tablefull').show();
@@ -44,6 +46,8 @@ $(document).ready(function () {
             $('#tabledriversmobile').hide();
             $('#tablecarsmobile').hide();
             $('#tablearchivemobile').hide();
+            $('#addDriverMobile').hide();
+            $('#addCarMobile').show();
         };
     }
     function toggleCalendarHeight() {
@@ -327,24 +331,74 @@ $(document).ready(function () {
 
                     mobileinfo.append('<td><div>Марка: '+ carsList[i].mark +'</div>' +
                         '<div>Модель: ' + carsList[i].model + '</div>' +
-                        '<div>Класс: ' + carsList[i].type + '</div></td>');
+                        '<div>Категория: ' + carsList[i].type + '</div></td>');
                     mobileinfo.append('<td class = "buttons"><a class="btn editcar"><i class="fa fa-edit"></i>&nbsp;Изменить</a>&nbsp;' +
-                        '<a class="btn removecar"><i class="fa fa-trash-o"></i>&nbsp;Удалить</a></td>');
+                        '<a class="btn btn-danger removecar" style="background-color: red"><i class="fa fa-trash-o"></i>&nbsp;Удалить</a></td>');
                     $("#tablecarsmobilebody").append(mobileinfo);
                 }
                 $('#tablecarsfull').faLoading(false);
                 $('#tablecarsmobile').faLoading(false);
+
+                xhrShowDrivers.open('GET', 'admin/auto/drivers', true);
+                xhrShowDrivers.send();
+                xhrShowDrivers.onreadystatechange = function() {
+                    if (xhrShowDrivers.readyState == XMLHttpRequest.DONE && xhrShowDrivers.status == 200) {
+                        driversList = JSON.parse(xhrShowDrivers.responseText);
+                        console.log(driversList);
+                        for (var i = 0; i < driversList.length; i++) {
+                            console.log(driversList[i]);
+                            var rowfull = $('<tr class="normal row-header expand">');
+                            var fullinfo = $('<tr class="normal" id="' + driversList[i].id + '">');
+                            var rowmobile = $('<tr class="normal row-header expand">');
+                            var mobileinfo = $('<tr class="normal" id="' + driversList[i].id + '">');
+
+                            rowfull.append('<td class = "surname">' + driversList[i].surname + '</td>');
+                            rowfull.append('<td class = "name">' + driversList[i].firstName + '</td>');
+                            rowfull.append('<td class = "patronymic">' + driversList[i].patronymic + '</td>');
+                            $("#tabledriversfullbody").append(rowfull);
+
+                            var appendage = '<td colspan="2">' +
+                                '<div>Номер телефона: ' + driversList[i].phoneNumber + '</div>' +
+                                '<div>Категория водительских прав: ' + '' + '</div>' +
+                                '<div>Автомобили: ';
+                            if (driversList[i].autoList != []) {
+                                for (var j = 0; i < driversList[i].autoList.length; i++) {
+                                    appendage += driversList[i].autoList[j].licensePlate + ' ';
+                                }
+                            }
+                            appendage += '</div></td>';
+                            fullinfo.append(appendage);
+                            fullinfo.append('<td class = "buttons"><a class="btn btn-sm editdriver" data-toggle="tooltip" title="Изменить водителя"><i class="fa fa-edit"></i></a>&nbsp;' +
+                                '<a class="btn btn-sm btn-danger removedriver" data-toggle="tooltip" title="Удалить водителя" style="background-color: red"><i class="fa fa-trash-o"></i></a></td>');
+                            $("#tabledriversfullbody").append(fullinfo);
+
+                            rowmobile.append('<td class="surname">' + driversList[i].surname +
+                                '</td><td class="name">' + driversList[i].firstName +
+                                '</td><td class="patronymic">' + driversList[i].patronymic + '</td>');
+                            $("#tabledriversmobilebody").append(rowmobile);
+
+                            var appendage2 = '<td colspan="2">' +
+                                '<div>Номер телефона: ' + driversList[i].phoneNumber + '</div>' +
+                                '<div>Категория водительских прав: ' + '' + '</div>' +
+                                '<div>Автомобили: ';
+                            if (driversList[i].autoList != []) {
+                                for (var k = 0; i < driversList[i].autoList.length; i++) {
+                                    appendage2 += driversList[i].autoList[k].licensePlate + ' ';
+                                }
+                            }
+                            appendage2 += '</div></td>';
+                            mobileinfo.append(appendage2);
+                            mobileinfo.append('<td class = "buttons"><a class="btn editdriver"><i class="fa fa-edit"></i>&nbsp;Изменить</a>&nbsp;' +
+                                '<a class="btn removedriver"><i class="fa fa-trash-o"></i>&nbsp;Удалить</a></td>');
+                            $("#tabledriversmobilebody").append(mobileinfo);
+                        }
+                        $('#tabledriversfull').faLoading(false);
+                        $('#tabledriversmobile').faLoading(false);
+                        $('.row-header').toggleClass('expand').nextUntil('tr.row-header').slideToggle(100);
+                    }
+                }
             }
-        }
-        xhrShowDrivers.open('GET', 'admin/auto/drivers', true);
-        xhrShowDrivers.send();
-        xhrShowDrivers.onreadystatechange = function() {
-            if (xhrShowDrivers.readyState == XMLHttpRequest.DONE && xhrShowDrivers.status == 200) {
-                driversList = JSON.parse(xhrShowDrivers.responseText);
-                $('#tabledriversfull').faLoading(false);
-                $('#tabledriverssmobile').faLoading(false);
-            }
-        }
+        };
     }
 
     function updateTable (viewpoint) {
@@ -747,6 +801,34 @@ $(document).ready(function () {
 
     });
 
+    $(document).on('click', '.editdriver', function() {
+        idToAmend = $(this).parent().parent()[0].id;
+        $('#modal_amend_driver').modal("open");
+        for (var i = 0; i < driversList.length; i++) {
+            if (driversList[i].id == idToAmend) {
+                $('#InputDriverNameamend').val(driversList[i].firstName);
+                $('#InputDriverSurnameamend').val(eventList[i].surname);
+                $('#InputDriverPatronimicamend').val(driversList[i].patronymic);
+                $('#InputDriverPhoneamend').val(driversList[i].phoneNumber);
+                $('#InputLicenseTypeamend').val('');
+                $('#InputDriverCaramend').val('');
+            }
+        }
+    });
+
+    $(document).on('click', '.editcar', function() {
+        idToAmend = $(this).parent().parent()[0].id;
+        $('#modal_amend_car').modal("open");
+        for (var i = 0; i < carsList.length; i++) {
+            if (carsList[i].id == idToAmend) {
+                $('#InputCarMarkamend').val(carsList[i].mark);
+                $('#InputCarModelamend').val(carsList[i].model);
+                $('#InputCarLicensePlateamend').val(carsList[i].licensePlate);
+                $('#InputCarTypeamend').val('');
+            }
+        }
+    });
+
     $(document).on('click', '.addbtn', function() {
         $('#notifyClient').prop('checked', false);
         $('#InputPhone').val('');
@@ -778,24 +860,6 @@ $(document).ready(function () {
 
     $('#viewcalendar,#viewcalendar_block,#settings,#settings_block,#view,#view_block').on('click', function() {
         buttonInvisible($('#addCar'));
-        buttonInvisible($('#addDriver'));
-    });
-
-    $('#buttonprofile').on('click', function() {
-        $('#panel_settings').tab('show');
-        buttonInvisible($('#addCar'));
-        buttonInvisible($('#addDriver'));
-    });
-
-    $('#buttondrivers').on('click', function() {
-        $('#panel_settings').tab('show');
-        buttonInvisible($('#addCar'));
-        buttonVisible($('#addDriver'));
-    });
-
-    $('#buttoncars').on('click', function() {
-        $('#panel_settings').tab('show');
-        buttonVisible($('#addCar'));
         buttonInvisible($('#addDriver'));
     });
 
@@ -892,19 +956,28 @@ $(document).ready(function () {
     });
 
     //костыль tab-pane
-    $('#buttonprofile').on('click', function() {
+    $('#buttonprofile,#buttonprofile_block').on('click', function() {
+        $('#settings').trigger('click');
+        buttonInvisible($('#addCar'));
+        buttonInvisible($('#addDriver'));
         $('#panel_settings_drivers').attr('style', 'display: none');
         $('#panel_settings_cars').attr('style', 'display: none');
         $('#panel_settings_profile').attr('style', 'display: block');
     });
 
-    $('#buttondrivers').on('click', function() {
+    $('#buttondrivers,#buttondrivers_block').on('click', function() {
+        $('#settings').trigger('click');
+        buttonInvisible($('#addCar'));
+        buttonVisible($('#addDriver'));
         $('#panel_settings_drivers').attr('style', 'display: block');
         $('#panel_settings_cars').attr('style', 'display: none');
         $('#panel_settings_profile').attr('style', 'display: none');
     });
 
-    $('#buttoncars').on('click', function() {
+    $('#buttoncars,#buttoncars_block').on('click', function() {
+        $('#settings').trigger('click');
+        buttonVisible($('#addCar'));
+        buttonInvisible($('#addDriver'));
         $('#panel_settings_drivers').attr('style', 'display: none');
         $('#panel_settings_cars').attr('style', 'display: block');
         $('#panel_settings_profile').attr('style', 'display: none');
