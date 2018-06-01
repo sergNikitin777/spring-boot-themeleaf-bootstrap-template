@@ -327,20 +327,34 @@
                             <div class="col-md-12 col-lg-12 col-xs-12 col-sm-12">
                                 <div id="panel_settings_profile" class="tab-pane fade in active">
                                     <form>
-                                        <div class="form-group">
-                                            <label for="InputRegion">Регион</label>
-                                            <input type="text" class="form-control" id="InputRegion" placeholder="Выберите основной регион обслуживания"/>
-                                            <label>Номер телефона для рассылки</label>
-                                            <input type="text" class="phonemask form-control" id="InputSpam"/>
-                                            <label for="InputNotification">Уведомление</label>
-                                            <select class="form-control" id="InputNotification">
-                                                <option>Выберите время уведомления</option>
-                                                <option>За 15 минут</option>
-                                                <option>За 30 минут</option>
-                                                <option>За час</option>
-                                            </select>
-                                            <input id="notifyDriverDefault" type="checkbox"/>
-                                            <label for="notifyDriverDefault">Уведомлять водителя</label>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>Электронная почта</label>
+                                                <input type="text" class="form-control" id="InputEmail" placeholder="Укажите адрес электронной почты"/>
+                                                <label for="InputRegion">Регион</label>
+                                                <input type="text" class="form-control" id="InputRegion" placeholder="Выберите основной регион обслуживания"/>
+                                                <label for="InputCompanyName">Название компании</label>
+                                                <input type="text" class="form-control" id="InputCompanyName" placeholder="Введите название компании"/>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>Номер телефона</label>
+                                                <input type="text" class="phonemask form-control" id="InputSpam" placeholder="Укажите номер телефона для рассылки"/>
+                                                <label for="InputNotification">Уведомление по умолчанию</label>
+                                                <select class="form-control" id="InputNotification">
+                                                    <option value="" selected="selected" disabled="disabled" hidden="hidden">Выберите время уведомления</option>
+                                                    <option value="15">За 15 минут</option>
+                                                    <option value="30">За 30 минут</option>
+                                                    <option value="60">За час</option>
+                                                    <option value="90">За полтора часа</option>
+                                                    <option value="120">За два часа</option>
+                                                </select><br/>
+                                                <input id="notifyClientDefault" type="checkbox"/>
+                                                <label for="notifyClientDefault">Уведомлять клиента</label><br/>
+                                                <input id="notifyDriverDefault" type="checkbox"/>
+                                                <label for="notifyDriverDefault">Уведомлять водителя</label>
+                                            </div>
                                         </div>
                                         <button type="button" class="btn btn-block submit" id="Save">
                                             <i class="fa fa-save" aria-hidden="true"></i>&nbsp;Сохранить настройки

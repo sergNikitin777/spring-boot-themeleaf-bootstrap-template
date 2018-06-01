@@ -1,6 +1,5 @@
 // !!! РАЗБИТЬ НА МОДУЛИ !!!
 $(document).ready(function () {
-    var options                     = { year: 'numeric', month: 'long', day: 'numeric', timeZone: '' };
     var xhrCalendarActualEvents     = new XMLHttpRequest();
     var xhrCalendarRemovedEvents    = new XMLHttpRequest();
     var xhrCalendarArchivedEvents   = new XMLHttpRequest();
@@ -48,12 +47,10 @@ $(document).ready(function () {
             $('#tablearchivemobile').hide();
             $('#addDriverMobile').hide();
             $('#addCarMobile').show();
-        };
+        }
     }
     function toggleCalendarHeight() {
-        var screenHeight = document.documentElement.clientHeight
-            - 60 +  "px";
-        document.getElementById("calendar").style.height = screenHeight;
+        document.getElementById("calendar").style.height = document.documentElement.clientHeight - 60 +  "px";
     }
 
     function amendEventById(id) {
@@ -344,9 +341,7 @@ $(document).ready(function () {
                 xhrShowDrivers.onreadystatechange = function() {
                     if (xhrShowDrivers.readyState == XMLHttpRequest.DONE && xhrShowDrivers.status == 200) {
                         driversList = JSON.parse(xhrShowDrivers.responseText);
-                        console.log(driversList);
                         for (var i = 0; i < driversList.length; i++) {
-                            console.log(driversList[i]);
                             var rowfull = $('<tr class="normal row-header expand">');
                             var fullinfo = $('<tr class="normal" id="' + driversList[i].id + '">');
                             var rowmobile = $('<tr class="normal row-header expand">');
@@ -429,6 +424,7 @@ $(document).ready(function () {
         xhrCalendarActualEvents.onreadystatechange = function () {
             if (xhrCalendarActualEvents.readyState == XMLHttpRequest.DONE && xhrCalendarActualEvents.status == 200) {
                 eventList = JSON.parse(xhrCalendarActualEvents.responseText);
+                console.log(eventList);
                 eventList = eventList.sort(function (a, b) {
                     if (a.startDate.date < b.startDate.date) return -1;
                     if (a.startDate.date > b.startDate.date) return 1;
@@ -691,7 +687,7 @@ $(document).ready(function () {
             $('#slider ul li:last-child').prependTo('#slider ul');
             $('#slider ul').css('left', '');
         });
-    };
+    }
 
     function moveRight() {
         $('#slider ul').animate({
@@ -700,7 +696,7 @@ $(document).ready(function () {
             $('#slider ul li:first-child').appendTo('#slider ul');
             $('#slider ul').css('left', '');
         });
-    };
+    }
 
     $('a.control_prev').click(function () {
         moveLeft();
