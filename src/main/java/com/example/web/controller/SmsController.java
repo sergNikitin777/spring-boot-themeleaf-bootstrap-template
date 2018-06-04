@@ -31,8 +31,7 @@ public class SmsController {
         String url = "http://json.gate.iqsms.ru/send/";
         try{
             HttpEntity<QueuePojo> request = new HttpEntity<>(queuePojo);
-            QueueAnswerPojo response=restTemplate.postForObject(new URI(url),request, QueueAnswerPojo.class);
-            return  response;
+            return restTemplate.postForObject(new URI(url),request, QueueAnswerPojo.class);
         }catch (Exception e){
             throw new RuntimeException(e);
         }

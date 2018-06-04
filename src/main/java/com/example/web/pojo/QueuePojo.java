@@ -12,6 +12,7 @@ public class QueuePojo {
     private String login;
     private String password;
     private String scheduleTime;
+    private String statusQueueName;
     private List<SmsPojo> messages;
 
 }
