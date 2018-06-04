@@ -26,4 +26,7 @@ public interface UserService
 
     User findUserByUsernameAndPassword(String username, String givenPassword);
 
+    User findUserByYandexToken(String yandexToken);
+
+    User findById(Integer id);
 }

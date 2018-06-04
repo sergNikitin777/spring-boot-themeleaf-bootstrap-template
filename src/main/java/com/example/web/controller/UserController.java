@@ -1,21 +1,15 @@
 package com.example.web.controller;
 
-import javax.validation.Valid;
-
+import com.example.persistance.entity.Auto;
 import com.example.web.pojo.UserPojo;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-
 import com.example.persistance.entity.User;
 import com.example.web.service.UserService;
-
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-
 import java.util.List;
 
 @Slf4j
@@ -72,6 +66,21 @@ public class UserController
     public ResponseEntity<List<User>> getUserList() {
         log.debug("getUserList");
         return new ResponseEntity<>(userService.findAll(), HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/admin/users/{id}", method = RequestMethod.GET)
+    public ResponseEntity<User> users(@PathVariable("id") Integer id){
+        return new ResponseEntity<>(userService.findById(id), HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/admin/users/yandexToken/{yandexToken}", method = RequestMethod.GET)
+    public ResponseEntity<User> usersByToken(@PathVariable("yandexToken") String yandexToken) {
+        return new ResponseEntity<>(userService.findUserByYandexToken(yandexToken), HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/admin/users/email/{email}", method = RequestMethod.GET)
+    public ResponseEntity<User> usersByEmail(@PathVariable("email") String email) {
+        return new ResponseEntity<>(userService.findUserByEmail(email), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/admin/users/add", method = RequestMethod.GET)

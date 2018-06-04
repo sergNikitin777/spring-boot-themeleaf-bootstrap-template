@@ -100,4 +100,14 @@ public class UserServiceImpl implements UserService {
     public User findUserByEmail(String email) {
         return userRepository.findUserByEmail(email);
     }
+
+    @Override
+    public User findUserByYandexToken(String yandexToken) {
+        return userRepository.findUserByYandexToken(yandexToken);
+    }
+
+    @Override
+    public User findById(Integer id) {
+        return userRepository.findById(id);
+    }
 }
