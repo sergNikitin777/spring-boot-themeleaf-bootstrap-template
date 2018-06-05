@@ -24,13 +24,6 @@ public class CalendarTable {
         this.status = status;
     }
 
-    public CalendarTable(String adress, String token, String status, User user) {
-        this.adress = adress;
-        this.token = token;
-        this.status = status;
-        this.user = user;
-    }
-
     @Id
     @SequenceGenerator(name = "pk_sequence", sequenceName = "calendar_id_seq", allocationSize = 1)
     @Column(name = "id", unique = true, nullable = false)

@@ -1,17 +1,12 @@
 package com.example.web.service;
 
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
-
+import java.util.*;
 import com.example.persistance.enums.Role;
 import com.example.web.pojo.UserPojo;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import com.example.persistance.entity.User;
 import com.example.persistance.repository.UserRepository;
-
 import lombok.RequiredArgsConstructor;
 
 

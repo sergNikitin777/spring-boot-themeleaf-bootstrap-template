@@ -9,6 +9,7 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Data
@@ -54,4 +55,6 @@ public class Auto {
     @Column
     private String type;
 
+//    @OneToMany(mappedBy = "userApplication", cascade = CascadeType.ALL)
+//    private Set<UserApplication> userApplications;
 }

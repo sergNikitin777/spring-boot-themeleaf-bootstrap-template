@@ -9,6 +9,7 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Data
@@ -52,4 +53,7 @@ public class AutoDriver {
 
     @Column
     private  String phoneNumber;
+
+//    @OneToMany(mappedBy = "userApplication", cascade = CascadeType.ALL)
+//    private Set<UserApplication> userApplications;
 }
