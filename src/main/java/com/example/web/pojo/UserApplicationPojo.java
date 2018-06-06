@@ -3,6 +3,7 @@ package com.example.web.pojo;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
+
 import java.util.Date;
 
 @Data
@@ -27,4 +28,8 @@ public class UserApplicationPojo {
     private Integer goferCount;
     private Double price;
     private String description;
+    private String smsClientStatus;
+    private String smscClientId;
+    private String smsDriverStatus;
+    private String smscDriverId;
 }

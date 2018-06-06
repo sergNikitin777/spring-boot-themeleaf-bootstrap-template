@@ -44,7 +44,12 @@ public class UserApplicationServiceImpl implements UserApplicationService {
                 userApplicationPojo.getSmsToClient(),
                 userApplicationPojo.getGoferCount(),
                 userApplicationPojo.getPrice(),
-                userApplicationPojo.getDescription())).getId();
+                userApplicationPojo.getDescription(),
+                userApplicationPojo.getSmscClientId(),
+                userApplicationPojo.getSmsClientStatus(),
+                userApplicationPojo.getSmscDriverId(),
+                userApplicationPojo.getSmsDriverStatus()
+        )).getId();
     }
 
     @Override
@@ -79,6 +84,10 @@ public class UserApplicationServiceImpl implements UserApplicationService {
             if (userApplicationPojo.getGoferCount() != null) userApplication.setGoferCount(userApplicationPojo.getGoferCount());
             if (userApplicationPojo.getPrice() != null) userApplication.setPrice(userApplicationPojo.getPrice());
             if (userApplicationPojo.getDescription() != null) userApplication.setDescription(userApplicationPojo.getDescription());
+            if (userApplicationPojo.getSmscClientId() != null) userApplication.setSmscClientId(userApplicationPojo.getSmscClientId());
+            if (userApplicationPojo.getSmsClientStatus() != null) userApplication.setSmsClientStatus(userApplicationPojo.getSmsClientStatus());
+            if (userApplicationPojo.getSmscDriverId() != null) userApplication.setSmscDriverId(userApplicationPojo.getSmscDriverId());
+            if (userApplicationPojo.getSmsDriverStatus() != null) userApplication.setSmsDriverStatus(userApplicationPojo.getSmsDriverStatus());
             userApplicationRepository.save(userApplication);
         }
     }

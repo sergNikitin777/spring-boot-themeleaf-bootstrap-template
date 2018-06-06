@@ -1,23 +1,19 @@
 package com.example.persistance.entity;
 
 import static java.util.stream.Collectors.toSet;
-
 import java.util.Collection;
 import java.util.Date;
 import java.util.Set;
 import javax.persistence.*;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
-
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-
 import com.example.persistance.enums.Role;
-
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 

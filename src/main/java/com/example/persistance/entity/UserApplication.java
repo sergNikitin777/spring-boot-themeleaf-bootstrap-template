@@ -1,15 +1,12 @@
 package com.example.persistance.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 @Entity
 @Data
@@ -17,7 +14,7 @@ import java.util.List;
 @Setter
 @EqualsAndHashCode
 public class UserApplication {
-    public UserApplication(){
+    public UserApplication() {
     }
 
     @Id
@@ -25,6 +22,31 @@ public class UserApplication {
     @Column(name = "id", unique = true, nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
+    public UserApplication(Integer userId, Integer autoId, Integer autodriverId, String adressFrom, String adressTo, Date date, String phone, String clientSurname, String clientName, String clientSecondName, String driverSurname, String driverName, String driverSecondName, Boolean smsToDriver, Boolean smsToClient, Integer goferCount, Double price, String description, String smsClientId, String smsClientStatus, String smsDriverId, String smsDriverStatus) {
+        this.userId = userId;
+        this.autoId = autoId;
+        this.autodriverId = autodriverId;
+        this.adressFrom = adressFrom;
+        this.adressTo = adressTo;
+        this.date = date;
+        this.phone = phone;
+        this.clientSurname = clientSurname;
+        this.clientName = clientName;
+        this.clientSecondName = clientSecondName;
+        this.driverSurname = driverSurname;
+        this.driverName = driverName;
+        this.driverSecondName = driverSecondName;
+        this.smsToDriver = smsToDriver;
+        this.smsToClient = smsToClient;
+        this.goferCount = goferCount;
+        this.price = price;
+        this.description = description;
+        this.smscClientId = smsClientId;
+        this.smsClientStatus = smsClientStatus;
+        this.smscDriverId = smsDriverId;
+        this.smsDriverStatus = smsDriverStatus;
+    }
 
     public UserApplication(Integer userId, Integer autoId, Integer autodriverId, String adressFrom, String adressTo, Date date, String phone, String clientSurname, String clientName, String clientSecondName, String driverSurname, String driverName, String driverSecondName, Boolean smsToDriver, Boolean smsToClient, Integer goferCount, Double price, String description) {
         this.userId = userId;
@@ -112,4 +134,16 @@ public class UserApplication {
 
     @Column
     private String description;
+
+    @Column
+    private String smscClientId;
+
+    @Column
+    private String smsClientStatus;
+
+    @Column
+    private String smscDriverId;
+
+    @Column
+    private String smsDriverStatus;
 }
