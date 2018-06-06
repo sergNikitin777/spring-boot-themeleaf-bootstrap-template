@@ -8,6 +8,8 @@ import org.apache.commons.httpclient.HttpClient;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.http.client.ClientHttpRequestFactory;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.stereotype.Controller;
@@ -26,12 +28,12 @@ public class SmsController {
     ClientHttpRequestFactory clientHttpRequestFactory=new HttpComponentsClientHttpRequestFactory(httpClient);
     private RestTemplate restTemplate = new RestTemplate(clientHttpRequestFactory);
 
-    @RequestMapping(value = "/admin/Sms/send", method = RequestMethod.POST)
-    public QueueAnswerPojo sendMessage(QueuePojo queuePojo) {
+    @RequestMapping(value = "/admin/sms/send", method = RequestMethod.POST)
+    public ResponseEntity sendMessage(QueuePojo queuePojo) {
         String url = "http://json.gate.iqsms.ru/send/";
         try{
             HttpEntity<QueuePojo> request = new HttpEntity<>(queuePojo);
-            return restTemplate.postForObject(new URI(url),request, QueueAnswerPojo.class);
+            return new ResponseEntity<>(restTemplate.postForObject(new URI(url),request, QueueAnswerPojo.class), HttpStatus.OK);
         }catch (Exception e){
             throw new RuntimeException(e);
         }
