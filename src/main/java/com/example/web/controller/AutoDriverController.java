@@ -76,7 +76,7 @@ public class AutoDriverController {
     public ResponseEntity updateAutoDriver(AutoDriverPojo autoDriver,@PathVariable("id") Integer id) {
         log.debug("updateAutoDriver");
         autoDriverService.updateAutoDriver(autoDriver,id);
-        return new ResponseEntity<>(HttpStatus.I_AM_A_TEAPOT);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
 }

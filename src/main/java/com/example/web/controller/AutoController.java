@@ -39,7 +39,7 @@ public class AutoController {
         } catch (Exception e) {
             log.error(e.getMessage(), e);
         }
-        return new ResponseEntity<>((Integer)null, HttpStatus.UNPROCESSABLE_ENTITY);
+        return new ResponseEntity<>((Integer)null, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/admin/auto/delete/{id}", method = RequestMethod.GET)
@@ -65,7 +65,7 @@ public class AutoController {
     public ResponseEntity updateAuto(AutoPojo auto, @PathVariable Integer id) {
         log.debug("updateAuto");
         autoService.updateAuto(auto,id);
-        return new ResponseEntity<>(HttpStatus.I_AM_A_TEAPOT);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
 }

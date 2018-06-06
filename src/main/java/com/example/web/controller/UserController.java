@@ -112,6 +112,6 @@ public class UserController
     public ResponseEntity updateUser(UserPojo user, @PathVariable Integer id) {
         log.debug("updateUser");
         userService.updateUser(user,id);
-        return new ResponseEntity<>(HttpStatus.I_AM_A_TEAPOT);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }

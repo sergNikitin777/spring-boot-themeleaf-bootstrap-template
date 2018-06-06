@@ -65,6 +65,6 @@ public class UserApplicationController {
     public ResponseEntity updateUserApplication(UserApplicationPojo userApplicationPojo,@PathVariable("id") Integer id) {
         log.debug("updateUserApplication");
         userApplicationService.updateUserApplication(userApplicationPojo, id);
-        return new ResponseEntity<>(HttpStatus.I_AM_A_TEAPOT);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }

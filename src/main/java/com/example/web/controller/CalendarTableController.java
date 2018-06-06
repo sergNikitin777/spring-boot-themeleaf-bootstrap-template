@@ -65,6 +65,6 @@ public class CalendarTableController {
     public ResponseEntity updateCalendarTable(CalendarTablePojo calendarTable,@PathVariable("id") Integer id) {
         log.debug("updateCalendarTable");
         calendarTableService.updateCalendarTable(calendarTable, id);
-        return new ResponseEntity<>(HttpStatus.I_AM_A_TEAPOT);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }
