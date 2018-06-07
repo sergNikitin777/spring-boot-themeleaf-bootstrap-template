@@ -36,7 +36,8 @@ public class SmsController {
         String url = "http://json.gate.iqsms.ru/send/";
         try {
             HttpEntity<QueuePojo> request = new HttpEntity<>(queuePojo);
-            return new ResponseEntity<>(restTemplate.postForObject(new URI(url), request, QueueAnswerPojo.class), HttpStatus.OK);
+            return null;
+            //return new ResponseEntity<>(restTemplate.postForObject(new URI(url), request, QueueAnswerPojo.class), HttpStatus.OK);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -48,7 +49,8 @@ public class SmsController {
         ResponseEntity<QueueAnswerPojo> responseEntity = null;
         try {
             HttpEntity<QueuePojo> request = new HttpEntity<>(queuePojo);
-            responseEntity = new ResponseEntity<>(restTemplate.postForObject(new URI(url), request, QueueAnswerPojo.class), HttpStatus.OK);
+            return null;
+           /* responseEntity = new ResponseEntity<>(restTemplate.postForObject(new URI(url), request, QueueAnswerPojo.class), HttpStatus.OK);
             if (queuePojo != null && id != null) {
                 UserApplication userApplication = userApplicationRepository.findOne(id);
                 QueueAnswerPojo queueAnswerPojo = responseEntity.getBody();
@@ -64,11 +66,11 @@ public class SmsController {
                         }
                     }
                 userApplicationRepository.save(userApplication);
-            }
+            }*/
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-        return responseEntity;
+        //return responseEntity;
     }
 
 }
