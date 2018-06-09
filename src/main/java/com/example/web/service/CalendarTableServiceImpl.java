@@ -31,7 +31,7 @@ public class CalendarTableServiceImpl implements CalendarTableService {
     @Override
     public Integer addCalendarTable(CalendarTablePojo calendarTable) {
         //User user = userRepository.findOne(calendarTable.getUserId());
-        return calendarTableRepository.save(new CalendarTable(calendarTable.getAdress(), calendarTable.getToken(), calendarTable.getStatus())).getId();
+        return calendarTableRepository.save(new CalendarTable(calendarTable.getAdress(), calendarTable.getToken(), calendarTable.getStatus(),calendarTable.getPort(),calendarTable.getUserName(),calendarTable.getPassword(),calendarTable.getPrefix(),calendarTable.getPostfix())).getId();
     }
 
     @Override
@@ -41,6 +41,11 @@ public class CalendarTableServiceImpl implements CalendarTableService {
             if (calendarTable.getAdress() != null) calendarTable1.setAdress(calendarTable.getAdress());
             if (calendarTable.getStatus() != null) calendarTable1.setStatus(calendarTable.getStatus());
             if (calendarTable.getToken() != null) calendarTable1.setToken(calendarTable.getToken());
+            if (calendarTable.getPostfix() != null) calendarTable1.setPostfix(calendarTable.getPostfix());
+            if (calendarTable.getPrefix() != null) calendarTable1.setPrefix(calendarTable.getPrefix());
+            if (calendarTable.getUserName() != null) calendarTable1.setUserName(calendarTable.getUserName());
+            if (calendarTable.getPassword() != null) calendarTable1.setPassword(calendarTable.getPassword());
+            if (calendarTable.getPort() != null) calendarTable1.setPort(calendarTable.getPort());
             calendarTableRepository.save(calendarTable1);
         }
     }

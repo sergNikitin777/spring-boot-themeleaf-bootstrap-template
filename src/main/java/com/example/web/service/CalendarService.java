@@ -15,6 +15,9 @@ public interface CalendarService {
     void addVevent(String caldavHost, Integer caldavPort, String protocol, String username, String password, String calPrefix, String calPostfix,
                    VEvent vEvent, VTimeZone vTimeZone) throws CalDAV4JException;
 
+    void addVevent2(String caldavHost, Integer caldavPort, String protocol, String url, String username, String password,
+                    VEvent vEvent, VTimeZone vTimeZone) throws CalDAV4JException;
+
     void deleteVevent(String caldavHost, Integer caldavPort, String protocol, String username, String password,
                       String calPrefix, String calPostfix, String uid) throws CalDAV4JException;
 }

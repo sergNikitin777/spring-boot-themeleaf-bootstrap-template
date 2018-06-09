@@ -17,6 +17,7 @@ public class CalendarAddVeventReqPojo {
     private String calPrefix = "/calendars/";
     private String calPostfix = "/events-5825759";
 
+    private String url;
     private Date startDate;
     private Date endDate;
 

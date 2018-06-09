@@ -12,4 +12,9 @@ public class CalendarTablePojo {
     private String token;
     private String status;
     private Integer userId;
+    private String port;
+    private String userName;
+    private String password;
+    private String prefix;
+    private String postfix;
 }

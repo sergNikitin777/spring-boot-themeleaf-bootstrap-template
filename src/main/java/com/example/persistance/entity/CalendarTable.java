@@ -17,6 +17,17 @@ public class CalendarTable {
     public CalendarTable() {
     }
 
+    public CalendarTable(String adress, String token, String status, String port, String userName, String password, String prefix, String postfix) {
+        this.adress = adress;
+        this.token = token;
+        this.status = status;
+        this.port = port;
+        this.userName = userName;
+        this.password = password;
+        this.prefix = prefix;
+        this.postfix = postfix;
+    }
+
     public CalendarTable(String adress, String token, String status) {
         this.adress = adress;
         this.token = token;
@@ -41,4 +52,19 @@ public class CalendarTable {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
+
+    @Column
+    private String port;
+
+    @Column
+    private String userName;
+
+    @Column
+    private String password;
+
+    @Column
+    private String prefix;
+
+    @Column
+    private String postfix;
 }
