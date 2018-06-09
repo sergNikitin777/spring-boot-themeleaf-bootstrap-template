@@ -145,6 +145,7 @@ public class CalendarServiceImpl implements CalendarService {
         httpClient.getHostConfiguration().setHost(caldavHost, caldavPort, protocol);
 
         UsernamePasswordCredentials httpCredentials = new UsernamePasswordCredentials(username, password);
+
         httpClient.getState().setCredentials(AuthScope.ANY, httpCredentials);
         httpClient.getParams().setAuthenticationPreemptive(true);
 
@@ -168,7 +169,7 @@ public class CalendarServiceImpl implements CalendarService {
         httpClient.getHostConfiguration().setHost(caldavHost, caldavPort, protocol);
 
         UsernamePasswordCredentials httpCredentials = new UsernamePasswordCredentials(username, password);
-        httpClient.getState().setCredentials(AuthScope.ANY, httpCredentials);
+        //httpClient.getState().setCredentials(AuthScope.ANY, httpCredentials);
         httpClient.getParams().setAuthenticationPreemptive(true);
 
         CalDAVCollection collection = new CalDAVCollection(
