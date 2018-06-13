@@ -134,8 +134,8 @@ public class User extends Persistent implements UserDetails
         return true; // Not Implemented
     }
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private Set<CalendarTable> calendars;
+    /*@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private Set<CalendarTable> calendars;*/
 
 //    @OneToMany(mappedBy = "userApplications", cascade = CascadeType.ALL)
 //    private Set<UserApplication> userApplications;
