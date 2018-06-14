@@ -53,6 +53,10 @@ $(document).ready(function () {
         document.getElementById("calendar").style.height = document.documentElement.clientHeight - 60 +  "px";
     }
 
+    function getUserCalendar(userID) {
+
+    }
+
     function amendEventById(id) {
         var postJSON = {
             "calPostfix": "/events-5825759",
