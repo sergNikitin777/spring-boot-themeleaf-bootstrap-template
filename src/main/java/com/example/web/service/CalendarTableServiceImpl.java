@@ -31,7 +31,7 @@ public class CalendarTableServiceImpl implements CalendarTableService {
     @Override
     public Integer addCalendarTable(CalendarTablePojo calendarTable) {
         //User user = userRepository.findOne(calendarTable.getUserId());
-        return calendarTableRepository.save(new CalendarTable(calendarTable.getAdress(), calendarTable.getToken(), calendarTable.getStatus(),calendarTable.getPort(),calendarTable.getUserName(),calendarTable.getPassword(),calendarTable.getPrefix(),calendarTable.getPostfix())).getId();
+        return calendarTableRepository.save(new CalendarTable(calendarTable.getAdress(), calendarTable.getToken(), calendarTable.getStatus(),calendarTable.getPort(),calendarTable.getUserName(),calendarTable.getPassword(),calendarTable.getPrefix(),calendarTable.getPostfix(),calendarTable.getUserId())).getId();
     }
 
     @Override
