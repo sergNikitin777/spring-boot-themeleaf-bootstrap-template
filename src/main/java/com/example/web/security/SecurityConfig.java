@@ -49,7 +49,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
                     .loginPage("/login")
                     .usernameParameter("j_username")
                     .passwordParameter("j_password")
-                    .defaultSuccessUrl("/home")
+                    .defaultSuccessUrl("/index")
                     .failureUrl("/login?error").permitAll()
             .and()
                 .logout()
