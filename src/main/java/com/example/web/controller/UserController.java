@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.example.persistance.entity.User;
+import com.example.persistance.entity.auth.User;
 import com.example.web.service.UserService;
 
 import lombok.RequiredArgsConstructor;

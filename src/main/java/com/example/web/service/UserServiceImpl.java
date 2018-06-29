@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.example.persistance.entity.User;
+import com.example.persistance.entity.auth.User;
 import com.example.persistance.repository.UserRepository;
 
 import lombok.RequiredArgsConstructor;

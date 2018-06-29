@@ -1,5 +1,6 @@
 package com.example.persistance.entity;
 
+import com.example.persistance.entity.auth.User;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;

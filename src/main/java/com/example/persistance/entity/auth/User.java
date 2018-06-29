@@ -1,4 +1,4 @@
-package com.example.persistance.entity;
+package com.example.persistance.entity.auth;
 
 import static java.util.stream.Collectors.toSet;
 
@@ -11,6 +11,8 @@ import javax.persistence.*;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
+import com.example.persistance.entity.Persistent;
+import com.example.persistance.entity.Task;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -51,11 +53,11 @@ public class User extends Persistent implements UserDetails
     @Column(name = "isLOCKED", nullable = false)
     private boolean locked = false;
 
-    @NotEmpty
-    @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
-    @CollectionTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"))
-    @Column(name = "role", nullable = false)
-    private Collection<Role> roles;
+//    @NotEmpty
+//    @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
+//    @CollectionTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"))
+//    @Column(name = "role", nullable = false)
+//    private Collection<Role> roles;
 
     @OneToMany
     private List<Task> taskList = new ArrayList<>();
@@ -68,8 +70,9 @@ public class User extends Persistent implements UserDetails
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities()
     {
-        return getRoles().stream().map(Role::getAuthority)
-                .map(SimpleGrantedAuthority::new).collect(toSet());
+        //return getRoles().stream().map(Role::getAuthority)
+        //    .map(SimpleGrantedAuthority::new).collect(toSet());
+        return  null;
     }
 
     @Override
