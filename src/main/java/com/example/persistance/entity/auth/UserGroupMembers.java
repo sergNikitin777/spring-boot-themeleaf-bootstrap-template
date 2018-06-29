@@ -14,7 +14,7 @@ import javax.persistence.*;
 @EqualsAndHashCode
 public class UserGroupMembers {
     @Id
-    @SequenceGenerator(name = "pk_sequence", sequenceName = "groups_id_seq", allocationSize = 1)
+    @SequenceGenerator(name = "pk_sequence", sequenceName = "group_members_id_seq", allocationSize = 1)
     @Column(name = "id", unique = true, nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
