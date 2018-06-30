@@ -15,6 +15,14 @@
     <properties>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
+        <emercom.spring.datasource.url></emercom.spring.datasource.url>
+        <emercom.spring.datasource.username></emercom.spring.datasource.username>
+        <emercom.spring.datasource.password></emercom.spring.datasource.password>
+        <emercom.spring.jpa.generate-ddl>none</emercom.spring.jpa.generate-ddl>
+        <emercom.spring.jpa.show-sql>false</emercom.spring.jpa.show-sql>
+        <emercom.spring.datasource.driverClassName>org.postgresql.Driver</emercom.spring.datasource.driverClassName>
+        <emercom.liquibase.enabled>false</emercom.liquibase.enabled>
+        <emercom.server.port>8899</emercom.server.port>
     </properties>
 
     <dependencies>
@@ -29,6 +37,11 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.liquibase</groupId>
+            <artifactId>liquibase-core</artifactId>
+            <version>3.6.1</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -48,6 +61,8 @@
             <artifactId>spring-boot-devtools</artifactId>
             <optional>true</optional>
         </dependency>
+        
+        
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
@@ -56,6 +71,9 @@
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-test</artifactId>
         </dependency>
+
+
+
         <dependency>
             <groupId>org.webjars</groupId>
             <artifactId>bootstrap</artifactId>
@@ -88,7 +106,12 @@
         <dependency>
             <groupId>org.springframework.data</groupId>
             <artifactId>spring-data-rest-core</artifactId>
-            <version>RELEASE</version>
+            <version>3.0.8.RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.hateoas</groupId>
+            <artifactId>spring-hateoas</artifactId>
+            <version>0.24.0.RELEASE</version>
         </dependency>
 <!--?        <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -102,5 +125,134 @@
             <version>42.1.4</version>
         </dependency>
     </dependencies>
+
+
+    <build>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+                <includes>
+                    <include>application.properties</include>
+                </includes>
+            </resource>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>false</filtering>
+                <includes>
+                    <include>**/**</include>
+                </includes>
+                <excludes>
+                    <exclude>application.properties</exclude>
+                </excludes>
+            </resource>
+        </resources>
+    </build>
+
+    <profiles>
+    
+        <profile>
+            <id>emercom</id>
+            <properties>
+                <emercom.spring.datasource.url>dbc:postgresql://10.59.1.50:5432/emercom</emercom.spring.datasource.url>
+                <emercom.spring.datasource.username>postgres</emercom.spring.datasource.username>
+                <emercom.spring.datasource.password>postgres</emercom.spring.datasource.password>
+                <emercom.spring.datasource.driverClassName>org.postgresql.Driver</emercom.spring.datasource.driverClassName>
+                <emercom.liquibase.enabled>true</emercom.liquibase.enabled>
+            </properties>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+        </profile>
+        
+        <profile>
+            <id>nfc</id>
+            <properties>
+                <emercom.spring.datasource.url>jdbc:postgresql://10.59.1.50:5432/nfc</emercom.spring.datasource.url>
+                <emercom.spring.datasource.username>postgres</emercom.spring.datasource.username>
+                <emercom.spring.datasource.password>postgres</emercom.spring.datasource.password>
+                <emercom.spring.datasource.driverClassName>org.postgresql.Driver</emercom.spring.datasource.driverClassName>
+            </properties>
+        </profile>
+        
+        <profile>
+            <id>h2db</id>
+            <properties>
+                <emercom.spring.datasource.url>jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE</emercom.spring.datasource.url>
+                <emercom.spring.datasource.username>sa</emercom.spring.datasource.username>
+                <emercom.spring.datasource.password>sa</emercom.spring.datasource.password>
+                <emercom.spring.jpa.generate-ddl>none</emercom.spring.jpa.generate-ddl>
+                <emercom.spring.jpa.show-sql>true</emercom.spring.jpa.show-sql>
+                <emercom.spring.datasource.driverClassName>org.h2.Driver</emercom.spring.datasource.driverClassName>
+                <emercom.liquibase.enabled>true</emercom.liquibase.enabled>
+            </properties>
+
+        </profile>
+        
+        <profile>
+            <id>h2dblqb</id>
+            <properties>
+                <emercom.spring.datasource.url>jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE</emercom.spring.datasource.url>
+                <emercom.spring.datasource.username>sa</emercom.spring.datasource.username>
+                <emercom.spring.datasource.password>sa</emercom.spring.datasource.password>
+                <emercom.spring.jpa.generate-ddl>validate</emercom.spring.jpa.generate-ddl>
+                <emercom.spring.datasource.driverClassName>org.h2.Driver</emercom.spring.datasource.driverClassName>
+                <emercom.liquibase.enabled>true</emercom.liquibase.enabled>
+            </properties>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.liquibase</groupId>
+                        <artifactId>liquibase-maven-plugin</artifactId>
+                        <version>3.3.1</version>
+                        <configuration>
+                            <changeLogFile>src/main/resources/db/liquibase-changelog.xml</changeLogFile>
+                            <diffChangeLogFile>src/main/resources/db/liquibase-changelog-update.xml</diffChangeLogFile>
+                            <referenceUrl>hibernate:spring:com.example.persistance.entity?dialect=org.hibernate.dialect.PostgreSQLDialect</referenceUrl>
+                            <driver>org.h2.Driver</driver>
+                            <url>${emercom.spring.datasource.url}</url>
+                            <username>${emercom.spring.datasource.username}</username>
+                            <password>${emercom.spring.datasource.password}</password>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <id>generate-db-diff</id>
+                                <phase>process-test-resources</phase>
+                                <goals>
+                                    <goal>diff</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                        <dependencies>
+                            <dependency>
+                                <groupId>org.liquibase.ext</groupId>
+                                <artifactId>liquibase-hibernate4.2</artifactId>
+                                <version>3.5</version>
+                                <exclusions>
+                                    <exclusion>
+                                        <artifactId>javassist</artifactId>
+                                        <groupId>org.javassist</groupId>
+                                    </exclusion>
+                                </exclusions>
+                            </dependency>
+                            <dependency>
+                                <groupId>org.javassist</groupId>
+                                <artifactId>javassist</artifactId>
+                                <version>3.18.2-GA</version>
+                            </dependency>
+                            <dependency>
+                                <groupId>org.springframework.boot</groupId>
+                                <artifactId>spring-boot-starter-data-jpa</artifactId>
+                                <version>1.5.3.RELEASE</version>
+                            </dependency>
+                        </dependencies>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        
+    </profiles>
+
+
 
 </project>

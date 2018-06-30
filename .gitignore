@@ -98,3 +98,12 @@ crashlytics.properties
 crashlytics-build.properties
 
 /target
+
+
+# eclipse project file
+.settings/
+.classpath
+.project
+
+
+

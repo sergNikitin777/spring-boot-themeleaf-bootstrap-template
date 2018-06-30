@@ -16,13 +16,18 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
+import com.example.EmercomApplication;
 import com.example.persistance.entity.User;
 import com.example.persistance.enums.Role;
+import com.example.web.config.WebMvcConfig;
 import com.example.web.service.UserService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -81,4 +86,5 @@ public class UserControllerTest
         ObjectMapper mapper = new ObjectMapper();
         return mapper.writeValueAsString(user);
     }
+    
 }

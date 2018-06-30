@@ -1,4 +1,3 @@
-/*
 package com.example;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -17,6 +16,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,6 +41,7 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.context.WebApplicationContext;
 
+@Ignore
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 public class DemoApplicationTests
@@ -321,15 +322,11 @@ public class DemoApplicationTests
         ResponseEntity<String> entity = this.testRestTemplate.getForEntity("/info",
                 String.class);
         assertThat(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
-        */
-/*
-         * assertThat(entity.getBody())
-         * .contains("\"artifact\":\"spring-boot-sample-actuator\"");
-         * assertThat(entity.getBody()).contains("\"someKey\":\"someValue\"");
-         * assertThat(entity.getBody()).contains("\"java\":{", "\"source\":\"1.8\"",
-         * "\"target\":\"1.8\""); assertThat(entity.getBody()).contains("\"encoding\":{",
-         * "\"source\":\"UTF-8\"", "\"reporting\":\"UTF-8\"");
-         *//*
+
+        assertThat(entity.getBody()).contains("\"artifact\":\"spring-boot-sample-actuator\"");
+        assertThat(entity.getBody()).contains("\"someKey\":\"someValue\"");
+        assertThat(entity.getBody()).contains("\"java\":{", "\"source\":\"1.8\"", "\"target\":\"1.8\"");
+        assertThat(entity.getBody()).contains("\"encoding\":{", "\"source\":\"UTF-8\"", "\"reporting\":\"UTF-8\"");
 
     }
 
@@ -361,4 +358,4 @@ public class DemoApplicationTests
     }
 
 }
-*/
+

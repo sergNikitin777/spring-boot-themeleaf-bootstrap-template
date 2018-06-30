@@ -1,6 +1,7 @@
 package com.example.web.config;
 
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.data.web.config.EnableSpringDataWebSupport;
@@ -12,7 +13,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 @Configuration
-@EnableJpaRepositories("com.example.persistance.repository")
+//@EnableJpaRepositories("com.example.persistance.repository")// -- эта аннотация нужна?
 @EnableSpringDataWebSupport
 public class WebMvcConfig extends WebMvcConfigurerAdapter
 {
