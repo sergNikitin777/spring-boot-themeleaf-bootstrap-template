@@ -1,4 +1,4 @@
-INSERT INTO adm_user (email,isenabled,islocked,pwd,username) VALUES ('admin@test.com', true, false, '123456', 'admin');
+INSERT INTO adm_user (email,isenabled,islocked,pwd,username) VALUES ('admin@test.com', true, false, 'e10adc3949ba59abbe56e057f20f883e', 'admin'); -- 123456 md5
 INSERT INTO adm_user_role (role,user_id) VALUES ( '0', '1'),( '1', '1'),( '2', '1');
 INSERT INTO device_status (name, description)
 VALUES ('Работает', 'Устройство работает'), ('Регламентные работы', 'Выполняются регламентные работы'),

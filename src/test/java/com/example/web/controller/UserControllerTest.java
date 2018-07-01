@@ -25,8 +25,9 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
 import com.example.EmercomApplication;
+import com.example.persistance.entity.Authority;
+import com.example.persistance.entity.Role;
 import com.example.persistance.entity.User;
-import com.example.persistance.enums.Role;
 import com.example.web.config.WebMvcConfig;
 import com.example.web.service.UserService;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -44,11 +45,14 @@ public class UserControllerTest
     UserService userService;
 
     @Test
-    public void testGetUserList() throws Exception
-    {
+    public void testGetUserList() throws Exception {
+        Authority authority = new Authority();
+        authority.setAuthority(com.example.persistance.enums.Role.ROLE_USER.getAuthority());
+        Role role = new Role();
+        role.setAuthorities(Arrays.asList(authority));
         User user = new User();
         user.setUsername("JUNITUSERNAME");
-        user.setRoles(Arrays.asList(Role.ROLE_USER));
+        user.setRoles(Arrays.asList(role));
         List<User> userList = Arrays.asList(user);
         when(userService.findAllUsers()).thenReturn(userList);
         this.mvc.perform(get("/admin/users").accept(MediaType.APPLICATION_JSON))
@@ -67,13 +71,18 @@ public class UserControllerTest
 
     @Test
     @WithMockUser(username = "admin", roles = { "USER" })
-    public void testCreateNewUser() throws Exception
-    {
+    public void testCreateNewUser() throws Exception {
+        
+        Authority authority = new Authority();
+        authority.setAuthority(com.example.persistance.enums.Role.ROLE_USER.getAuthority());
+        Role role = new Role();
+        role.setAuthorities(Arrays.asList(authority));
+        
         User user = new User();
         user.setUsername("JUNIT");
         user.setEmail("JUNIT@JUNIT.COM");
         user.setPassword("JUNITPASS");
-        user.setRoles(Arrays.asList(Role.ROLE_USER));
+        user.setRoles(Arrays.asList(role));
         this.mvc.perform(post("/admin/users/create").content(this.json(user))
                 .contentType(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(status().isOk())

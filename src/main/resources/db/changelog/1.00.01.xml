@@ -6,9 +6,9 @@
 
 
 
-    <changeSet author="vyudintsev" id="1.00.02" >
+    <changeSet author="vyudintsev" id="1.00.01" >
         <preConditions onFail="MARK_RAN">
-            <sqlCheck expectedResult="0">SELECT COUNT(*) FROM ADM_USER WHERE USERNAME='admin'</sqlCheck>
+            <sqlCheck expectedResult="0">SELECT COUNT(*) FROM ADMUSER WHERE USERNAME='admin'</sqlCheck>
         </preConditions>
         <sqlFile path="data.sql" encoding="UTF-8" relativeToChangelogFile="true"/>
         <comment>sql initial data</comment>

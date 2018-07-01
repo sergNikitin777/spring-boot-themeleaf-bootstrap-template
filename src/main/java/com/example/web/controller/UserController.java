@@ -1,7 +1,13 @@
 package com.example.web.controller;
 
+import java.util.Collection;
+
 import javax.validation.Valid;
 
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -26,10 +32,21 @@ public class UserController
     public String getUserList(Model model)
     {
         log.debug("getUserList");
+        //UserDetails userDetails = getUserDetails(); -- отладка
+        //Collection<? extends GrantedAuthority> authorities = userDetails.getAuthorities();
         model.addAttribute(userService.findAllUsers());
 
         return "users";
     }
+    
+    protected UserDetails getUserDetails() {
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        UserDetails userDetails = null;
+        if (principal instanceof UserDetails) {
+          userDetails = (UserDetails) principal;
+        }
+        return userDetails;
+      }
 
     @GetMapping(value = "/admin/users/create")
     public String createNewUserForm(Model model)
@@ -59,7 +76,7 @@ public class UserController
             return "users-create";
         }
 
-        user.setEnabled(true);
+        user.setIsblocked(0);
         userService.saveUser(user);
 
         return "redirect:/admin/users";
