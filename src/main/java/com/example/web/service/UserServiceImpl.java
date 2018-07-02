@@ -33,7 +33,6 @@ public class UserServiceImpl implements UserService
         return userRepository.findUserByEmail(email);
     }
 
-    @PreAuthorize("hasAuthority('ROLE_Z')") // hasAuthority('ROLE_X') - Forbidden
     @Override
     public List<User> findAllUsers() {
         return userRepository.findAll();

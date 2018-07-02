@@ -100,7 +100,6 @@ public class User extends Persistent implements UserDetails {
                 .map(Role::getAuthorities)
                 .flatMap(ii -> ii.stream())
                 .collect(toSet());
-        autorities = Arrays.asList(new SimpleGrantedAuthority("ROLE_Z"));  // todo
         log.info("{}", autorities);
         return autorities;
     }
@@ -132,5 +131,12 @@ public class User extends Persistent implements UserDetails {
     public boolean isEnabled() {
         return isblocked == 0;
     }
+    
+    
+    @Override
+    public String toString() {
+    	return getUsername();
+    }
+
 
 }

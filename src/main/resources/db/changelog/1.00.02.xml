@@ -5,11 +5,11 @@
         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-2.0.xsd">
 
     <changeSet id="1.00.02-1" author="vyudintsev">
-        <preConditions onFail="MARK_RAN">
+<!--         <preConditions onFail="MARK_RAN">
             <sqlCheck expectedResult="0">
                 SELECT COUNT(*) FROM ADMUSER WHERE EMAIL IN ('user1@test.com')
             </sqlCheck>
-        </preConditions>
+        </preConditions> -->
         <sql>
             INSERT INTO ADMUSER (EMAIL,USERNAME,USERPASSWORD)
             VALUES ('user1@test.com', 'user1', '24c9e15e52afc47c225b757e7bee1f9d');  <!-- md5 encode -->
@@ -17,11 +17,11 @@
     </changeSet>
 
     <changeSet id="1.00.02-2" author="vyudintsev">
-        <preConditions onFail="MARK_RAN">
+<!--         <preConditions onFail="MARK_RAN">
             <sqlCheck expectedResult="0">
                 SELECT COUNT(*) FROM ADMROLE WHERE ROLECODE IN ('АДМИНИСТРАТОР (РУКОВОДИТЕЛЬ ТЕХНИЧЕСКОЙ СЛУЖБЫ ИОГВ)')
             </sqlCheck>
-        </preConditions>
+        </preConditions> -->
         <sql>
             INSERT INTO ADMROLE (ROLENAME,ROLECODE)
             VALUES ('Администратор (руководитель технической службы ИОГВ)',
@@ -31,17 +31,17 @@
 
 
     <changeSet id="1.00.02-3" author="vyudintsev">
-        <preConditions onFail="MARK_RAN">
+<!--         <preConditions onFail="MARK_RAN">
             <sqlCheck expectedResult="0">
                 SELECT COUNT(*) 
                 FROM ADMUSER user
                 JOIN ADMROLE role ON role.ROLECODE IN ('АДМИНИСТРАТОР (РУКОВОДИТЕЛЬ ТЕХНИЧЕСКОЙ СЛУЖБЫ ИОГВ)')
                 WHERE user.EMAIL IN ('user1@test.com')
             </sqlCheck>
-        </preConditions>
+        </preConditions> -->
         <sql>
             INSERT INTO ADMUSERROLE (users_ADMUSERID, roles_ADMROLEID)
-            SELECT user.ID, role.ID
+            SELECT user.ADMUSERID, role.ADMROLEID
             FROM ADMUSER user
             JOIN ADMROLE role ON role.ROLECODE IN ('АДМИНИСТРАТОР (РУКОВОДИТЕЛЬ ТЕХНИЧЕСКОЙ СЛУЖБЫ ИОГВ)')
             WHERE user.EMAIL IN ('user1@test.com')
@@ -49,31 +49,31 @@
     </changeSet>
 
     <changeSet id="1.00.02-4" author="vyudintsev">
-        <preConditions onFail="MARK_RAN">
+<!--         <preConditions onFail="MARK_RAN">
             <sqlCheck expectedResult="0">
-                SELECT COUNT(*) FROM AUTHORITY WHERE AUTHORITYCODE IN ('УПРАВЛЕНИЕПОЛЬЗОВАТЕЛЯМИ_ПОЛЬЗОВАТЕЛИ_ДОБАВИТЬ')
+                SELECT COUNT(*) FROM AUTHORITY WHERE AUTHORITYCODE IN ('ROLE_R_управлениепользователями_пользователи_добавить')
             </sqlCheck>
-        </preConditions>
+        </preConditions> -->
         <sql>
             INSERT INTO AUTHORITY (AUTHORITYCODE)
-            VALUES ('УПРАВЛЕНИЕПОЛЬЗОВАТЕЛЯМИ_ПОЛЬЗОВАТЕЛИ_ДОБАВИТЬ');
+            VALUES ('ROLE_R_управлениепользователями_пользователи_добавить');
         </sql>
     </changeSet>
 
     <changeSet id="1.00.02-5" author="vyudintsev">
-        <preConditions onFail="MARK_RAN">
+        <!-- <preConditions onFail="MARK_RAN">
             <sqlCheck expectedResult="0">
                 SELECT COUNT(*) 
-                FROM ADMROLE role
-                JOIN AUTHORITY auth ON auth.AUTHORITYCODE IN ('УПРАВЛЕНИЕПОЛЬЗОВАТЕЛЯМИ_ПОЛЬЗОВАТЕЛИ_ДОБАВИТЬ')
-                WHERE role.ROLECODE IN ('АДМИНИСТРАТОР (РУКОВОДИТЕЛЬ ТЕХНИЧЕСКОЙ СЛУЖБЫ ИОГВ)')
+                FROM ADMROLE_AUTHORITY adm_auth
+                JOIN AUTHORITY auth ON auth.AUTHORITYCODE IN ('ROLE_R_управлениепользователями_пользователи_добавить')
+                WHERE adm_auth.
             </sqlCheck>
-        </preConditions>
+        </preConditions> -->
         <sql>
-            INSERT INTO ADMUSERROLE (roles_ADMROLEID, authorities_AUTHORITYID)
-            SELECT role.ID, auth.ID
+            INSERT INTO ADMROLE_AUTHORITY (roles_ADMROLEID, authorities_AUTHORITYID)
+            SELECT role.ADMROLEID, auth.AUTHORITYID
             FROM ADMROLE role
-            JOIN AUTHORITY auth ON auth.AUTHORITYCODE IN ('УПРАВЛЕНИЕПОЛЬЗОВАТЕЛЯМИ_ПОЛЬЗОВАТЕЛИ_ДОБАВИТЬ')
+            JOIN AUTHORITY auth ON auth.AUTHORITYCODE IN ('ROLE_R_управлениепользователями_пользователи_добавить')
             WHERE role.ROLECODE IN ('АДМИНИСТРАТОР (РУКОВОДИТЕЛЬ ТЕХНИЧЕСКОЙ СЛУЖБЫ ИОГВ)')
         </sql>
     </changeSet>

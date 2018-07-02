@@ -41,13 +41,20 @@ public class Authority extends Persistent implements GrantedAuthority {
     private String name;
     
     @ManyToMany(mappedBy="authorities")
-    @ApiModelProperty(hidden=true)
     private Collection<Role> roles;
 
     public Authority() {
         super();
     }
     
+    @Override
+    public String getAuthority() {
+    	return authority;
+    }
     
+    @Override
+    public String toString() {
+    	return getAuthority();
+    }
 
 }

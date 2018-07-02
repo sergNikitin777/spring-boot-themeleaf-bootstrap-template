@@ -40,7 +40,6 @@ public class Role extends Persistent {
     private String name;
     
     @ManyToMany(mappedBy="roles")
-    @ApiModelProperty(hidden=true)
     private Collection<User> users;
     
     
@@ -51,6 +50,7 @@ public class Role extends Persistent {
         mappedBy="roles",
         fetch = FetchType.EAGER
     )
+    @JoinTable(name = "ADMROLE_AUTHORITY")
     @Column(name = "AUTHORITY", nullable = false)
     @ApiModelProperty(hidden=true)
     private Collection<Authority> authorities;
@@ -58,6 +58,11 @@ public class Role extends Persistent {
     
     public Role() {
         super();
+    }
+    
+    @Override
+    public String toString() {
+    	return getRole();
     }
 
 }
