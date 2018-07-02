@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.example.persistance.entity.auth.User;
+import com.example.persistance.entity.auth.Users;
 import com.example.persistance.repository.UserRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -19,31 +19,31 @@ public class UserServiceImpl implements UserService
     private final UserRepository userRepository;
 
     @Override
-    public User findUserByUsername(String username)
+    public Users findUserByUsername(String username)
     {
         return userRepository.findUserByUsername(username);
     }
 
     @Override
-    public User findUserByEmail(String email)
+    public Users findUserByEmail(String email)
     {
         return userRepository.findUserByEmail(email);
     }
 
     @Override
-    public List<User> findAllUsers()
+    public List<Users> findAllUsers()
     {
         return userRepository.findAll();
     }
 
     @Override
-    public User saveUser(User user)
+    public Users saveUser(Users user)
     {
         return userRepository.save(user);
     }
 
     @Override
-    public User findUserByUsernameAndPassword(String username, String givenPassword)
+    public Users findUserByUsernameAndPassword(String username, String givenPassword)
     {
         return userRepository.findUserByUsernameAndPassword(username, givenPassword);
     }

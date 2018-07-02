@@ -2,19 +2,19 @@ package com.example.web.service;
 
 import java.util.List;
 
-import com.example.persistance.entity.auth.User;
+import com.example.persistance.entity.auth.Users;
 
 public interface UserService
 {
 
-    User findUserByUsername(String username);
+    Users findUserByUsername(String username);
 
-    User findUserByEmail(String email);
+    Users findUserByEmail(String email);
 
-    List<User> findAllUsers();
+    List<Users> findAllUsers();
 
-    User saveUser(User user);
+    Users saveUser(Users user);
 
-    User findUserByUsernameAndPassword(String username, String givenPassword);
+    Users findUserByUsernameAndPassword(String username, String givenPassword);
 
 }

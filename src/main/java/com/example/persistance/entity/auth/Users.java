@@ -1,56 +1,52 @@
 package com.example.persistance.entity.auth;
 
-import static java.util.stream.Collectors.toSet;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
 
 import javax.persistence.*;
-import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
-
-import com.example.persistance.entity.Persistent;
 import com.example.persistance.entity.Task;
-import org.hibernate.validator.constraints.NotEmpty;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import com.example.persistance.enums.Role;
+
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 @Entity
-@EqualsAndHashCode(callSuper = true)
 @Data
-@Table(name = "ADM_USER", uniqueConstraints = { @UniqueConstraint(columnNames = "EMAIL"),
-        @UniqueConstraint(columnNames = "USERNAME") })
-
-public class User extends Persistent implements UserDetails
+@Getter
+@Setter
+@EqualsAndHashCode
+@Table(name="users")
+public class Users implements UserDetails
 {
 
     private static final long serialVersionUID = -6546622267646062104L;
 
-    @Size(min = 6, max = 100)
-    @Column(name = "EMAIL", unique = true, nullable = false, length = 100)
+    @Id
+    @SequenceGenerator(name = "pk_sequence", sequenceName = "user_id_seq", allocationSize = 1)
+    @Column(name = "id", unique = true, nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
+
+    @Column
     private String email;
 
-    @Size(min = 5, max = 50)
-    @Pattern(regexp = "^[a-z0-9]*$", message = "Only small letters and numbers allowed")
-    @Column(name = "USERNAME", unique = true, nullable = false, length = 50)
+    @Column
     private String username;
 
-    @Size(min = 6, max = 50)
-    @Column(name = "PWD", nullable = false, length = 50)
+    @Column
     private String password;
 
-    @Column(name = "isENABLED", nullable = false)
+    @Column
     private boolean enabled;
 
-    @Column(name = "isLOCKED", nullable = false)
+    @Column
     private boolean locked = false;
 
 //    @NotEmpty
@@ -62,7 +58,7 @@ public class User extends Persistent implements UserDetails
     @OneToMany
     private List<Task> taskList = new ArrayList<>();
 
-    public User()
+    public Users()
     {
         super();
     }
@@ -74,6 +70,7 @@ public class User extends Persistent implements UserDetails
         //    .map(SimpleGrantedAuthority::new).collect(toSet());
         return  null;
     }
+
 
     @Override
     public boolean isAccountNonExpired()

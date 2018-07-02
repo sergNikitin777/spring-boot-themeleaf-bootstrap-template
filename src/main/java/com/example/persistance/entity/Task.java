@@ -1,6 +1,6 @@
 package com.example.persistance.entity;
 
-import com.example.persistance.entity.auth.User;
+import com.example.persistance.entity.auth.Users;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -26,7 +26,8 @@ public class Task {
     private Integer id;
 
     @ManyToOne
-    private User user;
+    private Users user;
+
     @OneToMany
     private List<OperationGroup> operationGroupList = new ArrayList<>();
     @Column

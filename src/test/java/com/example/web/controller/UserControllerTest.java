@@ -21,8 +21,7 @@ import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
-import com.example.persistance.entity.auth.User;
-import com.example.persistance.enums.Role;
+import com.example.persistance.entity.auth.Users;
 import com.example.web.service.UserService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -41,10 +40,10 @@ public class UserControllerTest
     @Test
     public void testGetUserList() throws Exception
     {
-        User user = new User();
+        Users user = new Users();
         user.setUsername("JUNITUSERNAME");
         //user.setRoles(Arrays.asList(Role.ROLE_USER));
-        List<User> userList = Arrays.asList(user);
+        List<Users> userList = Arrays.asList(user);
         when(userService.findAllUsers()).thenReturn(userList);
         this.mvc.perform(get("/admin/users").accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk()).andExpect(view().name("users"))
@@ -64,7 +63,7 @@ public class UserControllerTest
     @WithMockUser(username = "admin", roles = { "USER" })
     public void testCreateNewUser() throws Exception
     {
-        User user = new User();
+        Users user = new Users();
         user.setUsername("JUNIT");
         user.setEmail("JUNIT@JUNIT.COM");
         user.setPassword("JUNITPASS");
@@ -76,7 +75,7 @@ public class UserControllerTest
                 .andExpect(content().contentType("text/html;charset=UTF-8"));
     }
 
-    private String json(User user) throws JsonProcessingException
+    private String json(Users user) throws JsonProcessingException
     {
         ObjectMapper mapper = new ObjectMapper();
         return mapper.writeValueAsString(user);

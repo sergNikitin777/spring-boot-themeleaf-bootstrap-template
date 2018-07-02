@@ -20,8 +20,8 @@ public class UserGroupMembers {
     private Integer id;
 
     @Column
-    private User user;
+    private Users userMember;
 
-    @Column
+    @ManyToOne(fetch = FetchType.EAGER)
     private UserGroup group;
 }

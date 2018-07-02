@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.example.persistance.entity.auth.User;
+import com.example.persistance.entity.auth.Users;
 import com.example.web.service.UserService;
 
 import lombok.RequiredArgsConstructor;
@@ -34,12 +34,12 @@ public class UserController
     @GetMapping(value = "/admin/users/create")
     public String createNewUserForm(Model model)
     {
-        model.addAttribute("user", new User());
+        model.addAttribute("user", new Users());
         return "users-create";
     }
 
     @PostMapping(value = "/admin/users/create")
-    public String createNewUser(@Valid User user, BindingResult bindingResult)
+    public String createNewUser(@Valid Users user, BindingResult bindingResult)
     {
         log.debug("createNewUser, username={}, email={}, errorCount={}",
                 user.getUsername(), user.getEmail(), bindingResult.getErrorCount());

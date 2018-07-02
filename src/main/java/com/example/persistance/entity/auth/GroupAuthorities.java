@@ -20,7 +20,7 @@ public class GroupAuthorities {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column
+    @ManyToOne(fetch = FetchType.EAGER)
     private UserGroup group;
 
     @Column(name = "role", nullable = false)
