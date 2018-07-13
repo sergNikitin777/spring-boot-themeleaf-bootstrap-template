@@ -2,8 +2,6 @@ package com.example.web.service;
 
 
 import com.example.persistance.entity.Contract;
-import com.example.persistance.entity.Device;
-import com.example.web.pojo.DevicePojo;
 
 import java.util.List;
 
@@ -14,7 +12,7 @@ public interface ContractService {
 
     Integer addContract(Contract contract);
 
-    void updateContract(Contract contract);
+    Contract updateContract(Contract contract);
 
     void deleteContract(Integer id);
 }

@@ -45,8 +45,10 @@ public class Device {
 
     @Column
     private String name;
+
     @ManyToOne(fetch = FetchType.EAGER)
     private Address address;
+
     @JsonBackReference
     @ManyToOne(fetch = FetchType.LAZY)
     private DeviceGroup deviceGroup;

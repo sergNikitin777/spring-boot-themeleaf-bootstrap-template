@@ -8,7 +8,6 @@ import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
-import java.time.LocalDate;
 import java.util.Date;
 
 
@@ -29,7 +28,7 @@ public class Contract {
     private String name;
 
     @Column
-    private String status;
+    private Integer status;
 
     @Column
     @DateTimeFormat(pattern = "yyyy-MM-dd")
@@ -38,4 +37,7 @@ public class Contract {
     @Column
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date closeDate;
+
+    @ManyToOne(fetch=FetchType.LAZY, cascade={CascadeType.PERSIST, CascadeType.MERGE})
+    private Customer customer;
 }

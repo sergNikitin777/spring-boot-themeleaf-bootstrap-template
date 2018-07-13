@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -45,7 +46,18 @@ public class ContractController {
         return new ResponseEntity<>((Integer)null, HttpStatus.UNPROCESSABLE_ENTITY);
     }
 
-    @RequestMapping(value = "/admin/contract/delete/{id}", method = RequestMethod.GET)
+    @RequestMapping(method=RequestMethod.PUT, value="/admin/contract/update")
+    public ResponseEntity  updateContract(@RequestBody Contract contract) {
+        log.debug("updateContract");
+        try {
+            return new ResponseEntity<>(contractService.updateContract(contract), HttpStatus.OK);
+        } catch (Exception e) {
+            log.error(e.getMessage(), e);
+        }
+        return new ResponseEntity<>((Integer)null, HttpStatus.UNPROCESSABLE_ENTITY);
+    }
+
+    @RequestMapping(value = "/admin/contract/{id}", method = RequestMethod.DELETE)
     public ResponseEntity deleteContract(@PathVariable("id") Integer id) {
         log.debug("deleteContract");
         try {
