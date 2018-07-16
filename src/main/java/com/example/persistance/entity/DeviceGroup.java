@@ -25,6 +25,7 @@ public class DeviceGroup {
     private String name;
     @Column
     private String description;
+
     @OneToMany(mappedBy = "deviceGroup")
     private List<Device> deviceList = new ArrayList<>();
 

@@ -72,12 +72,12 @@ public class UserControllerTest
     @Test
     @WithMockUser(username = "admin", roles = { "USER" })
     public void testCreateNewUser() throws Exception {
-        
+
         Authority authority = new Authority();
         authority.setAuthority(com.example.persistance.enums.Role.ROLE_USER.getAuthority());
         Role role = new Role();
         role.setAuthorities(Arrays.asList(authority));
-        
+
         User user = new User();
         user.setUsername("JUNIT");
         user.setEmail("JUNIT@JUNIT.COM");
@@ -95,5 +95,5 @@ public class UserControllerTest
         ObjectMapper mapper = new ObjectMapper();
         return mapper.writeValueAsString(user);
     }
-    
+
 }

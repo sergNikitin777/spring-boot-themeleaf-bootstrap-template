@@ -26,8 +26,8 @@ import lombok.RequiredArgsConstructor;
 @Order(SecurityProperties.ACCESS_OVERRIDE_ORDER)
 @RequiredArgsConstructor
 //@EnableWebSecurity
-@EnableGlobalMethodSecurity(prePostEnabled = true, 
-securedEnabled = true, 
+@EnableGlobalMethodSecurity(prePostEnabled = true,
+securedEnabled = true,
 jsr250Enabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter
 {
@@ -56,9 +56,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
                     .loginPage("/login")
                     .usernameParameter("j_username")
                     .passwordParameter("j_password")
-                    .defaultSuccessUrl("/home")
-                    .failureUrl("/login?error")
-                    .permitAll()
+                    .defaultSuccessUrl("/index")
+                    .failureUrl("/login?error").permitAll()
             .and()
                 .logout()
                     .logoutUrl("/logout")
@@ -95,7 +94,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
         provider.setPasswordEncoder(new Md5PasswordEncoder());
         auth.authenticationProvider(provider);
         //auth.userDetailsService(customUserDetailsService);
-        
+
     }
 
     @Override

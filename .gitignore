@@ -99,6 +99,8 @@ crashlytics-build.properties
 
 /target
 
+/public
+
 
 # eclipse project file
 .settings/

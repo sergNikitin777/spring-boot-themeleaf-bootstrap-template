@@ -2,14 +2,14 @@ package com.example.persistance.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.example.persistance.entity.User;
+import com.example.persistance.entity.auth.Users;
 
-public interface UserRepository extends JpaRepository<User, Integer>
+public interface UserRepository extends JpaRepository<Users, Integer>
 {
-    User findUserByUsername(String username);
+    Users findUserByUsername(String username);
     
-    User findUserByEmail(String email);
+    Users findUserByEmail(String email);
 
-    User findUserByUsernameAndPassword(String username, String givenPassword);
+    Users findUserByUsernameAndPassword(String username, String givenPassword);
     
 }
