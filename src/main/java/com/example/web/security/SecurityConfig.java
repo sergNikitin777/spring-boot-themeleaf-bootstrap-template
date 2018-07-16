@@ -85,7 +85,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
      * password md5 encode(например, user1->24c9e15e52afc47c225b757e7bee1f9d)
      */
     @Override
-    public void configure(AuthenticationManagerBuilder auth) throws Exception {
+    public void configure(AuthenticationManagerBuilder auth) {
         ReflectionSaltSource rss = new ReflectionSaltSource();
         rss.setUserPropertyToUse("salt");
         DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
