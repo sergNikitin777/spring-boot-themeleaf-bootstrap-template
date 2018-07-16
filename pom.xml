@@ -23,6 +23,7 @@
         <emercom.spring.datasource.driverClassName>org.postgresql.Driver</emercom.spring.datasource.driverClassName>
         <emercom.liquibase.enabled>false</emercom.liquibase.enabled>
         <emercom.server.port>8899</emercom.server.port>
+        <emercom.server.contextPath>/emercom</emercom.server.contextPath>
     </properties>
 
     <dependencies>
