@@ -41,7 +41,7 @@
         <dependency>
             <groupId>org.liquibase</groupId>
             <artifactId>liquibase-core</artifactId>
-            <version>3.6.1</version>
+            <version>3.6.2</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -122,7 +122,7 @@
         <dependency>
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
-            <version>42.1.4</version>
+            <version>42.2.4</version>
         </dependency>
     </dependencies>
 
@@ -154,7 +154,7 @@
         <profile>
             <id>emercom</id>
             <properties>
-                <emercom.spring.datasource.url>dbc:postgresql://10.59.1.50:5432/emercom</emercom.spring.datasource.url>
+                <emercom.spring.datasource.url>jdbc:postgresql://10.59.1.50:5432/emercom</emercom.spring.datasource.url>
                 <emercom.spring.datasource.username>postgres</emercom.spring.datasource.username>
                 <emercom.spring.datasource.password>postgres</emercom.spring.datasource.password>
                 <emercom.spring.datasource.driverClassName>org.postgresql.Driver</emercom.spring.datasource.driverClassName>
@@ -199,8 +199,8 @@
                 <emercom.spring.datasource.url>jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE</emercom.spring.datasource.url>
                 <emercom.spring.datasource.username>sa</emercom.spring.datasource.username>
                 <emercom.spring.datasource.password>sa</emercom.spring.datasource.password>
-                <emercom.spring.jpa.generate-ddl>validate</emercom.spring.jpa.generate-ddl>
                 <emercom.spring.datasource.driverClassName>org.h2.Driver</emercom.spring.datasource.driverClassName>
+                <emercom.spring.jpa.generate-ddl>validate</emercom.spring.jpa.generate-ddl>
                 <emercom.liquibase.enabled>true</emercom.liquibase.enabled>
             </properties>
             <build>
@@ -223,6 +223,7 @@
                                 <id>generate-db-diff</id>
                                 <phase>process-test-resources</phase>
                                 <goals>
+                                    <goal>clearCheckSums</goal>
                                     <goal>diff</goal>
                                 </goals>
                             </execution>

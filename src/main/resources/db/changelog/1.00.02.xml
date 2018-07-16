@@ -30,7 +30,25 @@
     </changeSet>
 
 
-    <changeSet id="1.00.02-3" author="vyudintsev">
+    <changeSet id="1.00.02-3" author="vyudintsev" dbms="postgresql">
+<!--         <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">
+                SELECT COUNT(*) 
+                FROM ADMUSER user
+                JOIN ADMROLE role ON role.ROLECODE IN ('АДМИНИСТРАТОР (РУКОВОДИТЕЛЬ ТЕХНИЧЕСКОЙ СЛУЖБЫ ИОГВ)')
+                WHERE user.EMAIL IN ('user1@test.com')
+            </sqlCheck>
+        </preConditions> -->
+        <sql>
+            INSERT INTO ADMUSERROLE ("users_ADMUSERID", "roles_ADMROLEID")
+            SELECT usr.ADMUSERID, role.ADMROLEID
+            FROM ADMUSER usr
+            JOIN ADMROLE role ON role.ROLECODE IN ('АДМИНИСТРАТОР (РУКОВОДИТЕЛЬ ТЕХНИЧЕСКОЙ СЛУЖБЫ ИОГВ)')
+            WHERE usr.EMAIL IN ('user1@test.com')
+        </sql>
+    </changeSet>
+    
+    <changeSet id="1.00.02-3" author="vyudintsev" dbms="h2">
 <!--         <preConditions onFail="MARK_RAN">
             <sqlCheck expectedResult="0">
                 SELECT COUNT(*) 
@@ -41,10 +59,10 @@
         </preConditions> -->
         <sql>
             INSERT INTO ADMUSERROLE (users_ADMUSERID, roles_ADMROLEID)
-            SELECT user.ADMUSERID, role.ADMROLEID
-            FROM ADMUSER user
+            SELECT usr.ADMUSERID, role.ADMROLEID
+            FROM ADMUSER usr
             JOIN ADMROLE role ON role.ROLECODE IN ('АДМИНИСТРАТОР (РУКОВОДИТЕЛЬ ТЕХНИЧЕСКОЙ СЛУЖБЫ ИОГВ)')
-            WHERE user.EMAIL IN ('user1@test.com')
+            WHERE usr.EMAIL IN ('user1@test.com')
         </sql>
     </changeSet>
 
@@ -55,12 +73,30 @@
             </sqlCheck>
         </preConditions> -->
         <sql>
-            INSERT INTO AUTHORITY (AUTHORITYCODE)
-            VALUES ('ROLE_R_управлениепользователями_пользователи_добавить');
+            INSERT INTO AUTHORITY (AUTHORITYCODE, AUTHORITYNAME)
+            VALUES ('ROLE_R_управлениепользователями_пользователи_добавить', 'управлениепользователями_пользователи_добавить');
         </sql>
     </changeSet>
 
-    <changeSet id="1.00.02-5" author="vyudintsev">
+    <changeSet id="1.00.02-5" author="vyudintsev"  dbms="postgresql">
+        <!-- <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">
+                SELECT COUNT(*) 
+                FROM ADMROLE_AUTHORITY adm_auth
+                JOIN AUTHORITY auth ON auth.AUTHORITYCODE IN ('ROLE_R_управлениепользователями_пользователи_добавить')
+                WHERE adm_auth.
+            </sqlCheck>
+        </preConditions> -->
+        <sql>
+            INSERT INTO ADMROLE_AUTHORITY ("roles_ADMROLEID", "authorities_AUTHORITYID")
+            SELECT role.ADMROLEID, ath.AUTHORITYID
+            FROM ADMROLE role
+            JOIN AUTHORITY ath ON ath.AUTHORITYCODE IN ('ROLE_R_управлениепользователями_пользователи_добавить')
+            WHERE role.ROLECODE IN ('АДМИНИСТРАТОР (РУКОВОДИТЕЛЬ ТЕХНИЧЕСКОЙ СЛУЖБЫ ИОГВ)')
+        </sql>
+    </changeSet>
+    
+    <changeSet id="1.00.02-5" author="vyudintsev" dbms="h2">
         <!-- <preConditions onFail="MARK_RAN">
             <sqlCheck expectedResult="0">
                 SELECT COUNT(*) 
@@ -71,9 +107,9 @@
         </preConditions> -->
         <sql>
             INSERT INTO ADMROLE_AUTHORITY (roles_ADMROLEID, authorities_AUTHORITYID)
-            SELECT role.ADMROLEID, auth.AUTHORITYID
+            SELECT role.ADMROLEID, ath.AUTHORITYID
             FROM ADMROLE role
-            JOIN AUTHORITY auth ON auth.AUTHORITYCODE IN ('ROLE_R_управлениепользователями_пользователи_добавить')
+            JOIN AUTHORITY ath ON ath.AUTHORITYCODE IN ('ROLE_R_управлениепользователями_пользователи_добавить')
             WHERE role.ROLECODE IN ('АДМИНИСТРАТОР (РУКОВОДИТЕЛЬ ТЕХНИЧЕСКОЙ СЛУЖБЫ ИОГВ)')
         </sql>
     </changeSet>

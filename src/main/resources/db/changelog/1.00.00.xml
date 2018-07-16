@@ -4,7 +4,7 @@
     xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-2.0.xsd">
 
-    <changeSet author="vyudintsev (generated)" id="1530365635732-1">
+    <changeSet failOnError="false"  author="vyudintsev (generated)" id="1531737356077-1">
         <createTable tableName="ADMROLE">
             <column autoIncrement="true" name="ADMROLEID" type="INT4">
                 <constraints primaryKey="true" primaryKeyName="ADMROLEPK"/>
@@ -12,72 +12,62 @@
             <column name="created" type="timestamp"/>
             <column name="updated" type="timestamp"/>
             <column name="ROLENAME" type="VARCHAR(100)">
-                <constraints nullable="false"/>
+                
             </column>
             <column name="ROLECODE" type="VARCHAR(100)">
-                <constraints nullable="false"/>
+                
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="vyudintsev (generated)" id="1530365635732-2">
+    <changeSet failOnError="false"  author="vyudintsev (generated)" id="1531737356077-2">
         <createTable tableName="ADMROLE_AUTHORITY">
             <column name="roles_ADMROLEID" type="INT4">
-                <constraints nullable="false"/>
+                
             </column>
             <column name="authorities_AUTHORITYID" type="INT4">
-                <constraints nullable="false"/>
+                
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="vyudintsev (generated)" id="1530365635732-3">
+    <changeSet failOnError="false"  author="vyudintsev (generated)" id="1531737356077-3">
         <createTable tableName="ADMUSER">
             <column autoIncrement="true" name="ADMUSERID" type="INT4">
                 <constraints primaryKey="true" primaryKeyName="ADMUSERPK"/>
             </column>
             <column name="created" type="timestamp"/>
             <column name="updated" type="timestamp"/>
-            <column name="DATEBLOCK" type="timestamp" />
-            <column name="DATECREATE" type="timestamp" defaultValueComputed="CURRENT_TIMESTAMP">
-                <constraints nullable="false"/>
+            <column name="DATEBLOCK" type="timestamp"/>
+            <column name="DATECREATE" type="timestamp">
+                
             </column>
             <column name="EMAIL" type="VARCHAR(100)">
-                <constraints nullable="false"/>
+                
             </column>
-            <column name="ESP" type="VARCHAR(100)" defaultValue=''>
-                <constraints nullable="false"/>
+            <column name="ESP" type="VARCHAR(100)">
+                
             </column>
-            <column name="ISBLOCKED" type="INT4" defaultValue='0'>
-                <constraints nullable="false"/>
-            </column>
-            <column name="USERNAME" type="VARCHAR(50)">
-                <constraints nullable="false"/>
+            <column name="ISBLOCKED" type="INT4">
+                
             </column>
             <column name="USERPASSWORD" type="VARCHAR(50)">
-                <constraints nullable="false"/>
+                
+            </column>
+            <column name="USERNAME" type="VARCHAR(50)">
+                
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="vyudintsev (generated)" id="1530365635732-4">
+    <changeSet failOnError="false"  author="vyudintsev (generated)" id="1531737356077-4">
         <createTable tableName="ADMUSERROLE">
             <column name="users_ADMUSERID" type="INT4">
-                <constraints nullable="false"/>
+                
             </column>
             <column name="roles_ADMROLEID" type="INT4">
-                <constraints nullable="false"/>
+                
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="vyudintsev (generated)" id="1530365635732-5">
-        <createTable tableName="ADMUSER_Task">
-            <column name="ADMUSER_ADMUSERID" type="INT4">
-                <constraints nullable="false"/>
-            </column>
-            <column name="taskList_id" type="INT4">
-                <constraints nullable="false"/>
-            </column>
-        </createTable>
-    </changeSet>
-    <changeSet author="vyudintsev (generated)" id="1530365635732-6">
+    <changeSet failOnError="false"  author="vyudintsev (generated)" id="1531737356077-5">
         <createTable tableName="AUTHORITY">
             <column autoIncrement="true" name="AUTHORITYID" type="INT4">
                 <constraints primaryKey="true" primaryKeyName="AUTHORITYPK"/>
@@ -85,14 +75,14 @@
             <column name="created" type="timestamp"/>
             <column name="updated" type="timestamp"/>
             <column name="AUTHORITYCODE" type="VARCHAR(100)">
-                <constraints nullable="false"/>
+                
             </column>
-            <column name="AUTHORITYNAME" type="VARCHAR(100)"  defaultValueComputed="">
-                <constraints nullable="false"/>
+            <column name="AUTHORITYNAME" type="VARCHAR(100)">
+                
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="vyudintsev (generated)" id="1530365635732-7">
+    <changeSet failOnError="false"  author="vyudintsev (generated)" id="1531737356077-6">
         <createTable tableName="Address">
             <column autoIncrement="true" name="id" type="INT4">
                 <constraints primaryKey="true" primaryKeyName="AddressPK"/>
@@ -108,7 +98,28 @@
             <column name="parent_id" type="INT4"/>
         </createTable>
     </changeSet>
-    <changeSet author="vyudintsev (generated)" id="1530365635732-8">
+    <changeSet failOnError="false"  author="vyudintsev (generated)" id="1531737356077-7">
+        <createTable tableName="Contract">
+            <column autoIncrement="true" name="id" type="INT4">
+                <constraints primaryKey="true" primaryKeyName="ContractPK"/>
+            </column>
+            <column name="closeDate" type="timestamp"/>
+            <column name="creationDate" type="timestamp"/>
+            <column name="name" type="VARCHAR(255)"/>
+            <column name="status" type="INT4"/>
+            <column name="customer_id" type="INT4"/>
+        </createTable>
+    </changeSet>
+    <changeSet failOnError="false"  author="vyudintsev (generated)" id="1531737356077-8">
+        <createTable tableName="Customer">
+            <column autoIncrement="true" name="id" type="INT4">
+                <constraints primaryKey="true" primaryKeyName="CustomerPK"/>
+            </column>
+            <column name="name" type="VARCHAR(255)"/>
+            <column name="phone" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet failOnError="false"  author="vyudintsev (generated)" id="1531737356077-9">
         <createTable tableName="Device">
             <column autoIncrement="true" name="id" type="INT4">
                 <constraints primaryKey="true" primaryKeyName="DevicePK"/>
@@ -124,7 +135,7 @@
             <column name="status_id" type="INT4"/>
         </createTable>
     </changeSet>
-    <changeSet author="vyudintsev (generated)" id="1530365635732-9">
+    <changeSet failOnError="false"  author="vyudintsev (generated)" id="1531737356077-10">
         <createTable tableName="DeviceGroup">
             <column autoIncrement="true" name="id" type="INT4">
                 <constraints primaryKey="true" primaryKeyName="DeviceGroupPK"/>
@@ -133,7 +144,7 @@
             <column name="name" type="VARCHAR(255)"/>
         </createTable>
     </changeSet>
-    <changeSet author="vyudintsev (generated)" id="1530365635732-10">
+    <changeSet failOnError="false"  author="vyudintsev (generated)" id="1531737356077-11">
         <createTable tableName="DeviceStatus">
             <column autoIncrement="true" name="id" type="INT4">
                 <constraints primaryKey="true" primaryKeyName="DeviceStatusPK"/>
@@ -142,7 +153,7 @@
             <column name="name" type="VARCHAR(255)"/>
         </createTable>
     </changeSet>
-    <changeSet author="vyudintsev (generated)" id="1530365635732-11">
+    <changeSet failOnError="false"  author="vyudintsev (generated)" id="1531737356077-12">
         <createTable tableName="Employee">
             <column autoIncrement="true" name="id" type="INT4">
                 <constraints primaryKey="true" primaryKeyName="EmployeePK"/>
@@ -153,7 +164,18 @@
             <column name="surname" type="VARCHAR(255)"/>
         </createTable>
     </changeSet>
-    <changeSet author="vyudintsev (generated)" id="1530365635732-12">
+    <changeSet failOnError="false"  author="vyudintsev (generated)" id="1531737356077-13">
+        <createTable tableName="GroupAuthorities">
+            <column autoIncrement="true" name="id" type="INT4">
+                <constraints primaryKey="true" primaryKeyName="GroupAuthoritiesPK"/>
+            </column>
+            <column name="role" type="VARCHAR(255)">
+                
+            </column>
+            <column name="group_id" type="INT4"/>
+        </createTable>
+    </changeSet>
+    <changeSet failOnError="false"  author="vyudintsev (generated)" id="1531737356077-14">
         <createTable tableName="NFCLabel">
             <column autoIncrement="true" name="id" type="INT4">
                 <constraints primaryKey="true" primaryKeyName="NFCLabelPK"/>
@@ -163,7 +185,7 @@
             <column name="uid" type="VARCHAR(255)"/>
         </createTable>
     </changeSet>
-    <changeSet author="vyudintsev (generated)" id="1530365635732-13">
+    <changeSet failOnError="false"  author="vyudintsev (generated)" id="1531737356077-15">
         <createTable tableName="Operation">
             <column autoIncrement="true" name="id" type="INT4">
                 <constraints primaryKey="true" primaryKeyName="OperationPK"/>
@@ -172,7 +194,7 @@
             <column name="name" type="VARCHAR(255)"/>
         </createTable>
     </changeSet>
-    <changeSet author="vyudintsev (generated)" id="1530365635732-14">
+    <changeSet failOnError="false"  author="vyudintsev (generated)" id="1531737356077-16">
         <createTable tableName="OperationGroup">
             <column autoIncrement="true" name="id" type="INT4">
                 <constraints primaryKey="true" primaryKeyName="OperationGroupPK"/>
@@ -181,17 +203,17 @@
             <column name="name" type="VARCHAR(255)"/>
         </createTable>
     </changeSet>
-    <changeSet author="vyudintsev (generated)" id="1530365635732-15">
+    <changeSet failOnError="false"  author="vyudintsev (generated)" id="1531737356077-17">
         <createTable tableName="OperationGroup_Operation">
             <column name="OperationGroup_id" type="INT4">
-                <constraints nullable="false"/>
+                
             </column>
             <column name="operationList_id" type="INT4">
-                <constraints nullable="false"/>
+                
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="vyudintsev (generated)" id="1530365635732-16">
+    <changeSet failOnError="false"  author="vyudintsev (generated)" id="1531737356077-18">
         <createTable tableName="OperationLog">
             <column autoIncrement="true" name="id" type="INT4">
                 <constraints primaryKey="true" primaryKeyName="OperationLogPK"/>
@@ -203,7 +225,7 @@
             <column name="operation_id" type="INT4"/>
         </createTable>
     </changeSet>
-    <changeSet author="vyudintsev (generated)" id="1530365635732-17">
+    <changeSet failOnError="false"  author="vyudintsev (generated)" id="1531737356077-19">
         <createTable tableName="QRLabel">
             <column autoIncrement="true" name="id" type="INT4">
                 <constraints primaryKey="true" primaryKeyName="QRLabelPK"/>
@@ -213,165 +235,231 @@
             <column name="uid" type="VARCHAR(255)"/>
         </createTable>
     </changeSet>
-    <changeSet author="vyudintsev (generated)" id="1530365635732-18">
+    <changeSet failOnError="false"  author="vyudintsev (generated)" id="1531737356077-20">
         <createTable tableName="Task">
             <column autoIncrement="true" name="id" type="INT4">
                 <constraints primaryKey="true" primaryKeyName="TaskPK"/>
             </column>
             <column name="startDate" type="BYTEA"/>
-            <column name="user_ADMUSERID" type="INT4"/>
+            <column name="user_id" type="INT4"/>
         </createTable>
     </changeSet>
-    <changeSet author="vyudintsev (generated)" id="1530365635732-19">
+    <changeSet failOnError="false"  author="vyudintsev (generated)" id="1531737356077-21">
         <createTable tableName="Task_OperationGroup">
             <column name="Task_id" type="INT4">
-                <constraints nullable="false"/>
+                
             </column>
             <column name="operationGroupList_id" type="INT4">
-                <constraints nullable="false"/>
+                
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="vyudintsev (generated)" id="1530365635732-20">
+    <changeSet failOnError="false"  author="vyudintsev (generated)" id="1531737356077-22">
+        <createTable tableName="UserGroup">
+            <column autoIncrement="true" name="id" type="INT4">
+                <constraints primaryKey="true" primaryKeyName="UserGroupPK"/>
+            </column>
+            <column name="name" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet failOnError="false"  author="vyudintsev (generated)" id="1531737356077-23">
+        <createTable tableName="UserGroupMembers">
+            <column autoIncrement="true" name="id" type="INT4">
+                <constraints primaryKey="true" primaryKeyName="UserGroupMembersPK"/>
+            </column>
+            <column name="userMember" type="BYTEA"/>
+            <column name="group_id" type="INT4"/>
+        </createTable>
+    </changeSet>
+    <changeSet failOnError="false"  author="vyudintsev (generated)" id="1531737356077-24">
         <createTable tableName="persistent_logins">
             <column name="SERIES" type="VARCHAR(64)">
-                <constraints nullable="false"/>
+                
             </column>
             <column name="LAST_USED" type="timestamp">
-                <constraints nullable="false"/>
+                
             </column>
             <column name="TOKEN" type="VARCHAR(64)">
-                <constraints nullable="false"/>
+                
             </column>
             <column name="USERNAME" type="VARCHAR(64)">
-                <constraints nullable="false"/>
+                
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="vyudintsev (generated)" id="1530365635732-21">
+    <changeSet failOnError="false"  author="vyudintsev (generated)" id="1531737356077-25">
+        <createTable tableName="users">
+            <column autoIncrement="true" name="id" type="INT4">
+                <constraints primaryKey="true" primaryKeyName="usersPK"/>
+            </column>
+            <column name="email" type="VARCHAR(255)"/>
+            <column name="enabled" type="BOOLEAN"/>
+            <column name="locked" type="BOOLEAN"/>
+            <column name="password" type="VARCHAR(255)"/>
+            <column name="username" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet failOnError="false"  author="vyudintsev (generated)" id="1531737356077-26">
+        <createTable tableName="users_Task">
+            <column name="users_id" type="INT4">
+                
+            </column>
+            <column name="taskList_id" type="INT4">
+                
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet failOnError="false"  author="vyudintsev (generated)" id="1531737356077-27">
         <addPrimaryKey columnNames="SERIES" constraintName="persistent_loginsPK" tableName="persistent_logins"/>
     </changeSet>
-    <changeSet author="vyudintsev (generated)" id="1530365635732-22">
+    <changeSet failOnError="false"  author="vyudintsev (generated)" id="1531737356077-28">
         <addUniqueConstraint columnNames="ROLENAME" deferrable="false" disabled="false" initiallyDeferred="false" tableName="ADMROLE"/>
     </changeSet>
-    <changeSet author="vyudintsev (generated)" id="1530365635732-23">
+    <changeSet failOnError="false"  author="vyudintsev (generated)" id="1531737356077-29">
         <addUniqueConstraint columnNames="authorities_AUTHORITYID" deferrable="false" disabled="false" initiallyDeferred="false" tableName="ADMROLE_AUTHORITY"/>
     </changeSet>
-    <changeSet author="vyudintsev (generated)" id="1530365635732-24">
+    <changeSet failOnError="false"  author="vyudintsev (generated)" id="1531737356077-30">
         <addUniqueConstraint columnNames="EMAIL" deferrable="false" disabled="false" initiallyDeferred="false" tableName="ADMUSER"/>
     </changeSet>
-    <changeSet author="vyudintsev (generated)" id="1530365635732-25">
+    <changeSet failOnError="false"  author="vyudintsev (generated)" id="1531737356077-31">
         <addUniqueConstraint columnNames="USERNAME" deferrable="false" disabled="false" initiallyDeferred="false" tableName="ADMUSER"/>
     </changeSet>
-    <changeSet author="vyudintsev (generated)" id="1530365635732-26">
+    <changeSet failOnError="false"  author="vyudintsev (generated)" id="1531737356077-32">
         <addUniqueConstraint columnNames="roles_ADMROLEID" deferrable="false" disabled="false" initiallyDeferred="false" tableName="ADMUSERROLE"/>
     </changeSet>
-    <changeSet author="vyudintsev (generated)" id="1530365635732-27">
-        <addUniqueConstraint columnNames="taskList_id" deferrable="false" disabled="false" initiallyDeferred="false" tableName="ADMUSER_Task"/>
-    </changeSet>
-    <changeSet author="vyudintsev (generated)" id="1530365635732-28">
+    <changeSet failOnError="false"  author="vyudintsev (generated)" id="1531737356077-33">
         <addUniqueConstraint columnNames="AUTHORITYNAME" deferrable="false" disabled="false" initiallyDeferred="false" tableName="AUTHORITY"/>
     </changeSet>
-    <changeSet author="vyudintsev (generated)" id="1530365635732-29">
+    <changeSet failOnError="false"  author="vyudintsev (generated)" id="1531737356077-34">
         <addUniqueConstraint columnNames="operationList_id" deferrable="false" disabled="false" initiallyDeferred="false" tableName="OperationGroup_Operation"/>
     </changeSet>
-    <changeSet author="vyudintsev (generated)" id="1530365635732-30">
+    <changeSet failOnError="false"  author="vyudintsev (generated)" id="1531737356077-35">
         <addUniqueConstraint columnNames="operationGroupList_id" deferrable="false" disabled="false" initiallyDeferred="false" tableName="Task_OperationGroup"/>
     </changeSet>
-    <changeSet author="vyudintsev (generated)" id="1530365635732-31">
+    <changeSet failOnError="false"  author="vyudintsev (generated)" id="1531737356077-36">
+        <addUniqueConstraint columnNames="taskList_id" deferrable="false" disabled="false" initiallyDeferred="false" tableName="users_Task"/>
+    </changeSet>
+    <changeSet failOnError="false"  author="vyudintsev (generated)" id="1531737356077-37">
         <addUniqueConstraint columnNames="id" constraintName="UC_ADDRESSID_COL" deferrable="false" disabled="false" initiallyDeferred="false" tableName="Address"/>
     </changeSet>
-    <changeSet author="vyudintsev (generated)" id="1530365635732-32">
+    <changeSet failOnError="false"  author="vyudintsev (generated)" id="1531737356077-38">
         <addUniqueConstraint columnNames="ROLECODE" constraintName="UC_ADMROLEROLECODE_COL" deferrable="false" disabled="false" initiallyDeferred="false" tableName="ADMROLE"/>
     </changeSet>
-    <changeSet author="vyudintsev (generated)" id="1530365635732-33">
+    <changeSet failOnError="false"  author="vyudintsev (generated)" id="1531737356077-39">
         <addUniqueConstraint columnNames="AUTHORITYCODE" constraintName="UC_AUTHORITYAUTHORITYCODE_COL" deferrable="false" disabled="false" initiallyDeferred="false" tableName="AUTHORITY"/>
     </changeSet>
-    <changeSet author="vyudintsev (generated)" id="1530365635732-34">
+    <changeSet failOnError="false"  author="vyudintsev (generated)" id="1531737356077-40">
+        <addUniqueConstraint columnNames="id" constraintName="UC_CONTRACTID_COL" deferrable="false" disabled="false" initiallyDeferred="false" tableName="Contract"/>
+    </changeSet>
+    <changeSet failOnError="false"  author="vyudintsev (generated)" id="1531737356077-41">
+        <addUniqueConstraint columnNames="id" constraintName="UC_CUSTOMERID_COL" deferrable="false" disabled="false" initiallyDeferred="false" tableName="Customer"/>
+    </changeSet>
+    <changeSet failOnError="false"  author="vyudintsev (generated)" id="1531737356077-42">
         <addUniqueConstraint columnNames="id" constraintName="UC_DEVICEGROUPID_COL" deferrable="false" disabled="false" initiallyDeferred="false" tableName="DeviceGroup"/>
     </changeSet>
-    <changeSet author="vyudintsev (generated)" id="1530365635732-35">
+    <changeSet failOnError="false"  author="vyudintsev (generated)" id="1531737356077-43">
         <addUniqueConstraint columnNames="id" constraintName="UC_DEVICEID_COL" deferrable="false" disabled="false" initiallyDeferred="false" tableName="Device"/>
     </changeSet>
-    <changeSet author="vyudintsev (generated)" id="1530365635732-36">
+    <changeSet failOnError="false"  author="vyudintsev (generated)" id="1531737356077-44">
         <addUniqueConstraint columnNames="id" constraintName="UC_DEVICESTATUSID_COL" deferrable="false" disabled="false" initiallyDeferred="false" tableName="DeviceStatus"/>
     </changeSet>
-    <changeSet author="vyudintsev (generated)" id="1530365635732-37">
+    <changeSet failOnError="false"  author="vyudintsev (generated)" id="1531737356077-45">
         <addUniqueConstraint columnNames="id" constraintName="UC_EMPLOYEEID_COL" deferrable="false" disabled="false" initiallyDeferred="false" tableName="Employee"/>
     </changeSet>
-    <changeSet author="vyudintsev (generated)" id="1530365635732-38">
+    <changeSet failOnError="false"  author="vyudintsev (generated)" id="1531737356077-46">
+        <addUniqueConstraint columnNames="id" constraintName="UC_GROUPAUTHORITIESID_COL" deferrable="false" disabled="false" initiallyDeferred="false" tableName="GroupAuthorities"/>
+    </changeSet>
+    <changeSet failOnError="false"  author="vyudintsev (generated)" id="1531737356077-47">
         <addUniqueConstraint columnNames="id" constraintName="UC_NFCLABELID_COL" deferrable="false" disabled="false" initiallyDeferred="false" tableName="NFCLabel"/>
     </changeSet>
-    <changeSet author="vyudintsev (generated)" id="1530365635732-39">
+    <changeSet failOnError="false"  author="vyudintsev (generated)" id="1531737356077-48">
         <addUniqueConstraint columnNames="id" constraintName="UC_OPERATIONGROUPID_COL" deferrable="false" disabled="false" initiallyDeferred="false" tableName="OperationGroup"/>
     </changeSet>
-    <changeSet author="vyudintsev (generated)" id="1530365635732-40">
+    <changeSet failOnError="false"  author="vyudintsev (generated)" id="1531737356077-49">
         <addUniqueConstraint columnNames="id" constraintName="UC_OPERATIONID_COL" deferrable="false" disabled="false" initiallyDeferred="false" tableName="Operation"/>
     </changeSet>
-    <changeSet author="vyudintsev (generated)" id="1530365635732-41">
+    <changeSet failOnError="false"  author="vyudintsev (generated)" id="1531737356077-50">
         <addUniqueConstraint columnNames="id" constraintName="UC_OPERATIONLOGID_COL" deferrable="false" disabled="false" initiallyDeferred="false" tableName="OperationLog"/>
     </changeSet>
-    <changeSet author="vyudintsev (generated)" id="1530365635732-42">
+    <changeSet failOnError="false"  author="vyudintsev (generated)" id="1531737356077-51">
         <addUniqueConstraint columnNames="SERIES" constraintName="UC_PERSISTENT_LOGINSSERIES_COL" deferrable="false" disabled="false" initiallyDeferred="false" tableName="persistent_logins"/>
     </changeSet>
-    <changeSet author="vyudintsev (generated)" id="1530365635732-43">
+    <changeSet failOnError="false"  author="vyudintsev (generated)" id="1531737356077-52">
         <addUniqueConstraint columnNames="id" constraintName="UC_QRLABELID_COL" deferrable="false" disabled="false" initiallyDeferred="false" tableName="QRLabel"/>
     </changeSet>
-    <changeSet author="vyudintsev (generated)" id="1530365635732-44">
+    <changeSet failOnError="false"  author="vyudintsev (generated)" id="1531737356077-53">
         <addUniqueConstraint columnNames="id" constraintName="UC_TASKID_COL" deferrable="false" disabled="false" initiallyDeferred="false" tableName="Task"/>
     </changeSet>
-    <changeSet author="vyudintsev (generated)" id="1530365635732-45">
+    <changeSet failOnError="false"  author="vyudintsev (generated)" id="1531737356077-54">
+        <addUniqueConstraint columnNames="id" constraintName="UC_USERGROUPID_COL" deferrable="false" disabled="false" initiallyDeferred="false" tableName="UserGroup"/>
+    </changeSet>
+    <changeSet failOnError="false"  author="vyudintsev (generated)" id="1531737356077-55">
+        <addUniqueConstraint columnNames="id" constraintName="UC_USERGROUPMEMBERSID_COL" deferrable="false" disabled="false" initiallyDeferred="false" tableName="UserGroupMembers"/>
+    </changeSet>
+    <changeSet failOnError="false"  author="vyudintsev (generated)" id="1531737356077-56">
+        <addUniqueConstraint columnNames="id" constraintName="UC_USERSID_COL" deferrable="false" disabled="false" initiallyDeferred="false" tableName="users"/>
+    </changeSet>
+    <changeSet failOnError="false"  author="vyudintsev (generated)" id="1531737356077-57">
+        <addForeignKeyConstraint baseColumnNames="group_id" baseTableName="UserGroupMembers" constraintName="FK_5iq96rsciv3pwc9a0rth38yx9" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="UserGroup"/>
+    </changeSet>
+    <changeSet failOnError="false"  author="vyudintsev (generated)" id="1531737356077-58">
         <addForeignKeyConstraint baseColumnNames="users_ADMUSERID" baseTableName="ADMUSERROLE" constraintName="FK_6ykxqp8bnekslnuqfjmkgrf06" deferrable="false" initiallyDeferred="false" referencedColumnNames="ADMUSERID" referencedTableName="ADMUSER"/>
     </changeSet>
-    <changeSet author="vyudintsev (generated)" id="1530365635732-46">
+    <changeSet failOnError="false"  author="vyudintsev (generated)" id="1531737356077-59">
         <addForeignKeyConstraint baseColumnNames="parent_id" baseTableName="Address" constraintName="FK_7r7ad1s1eyqh6fg67s6kgqg0c" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="Address"/>
     </changeSet>
-    <changeSet author="vyudintsev (generated)" id="1530365635732-47">
+    <changeSet failOnError="false"  author="vyudintsev (generated)" id="1531737356077-60">
         <addForeignKeyConstraint baseColumnNames="operationGroupList_id" baseTableName="Task_OperationGroup" constraintName="FK_946h9vb3p3gsp4mh264i3eacb" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="OperationGroup"/>
     </changeSet>
-    <changeSet author="vyudintsev (generated)" id="1530365635732-48">
+    <changeSet failOnError="false"  author="vyudintsev (generated)" id="1531737356077-61">
         <addForeignKeyConstraint baseColumnNames="device_id" baseTableName="OperationLog" constraintName="FK_a69b6c8mkuqg2quhkxbc2ocus" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="Device"/>
     </changeSet>
-    <changeSet author="vyudintsev (generated)" id="1530365635732-49">
-        <addForeignKeyConstraint baseColumnNames="user_ADMUSERID" baseTableName="Task" constraintName="FK_bo9ysadeqn6l4mhvuk1tub5q3" deferrable="false" initiallyDeferred="false" referencedColumnNames="ADMUSERID" referencedTableName="ADMUSER"/>
+    <changeSet failOnError="false"  author="vyudintsev (generated)" id="1531737356077-62">
+        <addForeignKeyConstraint baseColumnNames="user_id" baseTableName="Task" constraintName="FK_bft4wex5me5u2563628d52ktu" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="users"/>
     </changeSet>
-    <changeSet author="vyudintsev (generated)" id="1530365635732-50">
+    <changeSet failOnError="false"  author="vyudintsev (generated)" id="1531737356077-63">
+        <addForeignKeyConstraint baseColumnNames="group_id" baseTableName="GroupAuthorities" constraintName="FK_bg7rg1qbiex3ea48olmvhrmaj" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="UserGroup"/>
+    </changeSet>
+    <changeSet failOnError="false"  author="vyudintsev (generated)" id="1531737356077-64">
+        <addForeignKeyConstraint baseColumnNames="customer_id" baseTableName="Contract" constraintName="FK_cvuh586l0l23y99kg4ivldoir" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="Customer"/>
+    </changeSet>
+    <changeSet failOnError="false"  author="vyudintsev (generated)" id="1531737356077-65">
         <addForeignKeyConstraint baseColumnNames="operation_id" baseTableName="OperationLog" constraintName="FK_f22m1s06du20pu4alfavunrvo" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="Operation"/>
     </changeSet>
-    <changeSet author="vyudintsev (generated)" id="1530365635732-51">
-        <addForeignKeyConstraint baseColumnNames="ADMUSER_ADMUSERID" baseTableName="ADMUSER_Task" constraintName="FK_gqi8gd8gsb1n06r4kqxj7xxqv" deferrable="false" initiallyDeferred="false" referencedColumnNames="ADMUSERID" referencedTableName="ADMUSER"/>
-    </changeSet>
-    <changeSet author="vyudintsev (generated)" id="1530365635732-52">
+    <changeSet failOnError="false"  author="vyudintsev (generated)" id="1531737356077-66">
         <addForeignKeyConstraint baseColumnNames="roles_ADMROLEID" baseTableName="ADMUSERROLE" constraintName="FK_hc6j1t41rn9qpi9i7rnx7qm0n" deferrable="false" initiallyDeferred="false" referencedColumnNames="ADMROLEID" referencedTableName="ADMROLE"/>
     </changeSet>
-    <changeSet author="vyudintsev (generated)" id="1530365635732-53">
+    <changeSet failOnError="false"  author="vyudintsev (generated)" id="1531737356077-67">
+        <addForeignKeyConstraint baseColumnNames="users_id" baseTableName="users_Task" constraintName="FK_isq2va71id3svoaahq0ymmy3e" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="users"/>
+    </changeSet>
+    <changeSet failOnError="false"  author="vyudintsev (generated)" id="1531737356077-68">
         <addForeignKeyConstraint baseColumnNames="address_id" baseTableName="Device" constraintName="FK_kqmnh5e74yav5ne0jotg24jhn" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="Address"/>
     </changeSet>
-    <changeSet author="vyudintsev (generated)" id="1530365635732-54">
+    <changeSet failOnError="false"  author="vyudintsev (generated)" id="1531737356077-69">
+        <addForeignKeyConstraint baseColumnNames="taskList_id" baseTableName="users_Task" constraintName="FK_lnp7eg7i45bsp0qbum64dxvdj" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="Task"/>
+    </changeSet>
+    <changeSet failOnError="false"  author="vyudintsev (generated)" id="1531737356077-70">
         <addForeignKeyConstraint baseColumnNames="employee_id" baseTableName="OperationLog" constraintName="FK_md0rc1rj6y9byj16am5v0qx79" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="Employee"/>
     </changeSet>
-    <changeSet author="vyudintsev (generated)" id="1530365635732-55">
+    <changeSet failOnError="false"  author="vyudintsev (generated)" id="1531737356077-71">
         <addForeignKeyConstraint baseColumnNames="roles_ADMROLEID" baseTableName="ADMROLE_AUTHORITY" constraintName="FK_ov2sifsgsrasd8qc6cls213u4" deferrable="false" initiallyDeferred="false" referencedColumnNames="ADMROLEID" referencedTableName="ADMROLE"/>
     </changeSet>
-    <changeSet author="vyudintsev (generated)" id="1530365635732-56">
-        <addForeignKeyConstraint baseColumnNames="taskList_id" baseTableName="ADMUSER_Task" constraintName="FK_pjyp47if5ce9dxs9k230j0yiy" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="Task"/>
-    </changeSet>
-    <changeSet author="vyudintsev (generated)" id="1530365635732-57">
+    <changeSet failOnError="false"  author="vyudintsev (generated)" id="1531737356077-72">
         <addForeignKeyConstraint baseColumnNames="operationList_id" baseTableName="OperationGroup_Operation" constraintName="FK_qqibv0jljt74otebpph11s80n" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="Operation"/>
     </changeSet>
-    <changeSet author="vyudintsev (generated)" id="1530365635732-58">
+    <changeSet failOnError="false"  author="vyudintsev (generated)" id="1531737356077-73">
         <addForeignKeyConstraint baseColumnNames="authorities_AUTHORITYID" baseTableName="ADMROLE_AUTHORITY" constraintName="FK_qx0q9ggqqjkkwxtnr3gkqxr2u" deferrable="false" initiallyDeferred="false" referencedColumnNames="AUTHORITYID" referencedTableName="AUTHORITY"/>
     </changeSet>
-    <changeSet author="vyudintsev (generated)" id="1530365635732-59">
+    <changeSet failOnError="false"  author="vyudintsev (generated)" id="1531737356077-74">
         <addForeignKeyConstraint baseColumnNames="Task_id" baseTableName="Task_OperationGroup" constraintName="FK_re9llc42sxm032dyahwc4wvwn" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="Task"/>
     </changeSet>
-    <changeSet author="vyudintsev (generated)" id="1530365635732-60">
+    <changeSet failOnError="false"  author="vyudintsev (generated)" id="1531737356077-75">
         <addForeignKeyConstraint baseColumnNames="OperationGroup_id" baseTableName="OperationGroup_Operation" constraintName="FK_rkp1li382vm4vu55u9qeo4d6l" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="OperationGroup"/>
     </changeSet>
-    <changeSet author="vyudintsev (generated)" id="1530365635732-61">
+    <changeSet failOnError="false"  author="vyudintsev (generated)" id="1531737356077-76">
         <addForeignKeyConstraint baseColumnNames="deviceGroup_id" baseTableName="Device" constraintName="FK_rluvwv9rxhwh4hsjs9m3rb4ns" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="DeviceGroup"/>
     </changeSet>
-    <changeSet author="vyudintsev (generated)" id="1530365635732-62">
+    <changeSet failOnError="false"  author="vyudintsev (generated)" id="1531737356077-77">
         <addForeignKeyConstraint baseColumnNames="status_id" baseTableName="Device" constraintName="FK_s2mrbjdhjjw902ir13fujbgmk" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="DeviceStatus"/>
     </changeSet>
 </databaseChangeLog>
