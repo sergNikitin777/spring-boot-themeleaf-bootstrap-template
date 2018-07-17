@@ -18,7 +18,8 @@
         <emercom.spring.datasource.url></emercom.spring.datasource.url>
         <emercom.spring.datasource.username></emercom.spring.datasource.username>
         <emercom.spring.datasource.password></emercom.spring.datasource.password>
-        <emercom.spring.jpa.generate-ddl>none</emercom.spring.jpa.generate-ddl>
+        <emercom.spring.jpa.generate-ddl>false</emercom.spring.jpa.generate-ddl>
+        <emercom.spring.jpa.hibernate.ddl-auto>none</emercom.spring.jpa.hibernate.ddl-auto>
         <emercom.spring.jpa.show-sql>false</emercom.spring.jpa.show-sql>
         <emercom.spring.datasource.driverClassName>org.postgresql.Driver</emercom.spring.datasource.driverClassName>
         <emercom.liquibase.enabled>false</emercom.liquibase.enabled>
@@ -148,7 +149,9 @@
                 </excludes>
             </resource>
         </resources>
+        
     </build>
+
 
     <profiles>
     
@@ -159,7 +162,6 @@
                 <emercom.spring.datasource.username>postgres</emercom.spring.datasource.username>
                 <emercom.spring.datasource.password>postgres</emercom.spring.datasource.password>
                 <emercom.spring.datasource.driverClassName>org.postgresql.Driver</emercom.spring.datasource.driverClassName>
-                <emercom.liquibase.enabled>true</emercom.liquibase.enabled>
             </properties>
             <activation>
                 <activeByDefault>true</activeByDefault>
@@ -181,27 +183,36 @@
             <!-- mvn spring-boot:run  -P h2db -->
             <id>h2db</id>
             <properties>
-                <emercom.spring.datasource.url>jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE</emercom.spring.datasource.url>
+                <emercom.spring.datasource.url>jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE;MODE=PostgreSQL</emercom.spring.datasource.url>
                 <emercom.spring.datasource.username>sa</emercom.spring.datasource.username>
                 <emercom.spring.datasource.password>sa</emercom.spring.datasource.password>
-                <emercom.spring.jpa.generate-ddl>none</emercom.spring.jpa.generate-ddl>
+                <emercom.spring.jpa.generate-ddl>false</emercom.spring.jpa.generate-ddl>
                 <emercom.spring.jpa.show-sql>true</emercom.spring.jpa.show-sql>
                 <emercom.spring.datasource.driverClassName>org.h2.Driver</emercom.spring.datasource.driverClassName>
-                <emercom.liquibase.enabled>true</emercom.liquibase.enabled>
+            </properties>
+
+        </profile>
+        
+        
+        <profile>
+            <!-- mvn clean install -P lpsql -Dmaven.test.skip=true -->
+            <!-- mvn spring-boot:run  -P lpsql -->
+            <id>lpsql</id>
+            <properties>
+                <emercom.spring.datasource.url>jdbc:postgresql://localhost:5432/emercom</emercom.spring.datasource.url>
+                <emercom.spring.datasource.username>emercom</emercom.spring.datasource.username>
+                <emercom.spring.datasource.password>emercom</emercom.spring.datasource.password>
+                <emercom.spring.datasource.driverClassName>org.postgresql.Driver</emercom.spring.datasource.driverClassName>
+                <emercom.spring.jpa.generate-ddl>true</emercom.spring.jpa.generate-ddl>
+                <emercom.spring.jpa.hibernate.ddl-auto>update</emercom.spring.jpa.hibernate.ddl-auto>
+                <emercom.liquibase.enabled>false</emercom.liquibase.enabled>
             </properties>
 
         </profile>
         
         <profile>
-            <!-- генерирует разницу между существующей базой и JPA Entity -->
-            <!-- mvn process-test-resources -P h2dblqb -->
-            <id>h2dblqb</id>
+            <id>lb</id>
             <properties>
-                <emercom.spring.datasource.url>jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE</emercom.spring.datasource.url>
-                <emercom.spring.datasource.username>sa</emercom.spring.datasource.username>
-                <emercom.spring.datasource.password>sa</emercom.spring.datasource.password>
-                <emercom.spring.datasource.driverClassName>org.h2.Driver</emercom.spring.datasource.driverClassName>
-                <emercom.spring.jpa.generate-ddl>validate</emercom.spring.jpa.generate-ddl>
                 <emercom.liquibase.enabled>true</emercom.liquibase.enabled>
             </properties>
             <build>
@@ -214,7 +225,7 @@
                             <changeLogFile>src/main/resources/db/liquibase-changelog.xml</changeLogFile>
                             <diffChangeLogFile>src/main/resources/db/liquibase-changelog-update.xml</diffChangeLogFile>
                             <referenceUrl>hibernate:spring:com.example.persistance.entity?dialect=org.hibernate.dialect.PostgreSQLDialect</referenceUrl>
-                            <driver>org.h2.Driver</driver>
+                            <driver>org.postgresql.Driver</driver>
                             <url>${emercom.spring.datasource.url}</url>
                             <username>${emercom.spring.datasource.username}</username>
                             <password>${emercom.spring.datasource.password}</password>
@@ -223,8 +234,77 @@
                             <execution>
                                 <id>generate-db-diff</id>
                                 <phase>process-test-resources</phase>
+                                <configuration>
+                                    <clearCheckSums>true</clearCheckSums>
+                                </configuration>
                                 <goals>
-                                    <goal>clearCheckSums</goal>
+                                    <goal>update</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                        <dependencies>
+                            <dependency>
+                                <groupId>org.liquibase.ext</groupId>
+                                <artifactId>liquibase-hibernate4.2</artifactId>
+                                <version>3.5</version>
+                                <exclusions>
+                                    <exclusion>
+                                        <artifactId>javassist</artifactId>
+                                        <groupId>org.javassist</groupId>
+                                    </exclusion>
+                                </exclusions>
+                            </dependency>
+                            <dependency>
+                                <groupId>org.javassist</groupId>
+                                <artifactId>javassist</artifactId>
+                                <version>3.18.2-GA</version>
+                            </dependency>
+                            <dependency>
+                                <groupId>org.springframework.boot</groupId>
+                                <artifactId>spring-boot-starter-data-jpa</artifactId>
+                                <version>1.5.3.RELEASE</version>
+                            </dependency>
+                        </dependencies>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        
+        <profile>
+            <!-- генерирует разницу между существующей базой и JPA Entity -->
+            <!-- mvn process-test-resources -P h2dblqb -->
+            <id>h2dblqb</id>
+            <properties>
+                <emercom.spring.datasource.url>jdbc:postgresql://localhost:5432/emercom</emercom.spring.datasource.url>
+                <emercom.spring.datasource.username>emercom</emercom.spring.datasource.username>
+                <emercom.spring.datasource.password>emercom</emercom.spring.datasource.password>
+                <emercom.spring.datasource.driverClassName>org.postgresql.Driver</emercom.spring.datasource.driverClassName>
+                <emercom.spring.jpa.generate-ddl>validate</emercom.spring.jpa.generate-ddl>
+                <emercom.liquibase.enabled>false</emercom.liquibase.enabled>
+            </properties>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.liquibase</groupId>
+                        <artifactId>liquibase-maven-plugin</artifactId>
+                        <version>3.3.1</version>
+                        <configuration>
+                            <changeLogFile>src/main/resources/db/liquibase-changelog.xml</changeLogFile>
+                            <diffChangeLogFile>src/main/resources/db/liquibase-changelog-update.xml</diffChangeLogFile>
+                            <referenceUrl>hibernate:spring:com.example.persistance.entity?dialect=org.hibernate.dialect.PostgreSQLDialect</referenceUrl>
+                            <driver>org.postgresql.Driver</driver>
+                            <url>${emercom.spring.datasource.url}</url>
+                            <username>${emercom.spring.datasource.username}</username>
+                            <password>${emercom.spring.datasource.password}</password>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <id>generate-db-diff</id>
+                                <phase>process-test-resources</phase>
+                                <configuration>
+                                    <clearCheckSums>true</clearCheckSums>
+                                </configuration>
+                                <goals>
                                     <goal>diff</goal>
                                 </goals>
                             </execution>

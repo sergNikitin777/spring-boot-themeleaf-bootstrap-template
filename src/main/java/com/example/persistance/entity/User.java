@@ -19,6 +19,8 @@ import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -57,7 +59,12 @@ public class User extends Persistent implements UserDetails {
     private String password;
 
     @Column(name = "DATECREATE", nullable = false)
+    @CreationTimestamp
     private Date datecreate;
+    
+    @Column(name = "DATEUPDATE", nullable = false)
+    @UpdateTimestamp
+    private Date updateDateTime;
     
     @Column(name = "DATEBLOCK", nullable = true)
     private Date dateblock;
@@ -79,7 +86,7 @@ public class User extends Persistent implements UserDetails {
         mappedBy="users",
         fetch = FetchType.EAGER
     )
-    @JoinTable(name = "ADMUSERROLE")
+    @JoinTable(name = "ADMUSER_ROLE")
     @Column(name = "ROLE", nullable = false)
     @ApiModelProperty(hidden=true)
     private Collection<com.example.persistance.entity.Role> roles;
