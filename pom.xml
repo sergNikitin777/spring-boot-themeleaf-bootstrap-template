@@ -162,6 +162,8 @@
                 <emercom.spring.datasource.username>postgres</emercom.spring.datasource.username>
                 <emercom.spring.datasource.password>postgres</emercom.spring.datasource.password>
                 <emercom.spring.datasource.driverClassName>org.postgresql.Driver</emercom.spring.datasource.driverClassName>
+                <emercom.spring.jpa.generate-ddl>true</emercom.spring.jpa.generate-ddl>
+                <emercom.spring.jpa.hibernate.ddl-auto>update</emercom.spring.jpa.hibernate.ddl-auto>
             </properties>
             <activation>
                 <activeByDefault>true</activeByDefault>
@@ -175,6 +177,8 @@
                 <emercom.spring.datasource.username>postgres</emercom.spring.datasource.username>
                 <emercom.spring.datasource.password>postgres</emercom.spring.datasource.password>
                 <emercom.spring.datasource.driverClassName>org.postgresql.Driver</emercom.spring.datasource.driverClassName>
+                <emercom.spring.jpa.generate-ddl>true</emercom.spring.jpa.generate-ddl>
+                <emercom.spring.jpa.hibernate.ddl-auto>update</emercom.spring.jpa.hibernate.ddl-auto>
             </properties>
         </profile>
         
@@ -189,6 +193,8 @@
                 <emercom.spring.jpa.generate-ddl>false</emercom.spring.jpa.generate-ddl>
                 <emercom.spring.jpa.show-sql>true</emercom.spring.jpa.show-sql>
                 <emercom.spring.datasource.driverClassName>org.h2.Driver</emercom.spring.datasource.driverClassName>
+                <emercom.spring.jpa.generate-ddl>true</emercom.spring.jpa.generate-ddl>
+                <emercom.spring.jpa.hibernate.ddl-auto>create</emercom.spring.jpa.hibernate.ddl-auto>
             </properties>
 
         </profile>
@@ -280,7 +286,7 @@
                 <emercom.spring.datasource.password>emercom</emercom.spring.datasource.password>
                 <emercom.spring.datasource.driverClassName>org.postgresql.Driver</emercom.spring.datasource.driverClassName>
                 <emercom.spring.jpa.generate-ddl>validate</emercom.spring.jpa.generate-ddl>
-                <emercom.liquibase.enabled>false</emercom.liquibase.enabled>
+                <emercom.liquibase.enabled>true</emercom.liquibase.enabled>
             </properties>
             <build>
                 <plugins>
