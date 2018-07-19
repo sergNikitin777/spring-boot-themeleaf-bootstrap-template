@@ -6,9 +6,9 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -61,13 +61,15 @@ public class EmployeeController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    @RequestMapping(value = "/admin/employee/update/{id}", method = RequestMethod.POST)
-    public ResponseEntity updateEmployee(@PathVariable("id") Integer id) {
+    @RequestMapping(method=RequestMethod.PUT, value="/admin/employee/update")
+    public ResponseEntity updateEmployee(@RequestBody Employee employee) {
         log.debug("updateEmployee");
-
-        //
-
-        return new ResponseEntity<>(HttpStatus.I_AM_A_TEAPOT);
+        try {
+            return new ResponseEntity<>(employeeService.updateEmployee(employee), HttpStatus.OK);
+        } catch (Exception e) {
+            log.error(e.getMessage(), e);
+        }
+        return new ResponseEntity<>((Integer)null, HttpStatus.UNPROCESSABLE_ENTITY);
     }
 
 }

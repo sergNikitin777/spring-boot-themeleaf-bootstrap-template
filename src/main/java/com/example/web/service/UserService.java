@@ -1,10 +1,9 @@
 package com.example.web.service;
 
-import java.util.List;
-
+import com.example.persistance.entity.User;
 import org.springframework.security.access.prepost.PreAuthorize;
 
-import com.example.persistance.entity.User;
+import java.util.List;
 
 public interface UserService
 {

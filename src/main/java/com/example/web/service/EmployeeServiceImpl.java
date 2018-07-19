@@ -1,6 +1,6 @@
 package com.example.web.service;
 
-import com.example.persistance.entity.*;
+import com.example.persistance.entity.Employee;
 import com.example.persistance.repository.EmployeeRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -30,7 +30,7 @@ public class EmployeeServiceImpl implements EmployeeService{
     }
 
     @Override
-    public void updateEmployee(Employee employee) { employeeRepository.save(employee); }
+    public Employee updateEmployee(Employee employee) { return employeeRepository.save(employee); }
 
     @Override
     public void deleteEmployee(Integer id) { employeeRepository.delete(id); }

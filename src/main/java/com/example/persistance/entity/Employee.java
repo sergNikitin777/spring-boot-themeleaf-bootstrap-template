@@ -16,7 +16,6 @@ import java.io.Serializable;
 public class Employee implements Serializable {
 
     public Employee() {
-
     }
 
     public Employee(String surname, String name, String patronymic, String position) {
@@ -49,4 +48,6 @@ public class Employee implements Serializable {
     /*@Column
     private String role;*/
 
+    @ManyToOne(fetch=FetchType.LAZY, cascade={CascadeType.PERSIST, CascadeType.MERGE})
+    private Company company;
 }

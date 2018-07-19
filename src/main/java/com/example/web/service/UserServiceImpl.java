@@ -1,16 +1,12 @@
 package com.example.web.service;
 
-import java.util.List;
-
-import org.springframework.security.access.annotation.Secured;
-import org.springframework.security.access.prepost.PreAuthorize;
+import com.example.persistance.entity.User;
+import com.example.persistance.repository.UserRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.example.persistance.entity.User;
-import com.example.persistance.repository.UserRepository;
-
-import lombok.RequiredArgsConstructor;
+import java.util.List;
 
 @Service
 @Transactional

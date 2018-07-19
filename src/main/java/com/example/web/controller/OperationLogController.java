@@ -1,6 +1,5 @@
 package com.example.web.controller;
 
-import com.example.persistance.entity.Employee;
 import com.example.persistance.entity.OperationLog;
 import com.example.persistance.repository.OperationLogRepository;
 import com.example.web.pojo.OperationLogPojo;
