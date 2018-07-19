@@ -48,6 +48,6 @@ public class Employee implements Serializable {
     /*@Column
     private String role;*/
 
-    @ManyToOne(fetch=FetchType.LAZY, cascade={CascadeType.PERSIST, CascadeType.MERGE})
+    @ManyToOne(fetch=FetchType.EAGER, cascade={CascadeType.PERSIST, CascadeType.MERGE})
     private Company company;
 }
