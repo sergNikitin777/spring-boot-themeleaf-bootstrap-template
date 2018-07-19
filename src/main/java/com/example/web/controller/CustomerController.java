@@ -1,6 +1,5 @@
 package com.example.web.controller;
 
-import com.example.persistance.entity.Contract;
 import com.example.persistance.entity.Customer;
 import com.example.web.service.CustomerService;
 import lombok.RequiredArgsConstructor;

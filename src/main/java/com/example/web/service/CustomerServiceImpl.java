@@ -1,7 +1,7 @@
 package com.example.web.service;
 
 import com.example.persistance.entity.Customer;
-import com.example.persistance.repository.*;
+import com.example.persistance.repository.CustomerRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

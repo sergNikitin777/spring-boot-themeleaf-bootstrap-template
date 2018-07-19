@@ -1,9 +1,7 @@
 package com.example.web.controller;
 
-import com.example.persistance.entity.Device;
 import com.example.persistance.entity.DeviceGroup;
 import com.example.web.service.DeviceGroupService;
-import com.example.web.service.DeviceService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;

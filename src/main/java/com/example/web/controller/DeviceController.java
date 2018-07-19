@@ -1,7 +1,6 @@
 package com.example.web.controller;
 
 import com.example.persistance.entity.Device;
-import com.example.persistance.entity.DeviceGroup;
 import com.example.web.pojo.DevicePojo;
 import com.example.web.service.DeviceService;
 import lombok.RequiredArgsConstructor;
@@ -12,7 +11,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseStatus;
 
 import java.util.List;
 

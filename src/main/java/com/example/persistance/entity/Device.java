@@ -1,7 +1,6 @@
 package com.example.persistance.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.sun.org.apache.xpath.internal.operations.Bool;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;

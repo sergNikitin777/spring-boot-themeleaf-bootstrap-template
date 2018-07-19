@@ -1,8 +1,6 @@
 package com.example.web.controller;
 
 import com.example.persistance.entity.Contract;
-import com.example.persistance.entity.Device;
-import com.example.web.pojo.DevicePojo;
 import com.example.web.service.ContractService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -47,7 +45,7 @@ public class ContractController {
     }
 
     @RequestMapping(method=RequestMethod.PUT, value="/admin/contract/update")
-    public ResponseEntity  updateContract(@RequestBody Contract contract) {
+    public ResponseEntity updateContract(@RequestBody Contract contract) {
         log.debug("updateContract");
         try {
             return new ResponseEntity<>(contractService.updateContract(contract), HttpStatus.OK);

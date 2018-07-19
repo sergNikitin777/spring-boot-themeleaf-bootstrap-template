@@ -5,7 +5,6 @@ import com.example.persistance.entity.Device;
 import com.example.web.pojo.DevicePojo;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface DeviceService {
     List<Device> findAll();

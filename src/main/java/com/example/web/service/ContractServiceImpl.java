@@ -1,7 +1,10 @@
 package com.example.web.service;
 
-import com.example.persistance.entity.*;
-import com.example.persistance.repository.*;
+import com.example.persistance.entity.Contract;
+import com.example.persistance.repository.AddressRepository;
+import com.example.persistance.repository.ContractRepository;
+import com.example.persistance.repository.DeviceGroupRepository;
+import com.example.persistance.repository.StatusRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,7 +30,6 @@ public class ContractServiceImpl implements ContractService {
     public Contract findById(Integer id) {
         return contractRepository.findOne(id);
     }
-
 
     @Override
     public Integer addContract(Contract contract) {
