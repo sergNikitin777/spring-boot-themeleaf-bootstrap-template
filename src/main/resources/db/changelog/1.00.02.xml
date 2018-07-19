@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-2.0.xsd">
+
+    <changeSet id="1.00.02-1" author="vyudintsev">
+         <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">
+                SELECT COUNT(*) FROM ADMUSER WHERE EMAIL IN ('user1@test.com')
+            </sqlCheck>
+        </preConditions>
+        <sql>
+            INSERT INTO ADMUSER (EMAIL,USERNAME,USERPASSWORD, datecreate, dateupdate, esp, isblocked)
+            VALUES ('user1@test.com', 'user1', '24c9e15e52afc47c225b757e7bee1f9d', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, '1', 0);  <!-- md5 encode -->
+        </sql>
+    </changeSet>
+
+    <changeSet id="1.00.02-2" author="vyudintsev">
+         <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">
+                SELECT COUNT(*) FROM ADMROLE WHERE ROLECODE IN ('АДМИНИСТРАТОР (РУКОВОДИТЕЛЬ ТЕХНИЧЕСКОЙ СЛУЖБЫ ИОГВ)')
+            </sqlCheck>
+        </preConditions> 
+        <sql>
+            INSERT INTO ADMROLE (ROLENAME,ROLECODE)
+            VALUES ('Администратор (руководитель технической службы ИОГВ)',
+                'АДМИНИСТРАТОР (РУКОВОДИТЕЛЬ ТЕХНИЧЕСКОЙ СЛУЖБЫ ИОГВ)');
+        </sql>
+    </changeSet>
+
+
+    <changeSet id="1.00.02-3" author="vyudintsev" dbms="postgresql">
+         <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">
+                SELECT COUNT(*) 
+                FROM ADMUSER_ROLE userrole
+                JOIN ADMUSER usr ON userrole.users_admuserid = usr.ADMUSERID 
+                JOIN ADMROLE role ON userrole.roles_admroleid = role.ADMROLEID
+                WHERE usr.EMAIL IN ('user1@test.com') 
+                    AND role.ROLECODE IN ('АДМИНИСТРАТОР (РУКОВОДИТЕЛЬ ТЕХНИЧЕСКОЙ СЛУЖБЫ ИОГВ)')
+            </sqlCheck>
+        </preConditions>
+        <sql>
+            INSERT INTO ADMUSER_ROLE ("users_admuserid", "roles_admroleid")
+            SELECT usr.ADMUSERID, role.ADMROLEID
+            FROM ADMUSER usr
+            JOIN ADMROLE role ON role.ROLECODE IN ('АДМИНИСТРАТОР (РУКОВОДИТЕЛЬ ТЕХНИЧЕСКОЙ СЛУЖБЫ ИОГВ)')
+            WHERE usr.EMAIL IN ('user1@test.com')
+        </sql>
+    </changeSet>
+
+    <changeSet id="1.00.02-4" author="vyudintsev">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">
+                SELECT COUNT(*) FROM AUTHORITY WHERE AUTHORITYCODE IN ('ROLE_R_управлениепользователями_пользователи_добавить')
+            </sqlCheck>
+        </preConditions>
+        <sql>
+            INSERT INTO AUTHORITY (AUTHORITYCODE, AUTHORITYNAME)
+            VALUES ('ROLE_R_управлениепользователями_пользователи_добавить', 'управлениепользователями_пользователи_добавить');
+        </sql>
+    </changeSet>
+
+    <changeSet id="1.00.02-5" author="vyudintsev"  dbms="postgresql">
+         <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">
+                SELECT COUNT(*) 
+                FROM ADMROLE_AUTHORITY role_auth
+                JOIN ADMROLE role ON role_auth.roles_admroleid = role.ADMROLEID
+                JOIN AUTHORITY ath ON role_auth.authorities_authorityid = ath.AUTHORITYID
+                WHERE ath.AUTHORITYCODE IN ('ROLE_R_управлениепользователями_пользователи_добавить') 
+                    AND role.ROLECODE IN ('АДМИНИСТРАТОР (РУКОВОДИТЕЛЬ ТЕХНИЧЕСКОЙ СЛУЖБЫ ИОГВ)')
+            </sqlCheck>
+        </preConditions>
+        <sql>
+            INSERT INTO ADMROLE_AUTHORITY ("roles_admroleid", "authorities_authorityid")
+            SELECT role.ADMROLEID, ath.AUTHORITYID
+            FROM ADMROLE role
+            JOIN AUTHORITY ath ON ath.AUTHORITYCODE IN ('ROLE_R_управлениепользователями_пользователи_добавить')
+            WHERE role.ROLECODE IN ('АДМИНИСТРАТОР (РУКОВОДИТЕЛЬ ТЕХНИЧЕСКОЙ СЛУЖБЫ ИОГВ)')
+        </sql>
+    </changeSet>
+
+    
+</databaseChangeLog>

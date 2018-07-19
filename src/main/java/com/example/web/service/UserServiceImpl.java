@@ -2,10 +2,12 @@ package com.example.web.service;
 
 import java.util.List;
 
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.example.persistance.entity.auth.Users;
+import com.example.persistance.entity.User;
 import com.example.persistance.repository.UserRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -18,32 +20,32 @@ public class UserServiceImpl implements UserService
 
     private final UserRepository userRepository;
 
+
     @Override
-    public Users findUserByUsername(String username)
+    public User findUserByUsername(String username)
     {
         return userRepository.findUserByUsername(username);
     }
 
     @Override
-    public Users findUserByEmail(String email)
+    public User findUserByEmail(String email)
     {
         return userRepository.findUserByEmail(email);
     }
 
     @Override
-    public List<Users> findAllUsers()
-    {
+    public List<User> findAllUsers() {
         return userRepository.findAll();
     }
 
     @Override
-    public Users saveUser(Users user)
+    public User saveUser(User user)
     {
         return userRepository.save(user);
     }
 
     @Override
-    public Users findUserByUsernameAndPassword(String username, String givenPassword)
+    public User findUserByUsernameAndPassword(String username, String givenPassword)
     {
         return userRepository.findUserByUsernameAndPassword(username, givenPassword);
     }

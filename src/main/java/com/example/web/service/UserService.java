@@ -2,19 +2,22 @@ package com.example.web.service;
 
 import java.util.List;
 
-import com.example.persistance.entity.auth.Users;
+import org.springframework.security.access.prepost.PreAuthorize;
+
+import com.example.persistance.entity.User;
 
 public interface UserService
 {
 
-    Users findUserByUsername(String username);
+    User findUserByUsername(String username);
 
-    Users findUserByEmail(String email);
+    User findUserByEmail(String email);
 
-    List<Users> findAllUsers();
+    @PreAuthorize("hasAuthority('ROLE_Z') or hasAuthority('ROLE_R_управлениепользователями_пользователи_добавить')")
+    List<User> findAllUsers();
 
-    Users saveUser(Users user);
+    User saveUser(User user);
 
-    Users findUserByUsernameAndPassword(String username, String givenPassword);
+    User findUserByUsernameAndPassword(String username, String givenPassword);
 
 }
