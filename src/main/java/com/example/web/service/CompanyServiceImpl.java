@@ -39,6 +39,12 @@ public class CompanyServiceImpl implements CompanyService {
         if (company.getName()!=null){
             temp.setName(company.getName());
         }
+        if (company.getContractCount()!=null){
+            temp.setContractCount(company.getContractCount());
+        }
+        if (company.getEmployeeCount()!=null){
+            temp.setEmployeeCount(company.getEmployeeCount());
+        }
         return companyRepository.save(temp);
     }
 

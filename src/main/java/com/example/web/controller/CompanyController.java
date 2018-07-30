@@ -27,7 +27,7 @@ public class CompanyController {
         return new ResponseEntity<>(companyService.findAll(), HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/admin/company/{id}", method = RequestMethod.GET)
+        @RequestMapping(value = "/admin/company/{id}", method = RequestMethod.GET)
     public ResponseEntity<Company> getCompanyById(@PathVariable("id") Integer id) {
         log.debug("getCompanyById");
         return new ResponseEntity<>(companyService.findById(id), HttpStatus.OK);
