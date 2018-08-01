@@ -7,6 +7,9 @@ import lombok.Setter;
 
 import javax.persistence.*;
 
+/**
+ * NFC метка
+ */
 @Entity
 @Data
 @Getter

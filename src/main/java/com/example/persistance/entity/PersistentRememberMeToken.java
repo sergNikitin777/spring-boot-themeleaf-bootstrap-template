@@ -8,6 +8,10 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.util.Date;
 
+/**
+ * Не понятно назначение сущности
+ *
+ */
 @Entity
 @Getter
 @Setter

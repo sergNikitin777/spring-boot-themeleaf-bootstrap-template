@@ -8,6 +8,10 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.io.Serializable;
 
+/**
+ * Операция в рамках Task (задачи)
+ *
+ */
 @Entity
 @Data
 @Getter
