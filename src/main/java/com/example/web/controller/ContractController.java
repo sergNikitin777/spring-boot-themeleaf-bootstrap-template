@@ -44,8 +44,8 @@ public class ContractController {
         return new ResponseEntity<>((Integer)null, HttpStatus.UNPROCESSABLE_ENTITY);
     }
 
-    @RequestMapping(method=RequestMethod.PUT, value="/admin/contract/update")
-    public ResponseEntity updateContract(@RequestBody Contract contract) {
+    @RequestMapping(value="/admin/contract/update", method=RequestMethod.PUT)
+    public ResponseEntity<?> updateContract(@RequestBody Contract contract) {
         log.debug("updateContract");
         try {
             return new ResponseEntity<>(contractService.updateContract(contract), HttpStatus.OK);
@@ -56,7 +56,7 @@ public class ContractController {
     }
 
     @RequestMapping(value = "/admin/contract/{id}", method = RequestMethod.DELETE)
-    public ResponseEntity deleteContract(@PathVariable("id") Integer id) {
+    public ResponseEntity<?> deleteContract(@PathVariable("id") Integer id) {
         log.debug("deleteContract");
         try {
             contractService.deleteContract(id);
