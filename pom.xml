@@ -182,6 +182,21 @@
             </properties>
         </profile>
         
+        <profile> <!-- mvn spring-boot:run  -P lpsql,lb,quick,port -Dport=8899 -->
+            <id>port</id>
+            <properties>
+                <emercom.server.port>${port}</emercom.server.port>
+            </properties>
+        </profile>
+        
+        <profile>
+            <id>quick</id>
+            <properties>
+                <maven.test.skip>true</maven.test.skip>
+            </properties>
+        </profile>
+        
+        
         <profile>
             <!-- mvn clean install -P h2db -Dmaven.test.skip=true -->
             <!-- mvn spring-boot:run  -P h2db -->
