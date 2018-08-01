@@ -31,6 +31,17 @@ public class Company {
     @Column
     private Integer contractCount;
 
+    @Column
+    private String adress;
+
+    @Column
+    private String owner;
+
+    @Column
+    private String phone;
+
+    @Column
+    private String email;
 
     @OneToMany(fetch=FetchType.EAGER, cascade={CascadeType.PERSIST, CascadeType.MERGE})
     private List<Employee> employeeList = new ArrayList<>();

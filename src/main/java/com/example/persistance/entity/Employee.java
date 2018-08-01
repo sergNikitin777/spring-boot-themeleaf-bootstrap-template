@@ -20,13 +20,10 @@ public class Employee implements Serializable {
     public Employee() {
     }
 
-    public Employee(String surname, String name, String patronymic, String position) {
-        this.surname = surname;
-        this.name = name;
-        this.patronymic = patronymic;
+    public Employee(String fio, String position) {
+        this.fio = fio;
         this.position = position;
         //this.role = role;
-
     }
 
     @Id
@@ -36,13 +33,7 @@ public class Employee implements Serializable {
     private Integer id;
 
     @Column
-    private String surname;
-
-    @Column
-    private String name;
-
-    @Column
-    private String patronymic;
+    private String fio;
 
     @Column
     private String position;

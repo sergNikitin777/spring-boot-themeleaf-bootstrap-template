@@ -49,14 +49,8 @@ public class EmployeeServiceImpl implements EmployeeService{
         if (employee.getId()!=null){
             temp.setId(employee.getId());
         }
-        if (employee.getName()!=null){
-            temp.setName(employee.getName());
-        }
-        if (employee.getPatronymic()!=null){
-            temp.setPatronymic(employee.getPatronymic());
-        }
-        if (employee.getSurname()!=null){
-            temp.setSurname(employee.getSurname());
+        if (employee.getFio()!=null){
+            temp.setFio(employee.getFio());
         }
         if (employee.getPosition()!=null){
             temp.setPosition(employee.getPosition());
