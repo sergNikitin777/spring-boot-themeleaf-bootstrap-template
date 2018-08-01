@@ -27,7 +27,8 @@ public class CompanyServiceImpl implements CompanyService {
 
     @Override
     public Integer addCompany(Company company) {
-        return companyRepository.save(company).getId();
+        Company tempCompany= new Company(company.getName(), company.getEmployeeCount(), company.getContractCount(),company.getAdress(),company.getOwner(),company.getPhone(),company.getEmail());
+        return companyRepository.save(tempCompany).getId();
     }
 
     @Override

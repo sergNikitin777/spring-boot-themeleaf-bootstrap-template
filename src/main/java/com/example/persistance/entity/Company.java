@@ -49,7 +49,13 @@ public class Company {
     public Company() {
     }
 
-    public Company(String name) {
+    public Company(String name, Integer employeeCount, Integer contractCount, String adress, String owner, String phone, String email) {
         this.name = name;
+        this.employeeCount = employeeCount;
+        this.contractCount = contractCount;
+        this.adress = adress;
+        this.owner = owner;
+        this.phone = phone;
+        this.email = email;
     }
 }
