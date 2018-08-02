@@ -32,10 +32,10 @@ public class Company {
     private Integer contractCount;
 
     @Column
-    private String adress;
+    private String address;
 
     @Column
-    private String owner;
+    private String director;
 
     @Column
     private String phone;
@@ -49,12 +49,12 @@ public class Company {
     public Company() {
     }
 
-    public Company(String name, Integer employeeCount, Integer contractCount, String adress, String owner, String phone, String email) {
+    public Company(String name, Integer employeeCount, Integer contractCount, String address, String director, String phone, String email) {
         this.name = name;
         this.employeeCount = employeeCount;
         this.contractCount = contractCount;
-        this.adress = adress;
-        this.owner = owner;
+        this.address = address;
+        this.director = director;
         this.phone = phone;
         this.email = email;
     }

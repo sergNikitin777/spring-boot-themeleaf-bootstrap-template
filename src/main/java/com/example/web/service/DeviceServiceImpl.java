@@ -1,13 +1,7 @@
 package com.example.web.service;
 
-import com.example.persistance.entity.Address;
-import com.example.persistance.entity.Device;
-import com.example.persistance.entity.DeviceGroup;
-import com.example.persistance.entity.DeviceStatus;
-import com.example.persistance.repository.AddressRepository;
-import com.example.persistance.repository.DeviceGroupRepository;
-import com.example.persistance.repository.DeviceRepository;
-import com.example.persistance.repository.StatusRepository;
+import com.example.persistance.entity.*;
+import com.example.persistance.repository.*;
 import com.example.web.pojo.DevicePojo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -24,6 +18,7 @@ public class DeviceServiceImpl implements DeviceService {
     private final StatusRepository statusRepository;
     private final DeviceGroupRepository deviceGroupRepository;
     private final AddressRepository addressRepository;
+    private final EktRepository ektRepository;
 
     @Override
     public List<Device> findAll() {
@@ -60,6 +55,7 @@ public class DeviceServiceImpl implements DeviceService {
         DeviceStatus status = statusRepository.findOne(devicePojo.getStatusId());
         DeviceGroup deviceGroup = deviceGroupRepository.findOne(devicePojo.getDeviceGroupId());
         Address address = addressRepository.findOne(devicePojo.getAddressId());
-        return deviceRepository.save(new Device(deviceGroup, address, devicePojo.getName(), devicePojo.getDescription(), devicePojo.getMark(), devicePojo.getModel(), devicePojo.getHeightAccess(), devicePojo.getElectricityAccess(), status)).getId();
+        Ekt ekt = ektRepository.findOne(devicePojo.getEktId());
+        return deviceRepository.save(new Device(deviceGroup, address, devicePojo.getName(), devicePojo.getDescription(), devicePojo.getModel(), status, devicePojo.getHeightAccess(), devicePojo.getElectricityAccess(), ekt, devicePojo.getManufacturer(),devicePojo.getProductionYear(), devicePojo.getAccessNeeded(), devicePojo.getMaintence())).getId();
     }
 }

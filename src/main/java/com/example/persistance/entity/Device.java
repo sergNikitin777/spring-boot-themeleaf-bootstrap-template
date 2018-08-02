@@ -20,18 +20,6 @@ public class Device {
 
     }
 
-    public Device(DeviceGroup deviceGroup, Address address, String name, String description, String mark, String model, Boolean heightAccess, Boolean electricityAccess, DeviceStatus status) {
-        this.name = name;
-        this.description = description;
-        this.mark = mark;
-        this.model = model;
-        this.heightAccess = heightAccess;
-        this.electricityAccess = electricityAccess;
-        this.status = status;
-        this.address = address;
-        this.deviceGroup = deviceGroup;
-    }
-
     @Id
     @SequenceGenerator(name = "pk_sequence", sequenceName = "device_id_seq", allocationSize = 1)
     //@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pk_sequence")
@@ -45,21 +33,33 @@ public class Device {
     @Column
     private String name;
 
+    @Column
+    private String descripion;
+
     @ManyToOne(fetch = FetchType.EAGER)
     private Address address;
+
+    @OneToOne(fetch = FetchType.EAGER)
+    private Ekt ekt;
+
+    @Column
+    private String manufacturer;
+
+    @Column
+    private String model;
+
+    @Column
+    private String productionYear;
+
+    @Column
+    private String accessNeeded;
+
+    @Column
+    private String maintence;
 
     @JsonBackReference
     @ManyToOne(fetch = FetchType.LAZY)
     private DeviceGroup deviceGroup;
-
-    @Column
-    private String description;
-
-    @Column
-    private String mark;
-
-    @Column
-    private String model;
 
     @Column
     private Boolean heightAccess;
@@ -67,4 +67,19 @@ public class Device {
     @Column
     private Boolean electricityAccess;
 
+    public Device(DeviceGroup deviceGroup, Address address,  String name, String descripion,  String model, DeviceStatus status, Boolean heightAccess, Boolean electricityAccess, Ekt ekt, String manufacturer,  String productionYear, String accessNeeded, String maintence) {
+        this.status = status;
+        this.name = name;
+        this.address = address;
+        this.ekt = ekt;
+        this.manufacturer = manufacturer;
+        this.model = model;
+        this.productionYear = productionYear;
+        this.accessNeeded = accessNeeded;
+        this.maintence = maintence;
+        this.deviceGroup = deviceGroup;
+        this.heightAccess = heightAccess;
+        this.electricityAccess = electricityAccess;
+        this.descripion = descripion;
+    }
 }

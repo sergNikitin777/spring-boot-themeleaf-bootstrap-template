@@ -17,4 +17,9 @@ public class DevicePojo {
     private String model;
     private Boolean heightAccess;
     private Boolean electricityAccess;
+    private Integer ektId;
+    private String manufacturer;
+    private String productionYear;
+    private String accessNeeded;
+    private String maintence;
 }

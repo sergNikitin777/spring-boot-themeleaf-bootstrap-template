@@ -1,6 +1,6 @@
 package com.example.persistance.entity;
 
-import com.example.persistance.entity.auth.Users;
+import com.example.persistance.enums.Status;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -25,11 +25,37 @@ public class Task {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @ManyToOne
+   /*@ManyToOne
     private Users user;
 
     @OneToMany
-    private List<OperationGroup> operationGroupList = new ArrayList<>();
+    private List<OperationGroup> operationGroupList = new ArrayList<>();*/
+
+    @Column
+    private String title;
+
+    @Column
+    private String desctiption;
+
+    @Column
+    private Status status;
+
     @Column
     private LocalDateTime startDate;
+
+    @Column
+    private LocalDateTime endDate;
+
+    @OneToMany
+    private List<Device> devices = new ArrayList<>();
+
+    @OneToOne(fetch=FetchType.EAGER)
+    private Company customer;
+
+    @OneToOne(fetch = FetchType.EAGER)
+    private Company contractor;
+
+    @Column
+    private String checklist;
+
 }

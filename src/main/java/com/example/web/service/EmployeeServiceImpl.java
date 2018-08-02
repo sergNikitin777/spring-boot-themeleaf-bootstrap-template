@@ -30,9 +30,11 @@ public class EmployeeServiceImpl implements EmployeeService{
     @Override
     public Integer addEmployee(Employee employee) {
        Employee tempEmployee = new Employee(employee.getFio(),employee.getPosition());
-       Company company = companyRepository.getOne(employee.getCompany().getId());
-       if (company!=null) {
-           tempEmployee.setCompany(company);
+       if (employee.getCompany()!=null) {
+           Company company = companyRepository.getOne(employee.getCompany().getId());
+           if (company!=null) {
+               tempEmployee.setCompany(company);
+           }
        }
        return employeeRepository.save(employee).getId();
     }

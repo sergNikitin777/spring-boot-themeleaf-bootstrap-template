@@ -55,7 +55,7 @@ public class CompanyController {
         return new ResponseEntity<>((Integer)null, HttpStatus.UNPROCESSABLE_ENTITY);
     }
 
-    @RequestMapping(value = "/admin/company/{id}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/admin/company/delete/{id}", method = RequestMethod.DELETE)
     public ResponseEntity deleteCompany(@PathVariable("id") Integer id) {
         log.debug("deleteCompany");
         try {
