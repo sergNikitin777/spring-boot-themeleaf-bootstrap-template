@@ -20,10 +20,10 @@ public class Employee implements Serializable {
     public Employee() {
     }
 
-    public Employee(String fio, String position) {
+    public Employee(String fio, String position, String accessNeeded) {
         this.fio = fio;
         this.position = position;
-        //this.role = role;
+        this.accessNeeded = accessNeeded;
     }
 
     @Id
@@ -38,9 +38,12 @@ public class Employee implements Serializable {
     @Column
     private String position;
 
-    /*@Column
-    private String role;*/
-
-    @ManyToOne(fetch=FetchType.EAGER, cascade={CascadeType.PERSIST, CascadeType.MERGE})
+    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private Company company;
+
+    @Column
+    private String accessNeeded;
+
+    @OneToOne(fetch = FetchType.EAGER)
+    private User user;
 }

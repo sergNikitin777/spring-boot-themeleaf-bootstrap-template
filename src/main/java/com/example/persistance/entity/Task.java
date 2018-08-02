@@ -57,5 +57,4 @@ public class Task {
 
     @Column
     private String checklist;
-
 }
