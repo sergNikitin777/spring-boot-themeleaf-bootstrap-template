@@ -16,6 +16,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -44,7 +45,7 @@ public class OperationLogController {
     }
 
     @RequestMapping(value = "/admin/operationLog/add", method = RequestMethod.POST)
-    public ResponseEntity<Integer> addOperationLog(OperationLogPojo operationLog) {
+    public ResponseEntity<Integer> addOperationLog(@RequestBody OperationLogPojo operationLog) {
         log.debug("addOperationLog");
         try {
             return new ResponseEntity<>(operationLogService.addOperationLog(operationLog), HttpStatus.OK);

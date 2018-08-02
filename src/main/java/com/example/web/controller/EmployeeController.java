@@ -32,7 +32,7 @@ public class EmployeeController {
     }
 
     @RequestMapping(value = "/admin/employee/add", method = RequestMethod.POST)
-    public ResponseEntity<Integer> addEmployee(Employee employee) {
+    public ResponseEntity<Integer> addEmployee(@RequestBody Employee employee) {
         log.debug("addEmployee");
         try {
             return new ResponseEntity<>(employeeService.addEmployee(employee), HttpStatus.OK);
@@ -43,7 +43,7 @@ public class EmployeeController {
     }
 
     @RequestMapping(value = "/admin/employee/delete/{id}", method = RequestMethod.GET)
-    public ResponseEntity deleteEmployee(@PathVariable("id") Integer id) {
+    public ResponseEntity<?> deleteEmployee(@PathVariable("id") Integer id) {
         log.debug("deleteEmployee");
         try {
             employeeService.deleteEmployee(id);
@@ -55,14 +55,14 @@ public class EmployeeController {
     }
 
     @RequestMapping(value = "/admin/employee/deleteAll", method = RequestMethod.GET)
-    public ResponseEntity deleteAllEmployee() {
+    public ResponseEntity<?> deleteAllEmployee() {
         log.debug("deleteAllEmployee");
         employeeService.deleteAllEmployee();
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     @RequestMapping(method=RequestMethod.PUT, value="/admin/employee/update")
-    public ResponseEntity updateEmployee(@RequestBody Employee employee) {
+    public ResponseEntity<?> updateEmployee(@RequestBody Employee employee) {
         log.debug("updateEmployee");
         try {
             return new ResponseEntity<>(employeeService.updateEmployee(employee), HttpStatus.OK);
