@@ -15,7 +15,7 @@ public interface DeviceService {
 
     Integer addDevice(Device device);
 
-    void updateDevice(Device device);
+    Device updateDevice(Device device);
 
     void deleteDevice(Integer id);
 
