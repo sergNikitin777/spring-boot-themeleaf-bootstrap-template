@@ -16,4 +16,6 @@ public interface EmployeeService {
     void deleteEmployee(Integer id);
 
     void deleteAllEmployee();
+
+    List<Employee> findAllByCompanyID(Integer id);
 }

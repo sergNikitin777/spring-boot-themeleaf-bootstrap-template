@@ -43,7 +43,7 @@ public class Company {
     @Column
     private String email;
 
-    @OneToMany(fetch=FetchType.EAGER, cascade={CascadeType.PERSIST, CascadeType.MERGE})
+    @OneToMany(fetch=FetchType.LAZY, cascade={CascadeType.PERSIST, CascadeType.MERGE})
     private List<Employee> employeeList = new ArrayList<>();
 
     public Company() {

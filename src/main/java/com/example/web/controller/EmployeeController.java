@@ -72,4 +72,9 @@ public class EmployeeController {
         return new ResponseEntity<>((Integer)null, HttpStatus.UNPROCESSABLE_ENTITY);
     }
 
+    @RequestMapping(value = "/admin/employee/getListByCompanyID/{id}", method = RequestMethod.GET)
+    public ResponseEntity<List<Employee>> findAllByCompanyID(@PathVariable("id") Integer id) {
+        return new ResponseEntity<>(employeeService.findAllByCompanyID(id), HttpStatus.OK);
+    }
+
 }
