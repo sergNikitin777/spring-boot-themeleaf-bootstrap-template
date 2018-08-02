@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -40,7 +41,7 @@ public class DeviceController {
     }
 
     @RequestMapping(value = "/admin/device/add", method = RequestMethod.POST)
-    public ResponseEntity<Integer> addDevice(DevicePojo device) {
+    public ResponseEntity<Integer> addDevice(@RequestBody DevicePojo device) {
         log.debug("addDevice");
         try {
             return new ResponseEntity<>(deviceService.addDevice(device), HttpStatus.OK);
@@ -51,7 +52,7 @@ public class DeviceController {
     }
 
     @RequestMapping(value = "/admin/device/delete/{id}", method = RequestMethod.GET)
-    public ResponseEntity deleteDevice(@PathVariable("id") Integer id) {
+    public ResponseEntity<?> deleteDevice(@PathVariable("id") Integer id) {
         log.debug("deleteDevice");
         try {
             deviceService.deleteDevice(id);

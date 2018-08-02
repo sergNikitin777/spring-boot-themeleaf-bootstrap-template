@@ -34,7 +34,7 @@ public class ReportController {
     }
 
     @RequestMapping(value = "/report/add", method = RequestMethod.POST)
-    public ResponseEntity<Integer> addReport(Report report) {
+    public ResponseEntity<Integer> addReport(@RequestBody Report report) {
         log.debug("addReport");
         try {
             return new ResponseEntity<>(reportService.addReport(report), HttpStatus.OK);

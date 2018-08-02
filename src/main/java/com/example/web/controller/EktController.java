@@ -34,7 +34,7 @@ public class EktController {
     }
 
     @RequestMapping(value = "/ekt/add", method = RequestMethod.POST)
-    public ResponseEntity<Integer> addEkt(Ekt ekt) {
+    public ResponseEntity<Integer> addEkt(@RequestBody Ekt ekt) {
         log.debug("addEkt");
         try {
             return new ResponseEntity<>(ektService.addEkt(ekt), HttpStatus.OK);

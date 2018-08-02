@@ -34,7 +34,7 @@ public class CompanyController {
     }
 
     @RequestMapping(value = "/admin/company/add", method = RequestMethod.POST)
-    public ResponseEntity<Integer> addCompany(Company company) {
+    public ResponseEntity<Integer> addCompany(@RequestBody Company company) {
         log.debug("addCompany");
         try {
             return new ResponseEntity<>(companyService.addCompany(company), HttpStatus.OK);
@@ -45,7 +45,7 @@ public class CompanyController {
     }
 
     @RequestMapping(method=RequestMethod.PUT, value="/admin/company/update")
-    public ResponseEntity updateCompany(@RequestBody Company company) {
+    public ResponseEntity<?> updateCompany(@RequestBody Company company) {
         log.debug("updateCompany");
         try {
             return new ResponseEntity<>(companyService.updateCompany(company), HttpStatus.OK);
@@ -56,7 +56,7 @@ public class CompanyController {
     }
 
     @RequestMapping(value = "/admin/company/delete/{id}", method = RequestMethod.DELETE)
-    public ResponseEntity deleteCompany(@PathVariable("id") Integer id) {
+    public ResponseEntity<?> deleteCompany(@PathVariable("id") Integer id) {
         log.debug("deleteCompany");
         try {
             companyService.deleteCompany(id);

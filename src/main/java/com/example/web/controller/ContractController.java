@@ -34,7 +34,7 @@ public class ContractController {
     }
 
     @RequestMapping(value = "/admin/contract/add", method = RequestMethod.POST)
-    public ResponseEntity<Integer> addContract(Contract contract) {
+    public ResponseEntity<Integer> addContract(@RequestBody Contract contract) {
         log.debug("addContract");
         try {
             return new ResponseEntity<>(contractService.addContract(contract), HttpStatus.OK);
