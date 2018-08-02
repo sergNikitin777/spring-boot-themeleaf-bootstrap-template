@@ -55,7 +55,7 @@ public class Contract {
      * Оборудование
      */
     @OneToMany(fetch = FetchType.EAGER)
-    private Set<Device> OneToMany = new HashSet<>();
+    private Set<Device> devices = new HashSet<>();
     
     /**
      * Дата начала

@@ -84,6 +84,6 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public List<Employee> findAllByCompanyID(Integer id) {
-        return employeeRepository.findAllByCompanyID(id);
+        return employeeRepository.findAllByCompanyId(id);
     }
 }
